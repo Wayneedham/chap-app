@@ -1,0 +1,4 @@
+- iOS install
+  react-native run-iOS
+- Android install
+  react-native run-android
