@@ -83,6 +83,7 @@ export default class LoginComponent extends React.Component {
       this.showAlert("Enter email or password.");
       return;
     }
+    Actions.reset("customTabNavigator", { tabIndex: 0 });
   }
 
   showAlert(message) {

@@ -11,6 +11,7 @@ const RouterWithRedux = connect()(Router);
 
 import loginScreen from './src/screens/auth/login/loginScreen';
 import signupScreen from './src/screens/auth/signup/signupScreen';
+import customTabNavigator from "./src/screens/tabs/tabNavigator";
 
 // var notification_num = 3;
 export default class App extends Component {
@@ -34,7 +35,14 @@ export default class App extends Component {
               initial={false}
               hideNavBar={true}
             />
-          </Scene>
+            <Scene
+              key="customTabNavigator"
+              component={customTabNavigator}
+              title="customTabNavigator"
+              initial={false}
+              hideNavBar={true}
+            />
+          </Scene>          
         </RouterWithRedux>
       </Provider>
     );

@@ -5,7 +5,12 @@ import { responsiveHeight,
 } from 'react-native-responsive-dimensions';
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    paddingHorizontal: responsiveWidth(7),
+    flexDirection: "column",
+    backgroundColor: "yellow"
+  },
 })
 
 module.exports = styles;
