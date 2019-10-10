@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Image,
   ScrollView,
-  TouchableOpacity,
-  PermissionsAndroid,
-  Platform
+  TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { TextField } from "react-native-material-textfield";
