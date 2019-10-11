@@ -10,6 +10,13 @@ import {
 
 import styles from "./homeScreenStyle";
 
+const test_data = {
+  image: "http://agehorseservice.eastus.cloudapp.azure.com:8000/media/IMG_0007.JPG",
+  desc: "test desc",
+  type: "lower",
+  age: "12.92333355"
+}
+
 class homeScreen extends Component{
   render(){
     return(

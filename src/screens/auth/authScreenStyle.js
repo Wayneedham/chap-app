@@ -3,6 +3,7 @@ import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
 } from 'react-native-responsive-dimensions';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
