@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   },
   camera_wrap:{
     position: "absolute",
-    right: 10,
-    bottom: 10,
+    right: 0,
+    bottom: 5,
     width: 40,
     height: 40
   },

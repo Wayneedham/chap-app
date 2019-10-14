@@ -13,7 +13,7 @@ class horseListItem extends React.Component{
   render(){
     const {horseItem} = this.props;
     return(
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={this.props.onClick}>
         <FastImage 
           resizeMode="cover"
           style={styles.horseImg}

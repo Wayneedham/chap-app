@@ -12,18 +12,8 @@ import {
   responsiveHeight
 } from "react-native-responsive-dimensions";
 
-// import * as userActions from "../../../actions/userActions";
 import styles from "./loginStyle";
 import fonts from "../sharedStyles/fontStyle";
-
-var createdUser = {
-  Pseudo: null,
-  Email: null,
-  isFBLogin: false,
-  isPremium: false,
-  Currency: "EUR",
-  Capital: {}
-};
 
 export default class LoginComponent extends React.Component {
 
@@ -44,11 +34,7 @@ export default class LoginComponent extends React.Component {
   }
 
   onFacebook() {
-    userActions.handleFacebookLogin(this);
-  }
-
-  onGoogle() {
-    userActions.handleGoogleLogin();
+    console.log("facebook login");
   }
 
   async checkMailExist(mail) {
@@ -79,10 +65,10 @@ export default class LoginComponent extends React.Component {
 
     this.setState({ isLoading: true });
 
-    if (userEmail === "" || userPwd === "") {
-      this.showAlert("Enter email or password.");
-      return;
-    }
+    // if (userEmail === "" || userPwd === "") {
+    //   this.showAlert("Enter email or password.");
+    //   return;
+    // }
     Actions.reset("customTabNavigator", { tabIndex: 0 });
   }
 

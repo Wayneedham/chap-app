@@ -1,14 +1,35 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
 import {
-  createBottomTabNavigator
+  createBottomTabNavigator,
+  StackNavigator
 } from "react-navigation";
 import homeScreen from "./home/homeScreen";
+import detailsScreen from "./home/detailScreen";
 import settingScreen from "./setting/settingScreen";
 
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
 import fonts from "../../sharedStyles/fontStyle";
+
+
+export const HomeStack = StackNavigator(
+  {
+    home: {
+      screen: homeScreen
+    },
+    details: {
+      screen: detailsScreen
+    },
+  },
+  {
+    headerMode: "none",
+    initialRouteName: "home",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
 
 class customTabNavigator extends React.Component {
   
@@ -22,7 +43,7 @@ class customTabNavigator extends React.Component {
 export const BaseNavigator = createBottomTabNavigator(
   {
     HOME: {
-      screen: homeScreen,
+      screen: HomeStack,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
           screenProps.isActiveMenu ? (

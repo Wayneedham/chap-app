@@ -34,7 +34,12 @@ class homeScreen extends Component{
       imgList.push(test_data);
     }
     this.setState({horseList: imgList});
-    console.log("imgList===", imgList)
+  }
+
+  goDetail =(item)=>{
+    this.props.navigation.navigate("details", {
+      detailItem: item
+    });
   }
 
   render(){
@@ -60,6 +65,7 @@ class homeScreen extends Component{
             <HorseListItem
               key={index}
               horseItem={item}
+              onClick={()=>this.goDetail(item)}
             />
           )}
         />
