@@ -6,23 +6,46 @@ import {
   TouchableOpacity,
   Alert
 } from "react-native";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Actions } from "react-native-router-flux";
 import * as Progress from "react-native-progress";
 import {
   responsiveHeight
 } from "react-native-responsive-dimensions";
 
+import * as userActions from "../actions/userActions";
+import {getDataError, getDataSuccess, getDataPending} from '../reducers/fetchdata';
+
 import styles from "./loginStyle";
 import fonts from "../sharedStyles/fontStyle";
 
-export default class LoginComponent extends React.Component {
+class LoginComponent extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isLoading: false
+      isLoading: this.props.pending
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("nextProps === ", nextProps);
+    this.setState({ isLoading: nextProps.pending });
+    if(nextProps.pending === false){
+      const responseData = nextProps.data;
+      if(Object.keys(responseData).includes("message")){
+        console.log("login error")
+      }
+      else if(Object.keys(responseData).includes("id")){
+        console.log("login success");
+        window.currentUser = responseData;
+        userActions._storeData("logged", true);
+        userActions._storeData("userInfo", responseData);
+        Actions.reset("customTabNavigator", { tabIndex: 0 });
+      }
+    }
   }
 
   onSignin(flag) {
@@ -46,30 +69,52 @@ export default class LoginComponent extends React.Component {
   }
 
   onUserSignup() {
-    const { userEmail, userPwd } = this.props;
-
-    if (userEmail === "" || userPwd === "") {
-      this.showAlert("Enter email or password.");
+    const { userEmail, userPwd, userFname, userLname } = this.props;
+    if (userFname === "" || userLname === "") {
+      this.showAlert("Enter full name please.");
       return;
     }
 
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if (reg.test(userEmail)) {
-      console.log("sign up process")
+    if (userEmail === "" || userPwd === "") {
+      this.showAlert("Enter email or password please.");
+      return;
+    }
+   
+    if (userActions.verficationEmail(userEmail)) {
+      const userData = new FormData()
+      userData.append('email', userEmail);
+      userData.append('last_name', userLname);
+      userData.append('first_name', userFname);
+      userData.append('password', userPwd);
+      this.props.actions.userSignup(userData);
+    }else{
+      if (userEmail === "" || userPwd === "") {
+        this.showAlert("Enter valid email address please.");
+        return;
+      }
     }
   }
 
   onUserSignin() {
     const { userEmail, userPwd } = this.props;
 
-    this.setState({ isLoading: true });
-
-    // if (userEmail === "" || userPwd === "") {
-    //   this.showAlert("Enter email or password.");
-    //   return;
-    // }
-    Actions.reset("customTabNavigator", { tabIndex: 0 });
+    if (userEmail === "" || userPwd === "") {
+      this.showAlert("Enter email or password.");
+      return;
+    }
+    
+    if (userActions.verficationEmail(userEmail)) {
+      const userData = new FormData()
+      userData.append('email', userEmail);
+      userData.append('password', userPwd);
+      this.props.actions.userLogin(userData);
+    }else{
+      if (userEmail === "" || userPwd === "") {
+        this.showAlert("Enter valid email address please.");
+        return;
+      }
+    }
+    // Actions.reset("customTabNavigator", { tabIndex: 0 });
   }
 
   showAlert(message) {
@@ -135,3 +180,25 @@ export default class LoginComponent extends React.Component {
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      userLogin: userActions.userLogin,
+      userSignup: userActions.userSignup
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginComponent);

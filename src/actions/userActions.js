@@ -2,6 +2,7 @@
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage , Platform} from "react-native"
 import serverurl from '../../config/const/serverurl'; 
+import {fetchDataPending, fetchDataSuccess, fetchDataError} from './actions';
 
 var { FBLoginManager } = require("react-native-facebook-login");
 
@@ -180,6 +181,52 @@ export async function fblogOut() {
   });
 }
 
+export function userSignup(userData){
+  const url = serverurl.basic_url + 'register';
+  return dispatch => {
+    dispatch(fetchDataPending());
+    fetch(url , {
+      method: "post",
+      body: userData
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(fetchDataSuccess(res));
+      return res;
+    })
+    .catch(error => {
+      dispatch(fetchDataError(error));
+    })
+  }
+}
+
+export function userLogin(userData){  
+//   fetch(url , {
+//     method: "post",
+//     body: userData
+//  })
+//   .then(response=>response.json())
+//   .then(resJson =>{
+//     console.log("resJson===", resJson);
+//   })
+  const url = serverurl.basic_url + 'login';
+  return dispatch => {
+    dispatch(fetchDataPending());
+    fetch(url , {
+      method: "post",
+      body: userData
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch(fetchDataSuccess(res));
+      return res;
+    })
+    .catch(error => {
+      dispatch(fetchDataError(error));
+    })
+  }
+}
+
 export async function _isUser(platform, id, props) {
     if (platform == "fb") {
         let headers = {
@@ -278,9 +325,10 @@ export async function _isUser(platform, id, props) {
      }
   }
 
-  export async function  cleardata(){
+  export async function  clearData(){
     try {
-        AsyncStorage.removeItem('userid')
+        AsyncStorage.removeItem('logged');
+        AsyncStorage.removeItem('userInfo');
      } catch (error) {
        // Error retrieving data
        return null;

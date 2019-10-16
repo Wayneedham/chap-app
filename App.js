@@ -9,6 +9,7 @@ import SplashScreen from 'react-native-splash-screen';
 const store = configureStore()
 const RouterWithRedux = connect()(Router);
 
+import landingScreen from './src/screens/landing/landingScreen';
 import loginScreen from './src/screens/auth/login/loginScreen';
 import signupScreen from './src/screens/auth/signup/signupScreen';
 import customTabNavigator from "./src/screens/tabs/tabNavigator";
@@ -21,10 +22,18 @@ export default class App extends Component {
         <RouterWithRedux>
           <Scene key="root" >
             <Scene
+              key="landingScreen"
+              component={landingScreen}
+              title="landingScreen"
+              initial={true}
+              hideNavBar={true}
+            />
+
+            <Scene
               key="loginScreen"
               component={loginScreen}
               title="loginScreen"
-              initial={true}
+              initial={false}
               hideNavBar={true}
             />
 

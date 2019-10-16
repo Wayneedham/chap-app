@@ -92,6 +92,8 @@ class signupScreen extends Component{
           isLogin={false}
           userEmail={userEmail}
           userPwd={userPwd}
+          userFname={userFname}
+          userLname={userLname}
         />
         <View style={styles.already_txt_register_container}>
           <Text style={[styles.already_txt, fonts.montserrat_regular]}>

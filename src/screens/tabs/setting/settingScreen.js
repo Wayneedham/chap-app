@@ -7,11 +7,21 @@ import {
   PermissionsAndroid,
   Platform
 } from 'react-native';
-
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Actions } from "react-native-router-flux";
+import { setReduxAddInfo } from "../../../reducers/fetchdata";
+import * as userActions from "../../../actions/userActions";
 import styles from "./settingScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
 class settingScreen extends Component{
+  onLogout(){
+    this.props.actions.initLoginData("");
+    userActions.clearData();
+    Actions.reset("loginScreen");
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -30,7 +40,7 @@ class settingScreen extends Component{
         <TouchableOpacity style={styles.item_wrap}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Contact Support</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.item_wrap, styles.log_out_wrap, styles.item_wrap_top_border]}>
+        <TouchableOpacity style={[styles.item_wrap, styles.log_out_wrap, styles.item_wrap_top_border]} onPress={()=>this.onLogout()}>
           <Text style={styles.item_wrap_txt}>Log Out</Text>
         </TouchableOpacity>
         <View style={styles.logo_container}>
@@ -46,4 +56,16 @@ class settingScreen extends Component{
   }
 }
 
-export default settingScreen;
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      initLoginData: setReduxAddInfo
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(settingScreen);
