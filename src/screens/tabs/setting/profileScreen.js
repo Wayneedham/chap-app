@@ -43,6 +43,7 @@ class profileScreen extends Component{
       <View style={styles.container}>
         <CustomBar 
           title={"Account"}
+          navigate={this.props.navigation}
         />
         <View style={{ paddingVertical: 5 }}>
           <TextField

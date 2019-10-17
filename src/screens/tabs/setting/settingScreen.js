@@ -42,6 +42,7 @@ class settingScreen extends Component{
   }
 
   onCourseVideo(){
+    console.log("clicked")
     this.props.navigation.navigate("video");
   }
 
@@ -49,7 +50,9 @@ class settingScreen extends Component{
     return(
       <View style={styles.container}>
         <Text style={[styles.title, fonts.montserrat_bold]}>Setttings</Text>
-        <TouchableOpacity style={[styles.row_wrap, styles.item_wrap_top_border]} onPress={()=>this.onUpdateAccount()}>
+        <TouchableOpacity 
+          style={[styles.row_wrap, styles.item_wrap_top_border]} 
+          onPress={()=>this.onUpdateAccount()}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>My Account</Text>
           <View style={styles.pro}>
             <Text style={[styles.proText, fonts.montserrat_semibold]}>
@@ -57,7 +60,9 @@ class settingScreen extends Component{
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item_wrap} onPress={()=>this.onChangePassword()}>
+        <TouchableOpacity 
+          style={styles.item_wrap} 
+          onPress={()=>this.onChangePassword()}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Change Password</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.item_wrap}>

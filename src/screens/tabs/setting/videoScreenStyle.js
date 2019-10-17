@@ -3,7 +3,6 @@ import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
 } from 'react-native-responsive-dimensions';
-import colorStyle from "../../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   container:{

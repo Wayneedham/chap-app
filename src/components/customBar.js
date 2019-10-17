@@ -9,7 +9,7 @@ import styles from "./customBarStyle";
 class customBar extends Component{
 
   goBack = () => {
-    this.props.navigation.goBack();
+    this.props.navigate.goBack();
   }
 
   render(){
