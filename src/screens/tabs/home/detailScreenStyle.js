@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   back_wrap:{
     position: "absolute",
     left: 0,
-    bottom: 5,
+    bottom: 20,
     width: 15,
     height: 15
   },

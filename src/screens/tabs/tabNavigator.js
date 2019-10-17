@@ -7,6 +7,7 @@ import {
 import homeScreen from "./home/homeScreen";
 import detailsScreen from "./home/detailScreen";
 import settingScreen from "./setting/settingScreen";
+import profileScreen from "./setting/profileScreen";
 
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
@@ -25,6 +26,25 @@ export const HomeStack = StackNavigator(
   {
     headerMode: "none",
     initialRouteName: "home",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
+
+
+export const SettingStack = StackNavigator(
+  {
+    setting: {
+      screen: settingScreen
+    },
+    profile: {
+      screen: profileScreen
+    },
+  },
+  {
+    headerMode: "none",
+    initialRouteName: "setting",
     navigationOptions: {
       headerVisible: false
     }
@@ -95,7 +115,7 @@ export const BaseNavigator = createBottomTabNavigator(
       })
     },
     SETTINGS: {
-      screen: settingScreen,
+      screen: SettingStack,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) => (
           <View style={styles.tabItem_container}>

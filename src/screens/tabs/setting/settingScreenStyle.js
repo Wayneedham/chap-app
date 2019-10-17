@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
@@ -79,18 +79,18 @@ const styles = StyleSheet.create({
     color: colorStyle.colorMainGray,    
   },
   log_out_wrap:{
-    marginTop: responsiveHeight(10),
+    marginTop: 50,
     alignItems: "center"
   },
   logo_container:{
-    height: 120,
+    height: 100,
     width: "100%",
-    marginTop: 50,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center"
   },
   logo_img:{
-    height: 80
+    height: 60
   },
   small_txt:{
     fontSize: 11,
