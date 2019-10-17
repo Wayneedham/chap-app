@@ -9,6 +9,7 @@ import {
 import { TextField } from "react-native-material-textfield";
 import * as Progress from "react-native-progress";
 
+import CustomBar from "../../../components/customBar";
 import styles from "./profileScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -40,16 +41,9 @@ class profileScreen extends Component{
     const { userEmail, userFname, userLname, isLoading } = this.state;
     return (
       <View style={styles.container}>
-        <View style={styles.topbar_wrap}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>Account</Text>
-          <TouchableOpacity style={styles.back_wrap} onPress={this.goBack}>
-            <Image
-              source={require("../../../../assets/icons/icon_back_white.png")}
-              style={styles.back}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
+        <CustomBar 
+          title={"Account"}
+        />
         <View style={{ paddingVertical: 5 }}>
           <TextField
             ref={fname => {

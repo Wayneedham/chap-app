@@ -8,6 +8,7 @@ import homeScreen from "./home/homeScreen";
 import detailsScreen from "./home/detailScreen";
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
+import videoScreen from "./setting/videoScreen";
 
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
@@ -40,6 +41,9 @@ export const SettingStack = StackNavigator(
     },
     profile: {
       screen: profileScreen
+    },
+    video: {
+      screen: videoScreen
     },
   },
   {
