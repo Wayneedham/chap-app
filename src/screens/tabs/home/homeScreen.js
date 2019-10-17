@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
-  PermissionsAndroid,
+  TextInput,
   Platform
 } from 'react-native';
 
@@ -24,7 +24,8 @@ class homeScreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      horseList: []
+      horseList: [],
+      searchName: ""
     };
   }
 
@@ -42,6 +43,11 @@ class homeScreen extends Component{
     });
   }
 
+  onSearchName(){
+    const{searchName} = this.state;
+    console.log("search === ", searchName);
+  }
+
   render(){
     const{horseList} = this.state;
     return(
@@ -50,11 +56,25 @@ class homeScreen extends Component{
           <Text style={[styles.title, fonts.montserrat_bold]}>HOME</Text>
           <TouchableOpacity style={styles.camera_wrap}>
             <Image
-              source={require("../../../../assets/icons/camera.png")}
+              source={require("../../../../assets/icons/icon_new.png")}
               style={styles.camera}
               resizeMode="contain"
             />
           </TouchableOpacity>
+        </View>
+        <View style={styles.search_wrap}>
+          <Image 
+            style={styles.searchIcon}
+            source={require("../../../../assets/icons/icon_search.png")}
+            resizeMode="contain"
+          />
+          <TextInput 
+            placeholder="Search Name"            
+            inlineImageLeft="search_icon"
+            returnKeyType="search"
+            onChangeText={text => {this.setState({searchName: text})}}
+            onSubmitEditing={()=>{this.onSearchName()}}
+          />
         </View>
         <FlatList
           showsHorizontalScrollIndicator={false}

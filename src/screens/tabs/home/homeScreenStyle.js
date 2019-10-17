@@ -26,13 +26,25 @@ const styles = StyleSheet.create({
   camera_wrap:{
     position: "absolute",
     right: 0,
-    bottom: 5,
+    bottom: 0,
     width: 40,
     height: 40
   },
   camera:{
     width: "100%",
     height: "100%"
+  },
+  search_wrap:{
+    height: 30,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 5,
+    marginBottom: 10
+  },
+  searchIcon:{
+    width: 20,
+    marginRight: 5
   }
 })
 

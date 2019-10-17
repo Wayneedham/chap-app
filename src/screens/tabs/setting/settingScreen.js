@@ -42,7 +42,6 @@ class settingScreen extends Component{
   }
 
   onCourseVideo(){
-    console.log("clicked")
     this.props.navigation.navigate("video");
   }
 

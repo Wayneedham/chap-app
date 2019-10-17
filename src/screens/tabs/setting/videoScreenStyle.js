@@ -11,7 +11,14 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flexDirection: "column",
     backgroundColor: "white"
-  }
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })
 
 module.exports = styles;
