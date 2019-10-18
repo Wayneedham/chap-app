@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  Image,
-  TouchableOpacity,
-  PermissionsAndroid,
-  Platform
+  Image
 } from 'react-native';
 import { Actions } from "react-native-router-flux";
 import * as userActions from "../../actions/userActions";

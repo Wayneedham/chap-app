@@ -43,6 +43,10 @@ class homeScreen extends Component{
     });
   }
 
+  onCreate(){
+    this.props.navigation.navigate("create");
+  }
+
   onSearchName(){
     const{searchName} = this.state;
     console.log("search === ", searchName);
@@ -54,7 +58,7 @@ class homeScreen extends Component{
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
           <Text style={[styles.title, fonts.montserrat_bold]}>HOME</Text>
-          <TouchableOpacity style={styles.camera_wrap}>
+          <TouchableOpacity style={styles.camera_wrap} onPress={()=>{this.onCreate()}}>
             <Image
               source={require("../../../../assets/icons/icon_new.png")}
               style={styles.camera}

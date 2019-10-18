@@ -5,6 +5,7 @@ import {
   StackNavigator
 } from "react-navigation";
 import homeScreen from "./home/homeScreen";
+import createScreen from "./home/createScreen";
 import detailsScreen from "./home/detailScreen";
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
@@ -23,6 +24,9 @@ export const HomeStack = StackNavigator(
     details: {
       screen: detailsScreen
     },
+    create:{
+      screen: createScreen
+    }
   },
   {
     headerMode: "none",

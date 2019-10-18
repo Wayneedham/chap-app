@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: responsiveFontSize(3.5),
+    fontSize: responsiveFontSize(3.3),
     color: colorStyle.colorMainGray
   },
   back_wrap:{

@@ -5,7 +5,10 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+
 import styles from "./customBarStyle";
+import fonts from "../sharedStyles/fontStyle";
+
 class customBar extends Component{
 
   goBack = () => {

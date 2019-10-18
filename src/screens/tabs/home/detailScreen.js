@@ -13,6 +13,8 @@ import { responsiveHeight,
   responsiveFontSize
 } from 'react-native-responsive-dimensions';
 import FastImage from 'react-native-fast-image';
+
+import CustomBar from "../../../components/customBar";
 import styles from "./detailScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -31,20 +33,13 @@ class detailScreen extends Component{
 
   render(){
     const detailItem = this.props.navigation.getParam("detailItem");
-    console.log("detailItem===", detailItem);
     const{calcImgHeight} = this.state;
     return(
       <View style={styles.container}>
-        <View style={styles.topbar_wrap}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>DETAILS</Text>
-          <TouchableOpacity style={styles.back_wrap} onPress={this.goBack}>
-            <Image
-              source={require("../../../../assets/icons/icon_back_white.png")}
-              style={styles.back}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
+        <CustomBar 
+          title={"Details"}
+          navigate={this.props.navigation}
+        />
         <View style={styles.detail_wrap}>
           <FastImage 
             resizeMode="contain"
