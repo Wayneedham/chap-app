@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: responsiveFontSize(2.3)
   },
+  imgTypeTxt:{
+    marginVertical: 10,
+    fontSize: responsiveFontSize(2),
+    color: colorStyle.colorMainGray
+  },
   update_txt: {
     color: colorStyle.colorMainGray,
     fontSize: responsiveFontSize(2)

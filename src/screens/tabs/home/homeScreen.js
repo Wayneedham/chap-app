@@ -35,6 +35,7 @@ class homeScreen extends Component{
       imgList.push(test_data);
     }
     this.setState({horseList: imgList});
+    console.log("current=", window.currentUser);
   }
 
   goDetail =(item)=>{
