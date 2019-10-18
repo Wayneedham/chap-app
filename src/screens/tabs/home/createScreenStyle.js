@@ -59,6 +59,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  progressWrap:{
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent"
+  }
 })
 
 module.exports = styles;

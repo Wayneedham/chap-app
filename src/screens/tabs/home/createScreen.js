@@ -5,7 +5,8 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  Alert
+  Alert,
+  Modal
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -14,8 +15,9 @@ import { TextField } from "react-native-material-textfield";
 import ImagePicker from 'react-native-image-picker';
 import ActionSheet from 'react-native-actionsheet';
 import ImageResizer from 'react-native-image-resizer';
-import RadioButton from "../../../components/radioButton";
- 
+import * as Progress from "react-native-progress";
+
+import RadioButton from "../../../components/radioButton"; 
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import CustomBar from "../../../components/customBar";
@@ -25,10 +27,6 @@ import fonts from "../../../sharedStyles/fontStyle";
 
 const CANCEL_INDEX = 0
 const actionOptions = ['Cancel', 'Take Photo', 'Import Photo']
-// const radioOptions = [
-//   {key: 'lower', text: "Lower", selected: false },
-//   {key: 'upper', text: "Upper", selected: false }
-// ];
 
 class createScreen extends Component{
   constructor(props) {
@@ -39,6 +37,7 @@ class createScreen extends Component{
       txt_img_desc: "",
       imgSrc: "",
       imgURI: "",
+      isShowModal: this.props.pending,
       radioOptions:  [
         {key: 'lower', text: "Lower", selected: true },
         {key: 'upper', text: "Upper", selected: false }
@@ -46,9 +45,31 @@ class createScreen extends Component{
     };
     this.onSelectImgType = this.onSelectImgType.bind(this);
   }
-
-  componentWillReceiveProps(nextProps){
-    console.log("nextProps === ", nextProps);   
+  
+  componentWillReceiveProps(nextProps){    
+    if(nextProps.pending === false){
+      const responseData = nextProps.data;
+      if(Object.keys(responseData).includes("message")){
+        Alert.alert(
+          "",
+          responseData["message"],
+          [{ text: "OK", onPress: () => {this.setState({isShowModal: false});} }],
+          { cancelable: false }
+        );
+      }
+      else if(Object.keys(responseData).includes("recent")){           
+        Alert.alert(
+          "",
+          "The image was detected successfully.",
+          [{ text: "OK", onPress: () => {
+            this.setState({isShowModal: false});
+            this.props.navigation.goBack();
+          }}],
+          { cancelable: false }
+        );
+        console.log("post success  sss");     
+      }
+    }
   }
 
   showAlert(message) {
@@ -90,7 +111,7 @@ class createScreen extends Component{
       return;
     }
 
-
+    this.setState({isShowModal: true});
     const userData = new FormData()
     userData.append('user', window.currentUser["id"]);
     userData.append('image_type', txt_img_type);
@@ -161,7 +182,8 @@ _pickImage = async () => {
 }
 
   render(){
-    const{txt_img_desc, txt_img_name, radioOptions, imgSrc} = this.state;
+    const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isShowModal} = this.state;
+    // const{pending} = this.props;
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
@@ -209,11 +231,20 @@ _pickImage = async () => {
           </Text>          
         </TouchableOpacity>
         <ActionSheet
-            ref={o => this.ActionSheet = o}
-            options={actionOptions}
-            cancelButtonIndex={CANCEL_INDEX}
-            onPress={this.handlePhotoPress}
-          />
+          ref={o => this.ActionSheet = o}
+          options={actionOptions}
+          cancelButtonIndex={CANCEL_INDEX}
+          onPress={this.handlePhotoPress}
+        />
+        <Modal          
+          animationType={'none'}
+          transparent={true}
+          visible={isShowModal}
+          onRequestClose={()=>{}}>
+          <View style={styles.progressWrap}>
+            <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
+          </View>          
+        </Modal>
       </ScrollView>
     )
   }

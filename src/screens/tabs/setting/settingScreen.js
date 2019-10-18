@@ -28,7 +28,7 @@ class settingScreen extends Component{
   }
 
   onUserLogout(){
-    this.props.actions.initLoginData("");
+    this.props.actions.initReduxData("");
     userActions.clearData();
     Actions.reset("loginScreen");
   }
@@ -95,7 +95,7 @@ class settingScreen extends Component{
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      initLoginData: setReduxAddInfo
+      initReduxData: setReduxAddInfo
     },
     dispatch
   )

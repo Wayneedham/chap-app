@@ -45,6 +45,13 @@ const styles = StyleSheet.create({
   searchIcon:{
     width: 20,
     marginRight: 5
+  },
+  progressWrap:{
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "transparent"
   }
 })
 

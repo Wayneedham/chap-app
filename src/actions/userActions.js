@@ -142,6 +142,22 @@ export async function fbLogin(token, props) {
     }
   }
 
+  export function fetchHorseList(userID){ 
+    const url = serverurl.basic_url + 'detections/'+userID;
+    return dispatch => {
+      dispatch(fetchDataPending());
+      fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        dispatch(fetchDataSuccess(res));
+        return res;
+      })
+      .catch(error => {
+        dispatch(fetchDataError(error));
+      })
+    }
+  }
+
  export async function _storeData(key,value){
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));

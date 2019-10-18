@@ -6,12 +6,20 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Modal,
   Platform
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as Progress from "react-native-progress";
+
+import * as userActions from "../../../actions/userActions";
+import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import HorseListItem from "../../../components/horseListItem";
 import styles from "./homeScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
+import serverurl from '../../../../config/const/serverurl';
 
 const test_data = {
   image: "http://agehorseservice.eastus.cloudapp.azure.com:8000/media/IMG_0007.JPG",
@@ -25,17 +33,31 @@ class homeScreen extends Component{
     super(props);
     this.state = {
       horseList: [],
-      searchName: ""
+      searchName: "",
+      isShowModal: this.props.pending
     };
   }
 
   componentDidMount(){
-    var imgList = [];
-    for(let i=0; i<10; i++){
-      imgList.push(test_data);
-    }
-    this.setState({horseList: imgList});
     console.log("current=", window.currentUser);
+    this.props.actions.fetchHorseList(window.currentUser["id"]);
+    this.setState({isShowModal: true});
+  }
+
+  componentWillReceiveProps(nextProps){ 
+    if(nextProps.pending === false){
+      this.setState({isShowModal: false});
+      const responseData = nextProps.data;
+      if(responseData.length > 0){   
+        console.log("load success  ss=====", responseData);     
+        let list = [];
+        responseData.map(item=>{
+          item["file"] = serverurl.server_url + item["file"];
+          list.push(item);
+        })
+        this.setState({horseList: list});
+      }
+    }
   }
 
   goDetail =(item)=>{
@@ -50,11 +72,10 @@ class homeScreen extends Component{
 
   onSearchName(){
     const{searchName} = this.state;
-    console.log("search === ", searchName);
   }
 
   render(){
-    const{horseList} = this.state;
+    const{horseList, isShowModal} = this.state;
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
@@ -94,9 +115,36 @@ class homeScreen extends Component{
             />
           )}
         />
+        <Modal          
+          animationType={'none'}
+          transparent={true}
+          visible={isShowModal}
+          onRequestClose={()=>{}}>
+          <View style={styles.progressWrap}>
+            <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
+          </View>          
+        </Modal>
       </View>
     )
   }
 }
 
-export default homeScreen;
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      fetchHorseList: userActions.fetchHorseList
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(homeScreen);

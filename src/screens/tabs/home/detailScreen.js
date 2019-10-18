@@ -33,6 +33,7 @@ class detailScreen extends Component{
 
   render(){
     const detailItem = this.props.navigation.getParam("detailItem");
+    const age = detailItem.age === null ? 0 : detailItem.age;
     const{calcImgHeight} = this.state;
     return(
       <View style={styles.container}>
@@ -44,7 +45,7 @@ class detailScreen extends Component{
           <FastImage 
             resizeMode="contain"
             style={{ width: responsiveWidth(94), height: calcImgHeight }}
-            source={{ uri: detailItem.image }}
+            source={{ uri: detailItem.file }}
             onLoad={evt =>
               this.setState({
                 calcImgHeight:
@@ -53,17 +54,17 @@ class detailScreen extends Component{
           />
           <View style={styles.detail_txt_wrap}>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-            {"Image Type: "}<Text style={[fonts.montserrat_regular]}>{detailItem.type}</Text>
+            {"Image Type: "}<Text style={[fonts.montserrat_regular]}>{detailItem.image_type}</Text>
             </Text>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-              {"Age: "} <Text style={[fonts.montserrat_regular]}>{parseFloat(detailItem.age).toFixed(5)}</Text>
+              {"Age: "} <Text style={[fonts.montserrat_regular]}>{parseFloat(age).toFixed(5)}</Text>
             </Text>
             <View>
               <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
                 Description
               </Text>
               <Text style={[fonts.montserrat_regular]}>
-                {detailItem.desc}
+                {detailItem.description}
               </Text>
             </View>
           </View>
