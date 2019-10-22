@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   detailsTxtWrap:{
     marginVertical: 10,
-    fontSize: responsiveFontSize(2.3)
+    fontSize: responsiveFontSize(2)
   },
   imgTypeTxt:{
     marginVertical: 10,

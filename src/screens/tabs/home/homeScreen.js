@@ -36,6 +36,8 @@ class homeScreen extends Component{
       searchName: "",
       isShowModal: this.props.pending
     };
+
+    this.reloadHorseList = this.reloadHorseList.bind(this);
   }
 
   componentDidMount(){
@@ -60,6 +62,11 @@ class homeScreen extends Component{
     }
   }
 
+  reloadHorseList(){
+    this.props.actions.fetchHorseList(window.currentUser["id"]);
+    this.setState({isShowModal: true});
+  }
+
   goDetail =(item)=>{
     this.props.navigation.navigate("details", {
       detailItem: item
@@ -67,7 +74,7 @@ class homeScreen extends Component{
   }
 
   onCreate(){
-    this.props.navigation.navigate("create");
+    this.props.navigation.navigate("create", {reloadHorseList: this.reloadHorseList});
   }
 
   onSearchName(){

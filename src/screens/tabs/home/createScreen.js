@@ -57,12 +57,15 @@ class createScreen extends Component{
           { cancelable: false }
         );
       }
-      else if(Object.keys(responseData).includes("recent")){           
+      else if(Object.keys(responseData).includes("recent")){   
+
         Alert.alert(
           "",
           "The image was detected successfully.",
           [{ text: "OK", onPress: () => {
             this.setState({isShowModal: false});
+            const { params} = this.props.navigation.state;
+            params.reloadHorseList();
             this.props.navigation.goBack();
           }}],
           { cancelable: false }

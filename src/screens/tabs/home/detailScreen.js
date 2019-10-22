@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  PermissionsAndroid,
-  Platform
+  Text
 } from 'react-native';
-import { responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize
+import {
+  responsiveWidth
 } from 'react-native-responsive-dimensions';
 import FastImage from 'react-native-fast-image';
 
