@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  videoPlayImg:{
+    height: "80%"
+  },
   subscribeBtn:{
     width: responsiveWidth(70),
     height: 55,

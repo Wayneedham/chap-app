@@ -68,12 +68,7 @@ class settingScreen extends Component{
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Upgrade Membership</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.item_wrap, {marginTop: 50}, styles.item_wrap_top_border]}
-          onPress={()=>this.onCourseVideo()}>
-          <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Play Course Video</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item_wrap}>
+        <TouchableOpacity style={[styles.item_wrap, {marginTop: 50}, styles.item_wrap_top_border]}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Contact Support</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.item_wrap, styles.log_out_wrap, styles.item_wrap_top_border]} onPress={()=>this.onLogout()}>
