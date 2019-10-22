@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
-  Modal,
-  Platform
+  Modal
 } from 'react-native';
 
 import { connect } from 'react-redux';

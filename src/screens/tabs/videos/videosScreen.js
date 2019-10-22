@@ -9,7 +9,7 @@ import {
   Modal
 } from 'react-native';
 
-class detectScreen extends Component{
+class videosScreen extends Component{
   render(){
     return(
       <View>
@@ -19,4 +19,4 @@ class detectScreen extends Component{
   }
 }
 
-export default detectScreen;
+export default videosScreen;
