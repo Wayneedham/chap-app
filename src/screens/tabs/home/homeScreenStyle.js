@@ -9,49 +9,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: responsiveWidth(3),
-    paddingTop: 30,
+    alignItems: "center",
     backgroundColor: "#F9F9F9"
   },
-  topbar_wrap:{
-    height: 70,
-    width: "100%",
+  logo_container:{
+    paddingVertical: 50,
+    alignItems: "center"
+  },
+  bigTxt:{
+    color: colorStyle.colorMainGray,
+    fontSize: 35
+  },
+  logo_img:{
+    height: 65
+  },
+  buttonWrap:{
+    backgroundColor: "#00A74C",
+    width: responsiveWidth(60),
+    height: 40,
     alignItems: "center",
-    justifyContent: "center"
-  },
-  title:{
-    textAlign: "center",
-    fontSize: responsiveFontSize(3.5),
-    color: colorStyle.colorMainGray
-  },
-  camera_wrap:{
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    width: 40,
-    height: 40
-  },
-  camera:{
-    width: "100%",
-    height: "100%"
-  },
-  search_wrap:{
-    height: 30,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 5,
-    marginBottom: 10
-  },
-  searchIcon:{
-    width: 20,
-    marginRight: 5
-  },
-  progressWrap:{
     justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "transparent"
+    borderRadius: 3,
+    marginBottom: 15
+  },
+  buttonText:{
+    fontSize: 20,
+    color: "black"
   }
 })
 

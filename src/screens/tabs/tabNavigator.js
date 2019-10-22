@@ -11,6 +11,9 @@ import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
 import videoScreen from "./setting/videoScreen";
 
+import historyScreen from "./history/historyScreen";
+import detectScreen from "./detect/detectScreen";
+
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
 import fonts from "../../sharedStyles/fontStyle";
@@ -67,7 +70,7 @@ class customTabNavigator extends React.Component {
     );
   }
 }
-
+historyScreen
 export const BaseNavigator = createBottomTabNavigator(
   {
     HOME: {
@@ -120,6 +123,102 @@ export const BaseNavigator = createBottomTabNavigator(
           defaultHandler();
           navigation.navigate("home");
         }
+      })
+    },
+    DETECT: {
+      screen: detectScreen,
+      navigationOptions: ({ screenProps }) => ({
+        tabBarIcon: ({ focused }) =>
+          screenProps.isActiveMenu ? (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_home.png")}
+                style={[
+                  styles.tabaricon,
+                  { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
+              >
+                {" "}
+                Detection{" "}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_home.png")}
+                style={[
+                  styles.tabaricon,
+                  focused
+                    ? { tintColor: colorStyle.colorMainGray }
+                    : { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[
+                  focused ? styles.focusedicontext : styles.unfocusedicontext,
+                  fonts.montserrat_medium
+                ]}
+              >
+                {" "}
+                Detection{" "}
+              </Text>
+            </View>
+          )
+      })
+    },
+    HISTORY: {
+      screen: historyScreen,
+      navigationOptions: ({ screenProps }) => ({
+        tabBarIcon: ({ focused }) =>
+          screenProps.isActiveMenu ? (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_home.png")}
+                style={[
+                  styles.tabaricon,
+                  { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
+              >
+                {" "}
+                History{" "}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_home.png")}
+                style={[
+                  styles.tabaricon,
+                  focused
+                    ? { tintColor: colorStyle.colorMainGray }
+                    : { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[
+                  focused ? styles.focusedicontext : styles.unfocusedicontext,
+                  fonts.montserrat_medium
+                ]}
+              >
+                {" "}
+                History{" "}
+              </Text>
+            </View>
+          )
       })
     },
     SETTINGS: {
