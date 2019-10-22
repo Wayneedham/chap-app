@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
-import { responsiveHeight,
-         responsiveWidth,
-         responsiveFontSize
-} from 'react-native-responsive-dimensions';
+import { responsiveFontSize
+  } from 'react-native-responsive-dimensions';
 import colorStyle from "../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
@@ -21,8 +19,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     bottom: 20,
-    width: 15,
-    height: 15
+    width: 20,
+    height: 20
   },
   back:{
     width: "100%",

@@ -8,8 +8,8 @@ import {
 import VideoPlayer from 'react-native-video-controls';
 
 import CourseItem from "../../../components/courseItem";
-import styles from "./courseScreenStyle";
-import fonts from "../../../sharedStyles/fontStyle";
+import CustomBar from "../../../components/customBar";
+import styles from "./videoScreenStyle";
 
 class courseScreen extends Component{
 
@@ -26,7 +26,6 @@ class courseScreen extends Component{
   }
 
   onVideoPlay =(url)=>{
-    console.log("urlll===", url);
     this.setState({videoURL: url, isShowModal: true})
   }
 
@@ -38,9 +37,10 @@ class courseScreen extends Component{
     const{isShowModal, videoURL} = this.state;
     return(
       <View style={styles.container}>
-        <View style={styles.topbar_wrap}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>Course</Text>        
-        </View>
+        <CustomBar 
+          title={"Course"}
+          navigate={this.props.navigation}
+        />
         <View style={styles.course_container}>
           <CourseItem 
             isSubscribe={false}

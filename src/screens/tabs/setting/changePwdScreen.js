@@ -4,83 +4,73 @@ import {
   Text,
   TouchableOpacity
 } from 'react-native';
+
 import { TextField } from "react-native-material-textfield";
 import * as Progress from "react-native-progress";
 
 import CustomBar from "../../../components/customBar";
-import styles from "./profileScreenStyle";
-import fonts from "../../../sharedStyles/fontStyle";
+import styles from "./changePwdScreenStyle";
 
-class profileScreen extends Component{
+class changePasswordScreen extends Component{
 
   constructor(props) {
     super(props);
     this.state = {
-      userFname: window.currentUser["first_name"],
-      userLname: window.currentUser["last_name"],
-      userEmail: window.currentUser["email"],
+      cPwd: "",
+      nPwd: "",
+      vPwd: "",
       isLoading: false
     };
   }
 
-  componentDidMount(){
-    console.log("current = ", window.currentUser);
-  }
-
-  onProfileUpdate(){
-
-  }
-
-  goBack = () => {
-    this.props.navigation.goBack();
-  }
-
   render(){
-    const { userEmail, userFname, userLname, isLoading } = this.state;
-    return (
+    const{cPwd, nPwd, vPwd, isLoading} = this.state;
+    return(
       <View style={styles.container}>
         <CustomBar 
-          title={"Account"}
+          title={"Change Password"}
           navigate={this.props.navigation}
         />
         <View style={{ paddingVertical: 5 }}>
           <TextField
-            ref={fname => {
-              this.fnameInput = fname;
+            ref={cPwd => {
+              this.cPwdInput = cPwd;
             }}
-            label={"First Name"}
-            value={userFname}
-            onChangeText={fname => this.setState({ userFname: fname })}
-            onSubmitEditing={() => this.lnameInput.focus()}
+            label={"Current password"}
+            value={cPwd}
+            secureTextEntry={true}
+            onChangeText={text => this.setState({ cPwd: text })}
+            onSubmitEditing={() => this.nPwdInput.focus()}
             returnKeyType="next"
           />
           <TextField
-            ref={lname => {
-              this.lnameInput = lname;
+            ref={nPwd => {
+              this.nPwdInput = nPwd;
             }}
-            label={"Last Name"}
-            value={userLname}
-            onChangeText={lname => this.setState({ userLname: lname })}
-            onSubmitEditing={() => this.emailInput.focus()}
+            label={"New password"}
+            value={nPwd}
+            secureTextEntry={true}
+            onChangeText={text => this.setState({ nPwd: text })}
+            onSubmitEditing={() => this.vPwdInput.focus()}
             returnKeyType="next"
           />
           <TextField
-            ref={email => {
-              this.emailInput = email;
+            ref={vPwd => {
+              this.vPwdInput = vPwd;
             }}
-            label={"Email"}
-            value={userEmail}
+            label={"Verify password"}
+            value={vPwd}
+            secureTextEntry={true}
             autoCapitalize={"none"}
-            onChangeText={email => this.setState({ userEmail: email })}
+            onChangeText={text => this.setState({ vPwd: text })}
             returnKeyType="done"
           />
         </View>
         <TouchableOpacity
-          onPress={() => this.onProfileUpdate()}
           style={styles.update_container}
         >
           <Text style={[styles.update_txt, fonts.montserrat_regular]}>
-            {"UPDATE"}
+            {"CHANGE PASSWORD"}
           </Text>
           {isLoading && (
             <Progress.CircleSnail
@@ -97,8 +87,8 @@ class profileScreen extends Component{
           )}
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
-export default profileScreen;
+export default changePasswordScreen;

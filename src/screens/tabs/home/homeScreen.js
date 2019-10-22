@@ -18,6 +18,18 @@ class homeScreen extends Component{
     super(props);
   }
 
+  onDetect =()=>{
+    this.props.navigation.navigate("create");
+  }
+
+  onCourse=()=>{
+    this.props.navigation.navigate("video");
+  }
+
+  onAbout =()=>{
+
+  }
+
   render(){  
     return(
       <View style={styles.container}>
@@ -30,13 +42,13 @@ class homeScreen extends Component{
             resizeMode="contain"
           />
         </View>
-        <TouchableOpacity style={styles.buttonWrap}>
+        <TouchableOpacity style={styles.buttonWrap} onPress={this.onDetect}>
           <Text style={[styles.buttonText, fonts.montserrat_bold]}>Age Detection</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrap}>
+        <TouchableOpacity style={styles.buttonWrap} onPress={this.onCourse}>
           <Text style={[styles.buttonText, fonts.montserrat_bold]}>Video Course</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonWrap}>
+        <TouchableOpacity style={styles.buttonWrap} onPress={this.onAbout}>
           <Text style={[styles.buttonText, fonts.montserrat_bold]}>About CHAP</Text>
         </TouchableOpacity>
       </View>

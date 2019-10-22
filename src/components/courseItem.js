@@ -3,17 +3,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
-  FlatList,
-  TextInput,
-  Modal
+  TouchableOpacity
 } from 'react-native';
-import { responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize
-} from 'react-native-responsive-dimensions';
-
-import { Thumbnail } from 'react-native-thumbnail-video';
 
 import styles from "./courseItemStyle";
 import fonts from "../sharedStyles/fontStyle";

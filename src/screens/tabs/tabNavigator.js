@@ -6,13 +6,17 @@ import {
 } from "react-navigation";
 import homeScreen from "./home/homeScreen";
 import createScreen from "./home/createScreen";
-import detailsScreen from "./home/detailScreen";
+import videoScreen from "./home/videoScreen";
+
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
-import videoScreen from "./setting/videoScreen";
+import changePwdScreen from "./setting/changePwdScreen";
 
 import courseScreen from "./videos/courseScreen";
+
 import historyScreen from "./history/historyScreen";
+import detailsScreen from "./history/detailScreen";
+
 import detectScreen from "./detect/detectScreen";
 
 import styles from "./tabNavigatorStyle";
@@ -25,11 +29,11 @@ export const HomeStack = StackNavigator(
     home: {
       screen: homeScreen
     },
-    details: {
-      screen: detailsScreen
-    },
     create:{
       screen: createScreen
+    },
+    video: {
+      screen: videoScreen
     }
   },
   {
@@ -41,6 +45,23 @@ export const HomeStack = StackNavigator(
   }
 );
 
+export const HistoryStack = StackNavigator(
+  {
+    history: {
+      screen: historyScreen
+    },
+    details: {
+      screen: detailsScreen
+    }
+  },
+  {
+    headerMode: "none",
+    initialRouteName: "history",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
 
 export const SettingStack = StackNavigator(
   {
@@ -50,9 +71,9 @@ export const SettingStack = StackNavigator(
     profile: {
       screen: profileScreen
     },
-    video: {
-      screen: videoScreen
-    },
+    changepwd:{
+      screen: changePwdScreen
+    }
   },
   {
     headerMode: "none",
@@ -223,7 +244,7 @@ export const BaseNavigator = createBottomTabNavigator(
       })
     },
     HISTORY: {
-      screen: historyScreen,
+      screen: HistoryStack,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
           screenProps.isActiveMenu ? (

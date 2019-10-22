@@ -38,12 +38,9 @@ class settingScreen extends Component{
   }
 
   onChangePassword(){
-
+    this.props.navigation.navigate("changepwd");
   }
-
-  onCourseVideo(){
-    this.props.navigation.navigate("video");
-  }
+  
 
   render(){
     return(

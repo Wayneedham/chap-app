@@ -3,6 +3,7 @@ import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
 } from 'react-native-responsive-dimensions';
+import colorStyle from "../../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   container:{
@@ -11,14 +12,19 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flexDirection: "column",
     backgroundColor: "white"
+  },  
+  update_txt: {
+    color: colorStyle.colorMainGray,
+    fontSize: responsiveFontSize(2)
   },
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
+  update_container: {
+    height: responsiveHeight(8),
+    marginTop: 40,
+    borderRadius: 7,
+    backgroundColor: colorStyle.colorYellow,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 })
 
 module.exports = styles;
