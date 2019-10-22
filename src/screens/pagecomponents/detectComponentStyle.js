@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
+import { StyleSheet} from "react-native";
 import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
@@ -6,11 +6,6 @@ import { responsiveHeight,
 import colorStyle from "../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: responsiveWidth(3),
-    paddingTop: 30,
-    backgroundColor: "#F9F9F9"    
-  },
   img_container:{
     width: "100%",
     height: 200,
@@ -58,13 +53,6 @@ const styles = StyleSheet.create({
     backgroundColor: colorStyle.colorYellow,
     justifyContent: "center",
     alignItems: "center"
-  },
-  progressWrap:{
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "transparent"
   }
 })
 

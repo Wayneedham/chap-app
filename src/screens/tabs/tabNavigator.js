@@ -11,6 +11,7 @@ import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
 import videoScreen from "./setting/videoScreen";
 
+import courseScreen from "./videos/courseScreen";
 import historyScreen from "./history/historyScreen";
 import detectScreen from "./detect/detectScreen";
 
@@ -125,6 +126,54 @@ export const BaseNavigator = createBottomTabNavigator(
         }
       })
     },
+    COURSE: {
+      screen: courseScreen,
+      navigationOptions: ({ screenProps }) => ({
+        tabBarIcon: ({ focused }) =>
+          screenProps.isActiveMenu ? (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_video.png")}
+                style={[
+                  styles.tabaricon,
+                  { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
+              >
+                {" "}
+                Videos{" "}
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.tabItem_container}>
+              <Image
+                resizeMode="contain"
+                source={require("../../../assets/icons/icon_tab_video.png")}
+                style={[
+                  styles.tabaricon,
+                  focused
+                    ? { tintColor: colorStyle.colorMainGray }
+                    : { tintColor: colorStyle.colorInactiveTab }
+                ]}
+              />
+              <Text
+                allowFontScaling={false}
+                style={[
+                  focused ? styles.focusedicontext : styles.unfocusedicontext,
+                  fonts.montserrat_medium
+                ]}
+              >
+                {" "}
+                Videos{" "}
+              </Text>
+            </View>
+          )
+      })
+    },
     DETECT: {
       screen: detectScreen,
       navigationOptions: ({ screenProps }) => ({
@@ -133,7 +182,7 @@ export const BaseNavigator = createBottomTabNavigator(
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
+                source={require("../../../assets/icons/icon_tab_detect.png")}
                 style={[
                   styles.tabaricon,
                   { tintColor: colorStyle.colorInactiveTab }
@@ -151,7 +200,7 @@ export const BaseNavigator = createBottomTabNavigator(
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
+                source={require("../../../assets/icons/icon_tab_detect.png")}
                 style={[
                   styles.tabaricon,
                   focused
@@ -181,7 +230,7 @@ export const BaseNavigator = createBottomTabNavigator(
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
+                source={require("../../../assets/icons/icon_tab_history.png")}
                 style={[
                   styles.tabaricon,
                   { tintColor: colorStyle.colorInactiveTab }
@@ -199,7 +248,7 @@ export const BaseNavigator = createBottomTabNavigator(
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
+                source={require("../../../assets/icons/icon_tab_history.png")}
                 style={[
                   styles.tabaricon,
                   focused
