@@ -168,7 +168,26 @@ export async function fbLogin(token, props) {
       })
     }
   }
- export async function _storeData(key,value){
+
+  export function postRequest(postData, url){ 
+    return dispatch => {
+      dispatch(fetchDataPending());
+      fetch(url , {
+        method: "post",
+        body: postData
+      })
+      .then(res => res.json())
+      .then(res => {
+        dispatch(fetchDataSuccess(res));
+        return res;
+      })
+      .catch(error => {
+        dispatch(fetchDataError(error));
+      })
+    }
+  }
+
+  export async function _storeData(key,value){
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));
     //   console.warn("done done")

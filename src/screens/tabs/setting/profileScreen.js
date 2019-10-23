@@ -2,11 +2,22 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
-import { TextField } from "react-native-material-textfield";
-import * as Progress from "react-native-progress";
 
+import { TextField } from "react-native-material-textfield";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as Progress from "react-native-progress";
+import {
+  responsiveHeight
+} from "react-native-responsive-dimensions";
+
+
+import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import * as userActions from "../../../actions/userActions";
+import serverurl from '../../../../config/const/serverurl';
 import CustomBar from "../../../components/customBar";
 import styles from "./profileScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -19,24 +30,59 @@ class profileScreen extends Component{
       userFname: window.currentUser["first_name"],
       userLname: window.currentUser["last_name"],
       userEmail: window.currentUser["email"],
-      isLoading: false
+      isPending: false
     };
   }
 
-  componentDidMount(){
-    console.log("current = ", window.currentUser);
+  componentWillReceiveProps(nextProps){
+    this.setState({ isPending: nextProps.pending });
+    if(nextProps.pending === false){
+      const responseData = nextProps.data;
+      if(Object.keys(responseData).includes("message")){
+        console.log("profile error=", responseData)
+        this.showAlert(responseData["message"]);
+      }
+      else if(Object.keys(responseData).includes("id")){
+        console.log("profile success ==", responseData);    
+        this.showAlert("You updated account successfully.");   
+      }
+    }
   }
 
   onProfileUpdate(){
+    const url = serverurl.basic_url + 'changeprofile';
+    const { userEmail, userFname, userLname } = this.state;
 
+    if (userEmail === "") {
+      this.showAlert("Enter new email address please.");
+      return;
+    }
+
+    const userData = new FormData();
+    userData.append('user_id', window.currentUser["id"]);
+    userData.append('email', userEmail);      
+    if(userFname !== "")
+      userData.append('first_name', userFname);
+    if(userLname !== "")
+      userData.append('last_name', userLname);
+    this.props.actions.changeProfile(userData, url);
   }
 
   goBack = () => {
     this.props.navigation.goBack();
   }
 
+  showAlert(message) {
+    Alert.alert(
+      "",
+      message,
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+  }
+
   render(){
-    const { userEmail, userFname, userLname, isLoading } = this.state;
+    const { userEmail, userFname, userLname, isPending } = this.state;
     return (
       <View style={styles.container}>
         <CustomBar 
@@ -82,7 +128,7 @@ class profileScreen extends Component{
           <Text style={[styles.update_txt, fonts.montserrat_regular]}>
             {"UPDATE"}
           </Text>
-          {isLoading && (
+          {isPending && (
             <Progress.CircleSnail
               color={"#fff"}
               style={{
@@ -101,4 +147,22 @@ class profileScreen extends Component{
   }
 }
 
-export default profileScreen;
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      changeProfile: userActions.postRequest,
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(profileScreen);

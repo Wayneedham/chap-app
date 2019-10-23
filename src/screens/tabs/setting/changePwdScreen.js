@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { TextField } from "react-native-material-textfield";
 import * as Progress from "react-native-progress";
+import {
+  responsiveHeight
+} from "react-native-responsive-dimensions";
 
+import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import CustomBar from "../../../components/customBar";
+import * as userActions from "../../../actions/userActions";
+import serverurl from '../../../../config/const/serverurl'; 
 import styles from "./changePwdScreenStyle";
 
 class changePasswordScreen extends Component{
@@ -19,12 +28,64 @@ class changePasswordScreen extends Component{
       cPwd: "",
       nPwd: "",
       vPwd: "",
-      isLoading: false
+      isPending: false
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({ isPending: nextProps.pending });
+    if(nextProps.pending === false){
+      const responseData = nextProps.data;
+      if(Object.keys(responseData).includes("message")){
+        console.log("pwd error=", responseData)
+        this.showAlert(responseData["message"]);
+      }
+      else if(Object.keys(responseData).includes("id")){
+        console.log("pwd success ==", responseData);    
+        this.showAlert("You updated password successfully.");   
+      }
+    }
+  }
+
+  onChangePwd(){
+    const{cPwd, nPwd, vPwd} = this.state;
+    if (cPwd === "") {
+      this.showAlert("Enter old password please.");
+      return;
+    }
+    if (nPwd === "") {
+      this.showAlert("Enter new password please.");
+      return;
+    }
+    if (vPwd === "") {
+      this.showAlert("Enter verify password please.");
+      return;
+    }
+
+    if (nPwd !== vPwd) {
+      this.showAlert("Verify password does not match, try again.");
+      return;
+    }
+
+    const url = serverurl.basic_url + 'changepassword';
+    const userData = new FormData();
+    userData.append('email', window.currentUser["email"]);
+    userData.append('old_password', cPwd);
+    userData.append('new_password', nPwd);
+    this.props.actions.changePassword(userData, url);
+  }
+
+  showAlert(message) {
+    Alert.alert(
+      "",
+      message,
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+  }
+
   render(){
-    const{cPwd, nPwd, vPwd, isLoading} = this.state;
+    const{cPwd, nPwd, vPwd, isPending} = this.state;
     return(
       <View style={styles.container}>
         <CustomBar 
@@ -68,11 +129,12 @@ class changePasswordScreen extends Component{
         </View>
         <TouchableOpacity
           style={styles.update_container}
+          onPress={()=>this.onChangePwd()}
         >
           <Text style={[styles.update_txt, fonts.montserrat_regular]}>
             {"CHANGE PASSWORD"}
           </Text>
-          {isLoading && (
+          {isPending && (
             <Progress.CircleSnail
               color={"#fff"}
               style={{
@@ -91,4 +153,22 @@ class changePasswordScreen extends Component{
   }
 }
 
-export default changePasswordScreen;
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      changePassword: userActions.postRequest,
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(changePasswordScreen);

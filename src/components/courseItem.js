@@ -13,9 +13,7 @@ class CourseItem extends Component{
   render(){
     const{courseTitleText, courseDetailText, isSubscribe, URL} = this.props;
     return(
-      <View style={styles.courseWrap}>
-        <Text style={[styles.courseTitleTxt, fonts.montserrat_semibold]}>{courseTitleText}</Text>
-        <Text style={styles.courseDetailTxt}>{courseDetailText}</Text>
+      <View style={styles.courseWrap}>       
         <View style={styles.subscribeWrap}>
           {
             isSubscribe ? (
