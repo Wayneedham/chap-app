@@ -3,15 +3,11 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
-  FlatList,
-  TextInput,
-  Modal
+  TouchableOpacity
 } from 'react-native';
 
 import styles from "./homeScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
-import serverurl from '../../../../config/const/serverurl';
 
 class homeScreen extends Component{
   constructor(props) {
@@ -27,7 +23,7 @@ class homeScreen extends Component{
   }
 
   onAbout =()=>{
-
+    this.props.navigation.navigate("about");
   }
 
   render(){  

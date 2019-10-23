@@ -14,6 +14,7 @@ import * as Progress from "react-native-progress";
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import ProgressBar from "../../../components/progressBar";
 import CustomBar from "../../../components/customBar";
 import styles from "./createScreenStyle";
 
@@ -70,15 +71,7 @@ class createScreen extends Component{
         <DetectComponent 
           onPostHorse={this.onCreateDetect}
         />        
-        <Modal          
-          animationType={'none'}
-          transparent={true}
-          visible={isShowModal}
-          onRequestClose={()=>{}}>
-          <View style={styles.progressWrap}>
-            <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
-          </View>          
-        </Modal>
+        <ProgressBar isPending={isShowModal}/>
       </ScrollView>
     )
   }

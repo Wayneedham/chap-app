@@ -7,6 +7,7 @@ import {
 import homeScreen from "./home/homeScreen";
 import createScreen from "./home/createScreen";
 import videoScreen from "./home/videoScreen";
+import aboutScreen from "./home/aboutScreen";
 
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
@@ -34,6 +35,9 @@ export const HomeStack = StackNavigator(
     },
     video: {
       screen: videoScreen
+    },
+    about: {
+      screen: aboutScreen
     }
   },
   {
