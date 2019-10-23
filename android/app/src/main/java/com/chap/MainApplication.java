@@ -3,6 +3,7 @@ package com.chap;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.gettipsi.stripe.StripeReactPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new StripeReactPackage(),
             new ReactVideoPackage(),
             new RNTextGradientPackage(),
             new SplashScreenReactPackage(),

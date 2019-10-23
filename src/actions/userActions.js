@@ -97,14 +97,6 @@ export async function fbLogin(token, props) {
   }
 
   export function userLogin(userData){  
-  //   fetch(url , {
-  //     method: "post",
-  //     body: userData
-  //  })
-  //   .then(response=>response.json())
-  //   .then(resJson =>{
-  //     console.log("resJson===", resJson);
-  //   })
     const url = serverurl.basic_url + 'login';
     return dispatch => {
       dispatch(fetchDataPending());
@@ -158,6 +150,24 @@ export async function fbLogin(token, props) {
     }
   }
 
+  export function videoPurchase(postData){ 
+    const url = serverurl.basic_url + 'charge';
+    return dispatch => {
+      dispatch(fetchDataPending());
+      fetch(url , {
+        method: "post",
+        body: postData
+      })
+      .then(res => res.json())
+      .then(res => {
+        dispatch(fetchDataSuccess(res));
+        return res;
+      })
+      .catch(error => {
+        dispatch(fetchDataError(error));
+      })
+    }
+  }
  export async function _storeData(key,value){
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));

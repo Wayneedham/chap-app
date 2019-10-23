@@ -7,11 +7,8 @@ import {
   PermissionsAndroid,
   Platform
 } from 'react-native';
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { TextField } from "react-native-material-textfield";
-import { BallIndicator } from 'react-native-indicators';
-import { LinearTextGradient } from 'react-native-text-gradient';
 import LoginComponent from "../../../components/login";
 import styles from "../authScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";

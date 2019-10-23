@@ -11,11 +11,11 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as Progress from "react-native-progress";
 
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import HorseListItem from "../../../components/horseListItem";
+import ProgressBar from "../../../components/progressBar";
 import styles from "./historyScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import serverurl from '../../../../config/const/serverurl';
@@ -113,15 +113,9 @@ class historyScreen extends Component{
             />
           )}
         />
-        <Modal          
-          animationType={'none'}
-          transparent={true}
-          visible={isShowModal}
-          onRequestClose={()=>{}}>
-          <View style={styles.progressWrap}>
-            <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
-          </View>          
-        </Modal>
+        <ProgressBar 
+          isPending={isShowModal}
+        />
       </View>
     )
   }
