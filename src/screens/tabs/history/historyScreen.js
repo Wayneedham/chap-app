@@ -69,12 +69,19 @@ class historyScreen extends Component{
     this.props.navigation.navigate("create", {reloadHorseList: this.reloadHorseList});
   }
 
-  onSearchName(){
-    const{searchName} = this.state;
-  }
-
   render(){
-    const{horseList, isShowModal} = this.state;
+    const{horseList, isShowModal, searchName} = this.state;
+    let filterList = [];
+    if(searchName !== "" && horseList.length > 0){      
+      horseList.map(item=>{
+        if(item.name.toLowerCase().includes(searchName.toLowerCase())){
+          filterList.push(item);
+        }
+      })
+    }else{
+      filterList = horseList;
+    }
+
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
@@ -89,16 +96,15 @@ class historyScreen extends Component{
           <TextInput 
             placeholder="Search Name"            
             inlineImageLeft="search_icon"
-            returnKeyType="search"
+            returnKeyType="done"
             onChangeText={text => {this.setState({searchName: text})}}
-            onSubmitEditing={()=>{this.onSearchName()}}
           />
         </View>
         <FlatList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={horseList}
+          data={filterList}
           renderItem={({ item, index }) => (
             <HorseListItem
               key={index}

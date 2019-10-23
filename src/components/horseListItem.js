@@ -1,10 +1,7 @@
 import React from "react";
 import {
   Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert
+  TouchableOpacity
 } from "react-native";
 import FastImage from 'react-native-fast-image';
 import styles from "./horseListItemStyle";
@@ -21,7 +18,7 @@ class horseListItem extends React.Component{
           source={{ uri: horseItem.file }}
         />
         <Text>
-          {"Image Type: " + horseItem.image_type}
+          {"Name: " + horseItem.name}
         </Text>
         <Text>
           {"Age: " + parseFloat(age).toFixed(3)}
