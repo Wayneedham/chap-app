@@ -35,6 +35,18 @@ class detectComponent extends Component{
     };
     this.onSelectImgType = this.onSelectImgType.bind(this);
   }
+
+  componentWillReceiveProps(nextProps){  
+    if(nextProps.initData && this.props.initData !== nextProps.initData){
+      this.setState({
+        txt_img_desc: "",
+        txt_img_type: "lower",
+        txt_img_name: "",
+        imgSrc: "",
+        imgURI: ""
+      })
+    }
+  }
   
   showAlert(message) {
     Alert.alert(
@@ -70,10 +82,6 @@ class detectComponent extends Component{
       return;
     }
 
-    if (txt_img_desc === "") {
-      this.showAlert("Enter description please.");
-      return;
-    }
     const userData = new FormData()
     userData.append('user', window.currentUser["id"]);
     userData.append('image_type', txt_img_type);
@@ -163,7 +171,7 @@ _pickImage = async () => {
           </View>
           <TextField 
             style={styles.detailsTxtWrap}
-            label={"Image Description"}
+            label={"Image Description(Optional)"}
             multiline={true}  
             value={txt_img_desc}
             onChangeText={text => this.setState({ txt_img_desc: text })}

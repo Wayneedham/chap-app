@@ -13,7 +13,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as userActions from "../../../actions/userActions";
-import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+// import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import {getListError, getListSuccess, getListPending} from '../../../reducers/fetchhistory';
 import HorseListItem from "../../../components/horseListItem";
 import ProgressBar from "../../../components/progressBar";
 import styles from "./historyScreenStyle";
@@ -32,8 +33,7 @@ class historyScreen extends Component{
     this.reloadHorseList = this.reloadHorseList.bind(this);
   }
 
-  componentDidMount(){
-    console.log("current=", window.currentUser);
+  componentDidMount(){    
     this.props.actions.fetchHorseList(window.currentUser["id"]);
     this.setState({isShowModal: true});
   }
@@ -122,9 +122,9 @@ class historyScreen extends Component{
 }
 
 const mapStateToProps = state => ({
-  error: getDataError(state.fetchdata),
-  data: getDataSuccess(state.fetchdata),
-  pending: getDataPending(state.fetchdata)
+  error: getListError(state.fetchhistory),
+  data: getListSuccess(state.fetchhistory),
+  pending: getListPending(state.fetchhistory)
 })
 
 const mapDispatchToProps = dispatch => ({

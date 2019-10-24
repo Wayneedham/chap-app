@@ -54,8 +54,6 @@ class courseScreen extends Component{
   }
 
   onProcessPayment (token){
-    console.log("token ==", token);
-    console.log("current==", window.currentUser);
     const userData = new FormData()
     userData.append('user', window.currentUser["id"]);
     userData.append('token', token);
@@ -76,7 +74,6 @@ class courseScreen extends Component{
   }
 
   onVideoPlay =(url)=>{
-    console.log("urlll===", url);
     this.setState({videoURL: url, isShowModal: true})
   }
 

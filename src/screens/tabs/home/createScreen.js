@@ -9,7 +9,6 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as Progress from "react-native-progress";
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
@@ -23,7 +22,8 @@ class createScreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      isShowModal: this.props.pending
+      isShowModal: false,
+      initData: false
     };    
   }
   
@@ -44,7 +44,7 @@ class createScreen extends Component{
           "",
           "The image was detected successfully.",
           [{ text: "OK", onPress: () => {
-            this.setState({isShowModal: false});            
+            this.setState({isShowModal: false, initData: true});            
           }}],
           { cancelable: false }
         );
@@ -60,7 +60,7 @@ class createScreen extends Component{
   }
 
   render(){
-    const{isShowModal} = this.state;
+    const{isShowModal, initData} = this.state;
     // const{pending} = this.props;
     return(
       <ScrollView style={styles.container}>
@@ -70,6 +70,7 @@ class createScreen extends Component{
         />
         <DetectComponent 
           onPostHorse={this.onCreateDetect}
+          initData={initData}
         />        
         <ProgressBar isPending={isShowModal}/>
       </ScrollView>

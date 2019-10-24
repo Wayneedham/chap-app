@@ -4,6 +4,7 @@ import {FETCH_DATA_PENDING, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR} from '../actio
 const initialState = {
     pending: false,
     data: "",
+    historyLis:[],
     error: null
 }
 
@@ -44,6 +45,6 @@ function getReduxInfo(payload, TYPE){
 
 export const setReduxAddInfo = (payload) => {
     return (dispatch, getState) => {
-      return dispatch(getReduxInfo(payload, FETCH_DATA_SUCCESS));
+        return dispatch(getReduxInfo(payload, FETCH_DATA_SUCCESS));
     }
-  }
+}

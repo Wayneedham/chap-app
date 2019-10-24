@@ -5,11 +5,27 @@ import {
   Modal
 } from 'react-native';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import VideoPlayer from 'react-native-video-controls';
+import stripe from "tipsi-stripe";
 
+import * as userActions from "../../../actions/userActions";
+import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import ProgressBar from "../../../components/progressBar";
 import CourseItem from "../../../components/courseItem";
 import CustomBar from "../../../components/customBar";
 import styles from "./videoScreenStyle";
+
+stripe.setOptions({
+  publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
+});
+const optionsCardForm = {
+  theme: {
+    primaryForegroundColor: "#585F6F",
+    accentColor: "#FFCF1B"
+  }
+};
 
 class courseScreen extends Component{
 
@@ -17,12 +33,45 @@ class courseScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
+      isPending: false,
       videoURL: ""
     };   
   }
 
-  onSubScribe =()=>{
+  componentWillReceiveProps(nextProps){
+    console.log("nextProps === ", nextProps);
+    this.setState({ isPending: nextProps.pending });
+    if(nextProps.pending === false){
+      const responseData = nextProps.data;
+      if(Object.keys(responseData).includes("message")){
+        console.log("purchase error")
+      }
+      else if(Object.keys(responseData).includes("id")){
+        console.log("purchase success ==", responseData);       
+        window.currentUser = responseData;
+        userActions._storeData("userInfo", responseData);
+      }
+    }
+  }
 
+  onProcessPayment (token){
+    const userData = new FormData()
+    userData.append('user', window.currentUser["id"]);
+    userData.append('token', token);
+    userData.append('type', "video");
+    this.props.actions.videoPurchase(userData);
+  }
+
+  onSubScribe =()=>{
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error });    
+    });
   }
 
   onVideoPlay =(url)=>{
@@ -34,7 +83,7 @@ class courseScreen extends Component{
   }
 
   render(){
-    const{isShowModal, videoURL} = this.state;
+    const{isShowModal, videoURL, isPending} = this.state;
     return(
       <View style={styles.container}>
         <CustomBar 
@@ -43,7 +92,7 @@ class courseScreen extends Component{
         />
         <View style={styles.course_container}>
           <CourseItem 
-            isSubscribe={false}
+            isSubscribe={window.currentUser["is_video"]}
             onSubScribe={this.onSubScribe}
             onVideoPlay={this.onVideoPlay}
             courseTitleText={"Course 1"}
@@ -51,7 +100,7 @@ class courseScreen extends Component{
             URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
           />
           <CourseItem 
-            isSubscribe={true}
+            isSubscribe={window.currentUser["is_video"]}
             onSubScribe={this.onSubScribe}
             onVideoPlay={this.onVideoPlay}
             courseTitleText={"Course 2"}
@@ -59,6 +108,11 @@ class courseScreen extends Component{
             URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
           />
         </View>
+
+        <ProgressBar 
+          isPending={isPending}
+        />
+
         <Modal
           animationType="slide"
           transparent={false}
@@ -74,4 +128,22 @@ class courseScreen extends Component{
   }
 }
 
-export default courseScreen;
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      videoPurchase: userActions.videoPurchase,
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(courseScreen);

@@ -2,7 +2,14 @@
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage , Platform} from "react-native"
 import serverurl from '../../config/const/serverurl'; 
-import {fetchDataPending, fetchDataSuccess, fetchDataError} from './actions';
+import {
+  fetchDataPending, 
+  fetchDataSuccess, 
+  fetchDataError,
+  fetchListPending,
+  fetchListSuccess,
+  fetchListError
+} from './actions';
 
 var { FBLoginManager } = require("react-native-facebook-login");
   
@@ -126,6 +133,9 @@ export async function fbLogin(token, props) {
       .then(res => res.json())
       .then(res => {
         dispatch(fetchDataSuccess(res));
+        const allList = res["all"];
+        console.log("allList == ", allList);
+        dispatch(fetchListSuccess(allList));
         return res;
       })
       .catch(error => {
@@ -137,15 +147,15 @@ export async function fbLogin(token, props) {
   export function fetchHorseList(userID){ 
     const url = serverurl.basic_url + 'detections/'+userID;
     return dispatch => {
-      dispatch(fetchDataPending());
+      dispatch(fetchListPending());
       fetch(url)
       .then(res => res.json())
       .then(res => {
-        dispatch(fetchDataSuccess(res));
+        dispatch(fetchListSuccess(res));
         return res;
       })
       .catch(error => {
-        dispatch(fetchDataError(error));
+        dispatch(fetchListError(error));
       })
     }
   }

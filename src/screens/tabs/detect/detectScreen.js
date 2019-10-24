@@ -14,10 +14,8 @@ import * as Progress from "react-native-progress";
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
-import CustomBar from "../../../components/customBar";
 import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
-
 
 
 
@@ -25,7 +23,8 @@ class detectScreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      isShowModal: this.props.pending
+      isShowModal: false,
+      initData: false
     };    
   }
   
@@ -46,7 +45,7 @@ class detectScreen extends Component{
           "",
           "The image was detected successfully.",
           [{ text: "OK", onPress: () => {
-            this.setState({isShowModal: false});            
+            this.setState({isShowModal: false, initData: true});            
           }}],
           { cancelable: false }
         );
@@ -62,13 +61,14 @@ class detectScreen extends Component{
   }
 
   render(){
-    const{isShowModal} = this.state;
+    const{isShowModal, initData} = this.state;
     // const{pending} = this.props;
     return(
       <ScrollView style={styles.container}>
         <Text style={[styles.title, fonts.montserrat_bold]}>New</Text>
         <DetectComponent 
           onPostHorse={this.onCreateDetect}
+          initData={initData}
         />        
         <Modal          
           animationType={'none'}
