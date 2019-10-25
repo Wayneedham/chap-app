@@ -40,6 +40,10 @@ class settingScreen extends Component{
   onChangePassword(){
     this.props.navigation.navigate("changepwd");
   }
+
+  onMembership(){
+    this.props.navigation.navigate("membership");
+  }
   
 
   render(){
@@ -61,7 +65,7 @@ class settingScreen extends Component{
           onPress={()=>this.onChangePassword()}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Change Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item_wrap}>
+        <TouchableOpacity style={styles.item_wrap} onPress={()=>this.onMembership()}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Upgrade Membership</Text>
         </TouchableOpacity>
 

@@ -11,6 +11,7 @@ import aboutScreen from "./home/aboutScreen";
 
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
+import membershipScreen from "./setting/membershipScreen";
 import changePwdScreen from "./setting/changePwdScreen";
 
 import courseScreen from "./videos/courseScreen";
@@ -77,6 +78,9 @@ export const SettingStack = StackNavigator(
     },
     changepwd:{
       screen: changePwdScreen
+    },
+    membership:{
+      screen: membershipScreen
     }
   },
   {

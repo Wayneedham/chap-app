@@ -34,17 +34,31 @@ class profileScreen extends Component{
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({ isPending: nextProps.pending });
+  componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){
-        console.log("profile error=", responseData)
+      if(Object.keys(responseData).includes("message")){       
         this.showAlert(responseData["message"]);
+        Alert.alert(
+          "",
+          responseData["message"],
+          [{ text: "OK", onPress: () => {
+            this.setState({isPending: false});            
+          }}],
+          { cancelable: false }
+        ); 
       }
-      else if(Object.keys(responseData).includes("id")){
-        console.log("profile success ==", responseData);    
-        this.showAlert("You updated account successfully.");   
+      else if(Object.keys(responseData).includes("id")){         
+        window.currentUser = responseData;
+        userActions._storeData("userInfo", responseData);
+        Alert.alert(
+          "",
+          "You updated account successfully.",
+          [{ text: "OK", onPress: () => {
+            this.setState({isPending: false});            
+          }}],
+          { cancelable: false }
+        );       
       }
     }
   }
@@ -58,6 +72,7 @@ class profileScreen extends Component{
       return;
     }
 
+    this.setState({isPending: true});     
     const userData = new FormData();
     userData.append('user_id', window.currentUser["id"]);
     userData.append('email', userEmail);      
