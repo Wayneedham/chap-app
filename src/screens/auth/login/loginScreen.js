@@ -7,9 +7,18 @@ import {
   PermissionsAndroid,
   Platform
 } from 'react-native';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
+import DialogInput from 'react-native-dialog-input';
 import { TextField } from "react-native-material-textfield";
+
+import * as userActions from "../../../actions/userActions";
+import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import LoginComponent from "../../../components/login";
+import ProgressBar from "../../../components/progressBar";
+import serverurl from '../../../../config/const/serverurl';
 import styles from "../authScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -20,8 +29,14 @@ class loginScreen extends Component {
     this.state = {
       userEmail: "",
       userPwd: "",
-      hidePassword: true
+      isShowModal: false,
+      hidePassword: true,
+      isDialogVisible: false
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("forgot === ", nextProps);
   }
 
   async requestCameraPermission() {
@@ -37,9 +52,6 @@ class loginScreen extends Component {
     }
   }
 
-  componentDidMount(){
-  }
-
   async componentWillMount(){
     if(Platform.OS === 'android')
     {
@@ -48,11 +60,9 @@ class loginScreen extends Component {
   }
 
   togglePassword() {
-    if (this.state.hidePassword == true) {
-      console.log("hide");
+    if (this.state.hidePassword == true) {     
       this.setState({ hidePassword: false });
-    } else {
-      console.log("show");
+    } else {      
       this.setState({ hidePassword: true });
     }
   }
@@ -65,8 +75,23 @@ class loginScreen extends Component {
     Actions.signupScreen();
   }
 
+  onForgotPassword(){
+    this.setState({isDialogVisible: true});
+  }
+
+  onSendPassword(email){   
+    if(userActions.verficationEmail(email)){
+      const url = serverurl.basic_url + 'forgotpassword';
+      const userData = new FormData();
+      userData.append('email', email);
+
+      this.props.actions.forgotPassword(userData, url);  
+      this.setState({isDialogVisible: false});
+    }    
+  }
+
   render() {
-    const { userEmail, userPwd, hidePassword } = this.state;
+    const { userEmail, userPwd, hidePassword, isDialogVisible, isShowModal } = this.state;
     return (
       <View style={styles.container}>
         <Text style={[styles.txt_title, fonts.montserrat_bold]}>
@@ -109,7 +134,7 @@ class loginScreen extends Component {
 
         <TouchableOpacity
           style={{ flexDirection: "row", marginTop: 25 }}
-          onPress={() => Actions.forgotPassword()}
+          onPress={() => this.onForgotPassword()}
         >
           <Text style={[styles.already_txt, fonts.montserrat_regular]}>
             Forgot password ? 
@@ -147,9 +172,40 @@ class loginScreen extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+
+        <DialogInput 
+          isDialogVisible={isDialogVisible}
+          title={"Forgot Password"}
+          message={"Enter your email address please."}
+          hintInput ={"Email address"}
+          submitInput={ (inputText) => {this.onSendPassword(inputText)} }
+          closeDialog={ () => {this.setState({isDialogVisible: false})}}>
+        </DialogInput>
+
+        <ProgressBar 
+          isPending={isShowModal}
+        />
       </View>
     );
   }
 }
 
-export default loginScreen;
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      forgotPassword: userActions.postRequest,
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(loginScreen);

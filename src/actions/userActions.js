@@ -17,65 +17,70 @@ export function verficationEmail(mail) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(mail);
 }
+
 export function verficationPassword(passwd) {
     return passwd.length > 7 && passwd.length < 31;
 }
 
-export async function handleFacebookLogin (props) {
-  try {
+export function handleFacebookLogin () {
+  return dispatch => {
+    dispatch(fetchDataPending());
     if (Platform.OS === "android")
-        FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.WebView);
-        FBLoginManager.loginWithPermissions(
-          ["email", "public_profile"],
-          (error, data) => {
-          if (!error) {
-              console.log("Login data: ", data.credentials.token);
-              const token = data.credentials.token;
-              fbLogin(token, props);
-          } else {
-              console.log("Error: ", error);
-          }
+      FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.WebView);
+    FBLoginManager.loginWithPermissions(["email", "public_profile"], async(error, data) => {
+        if (!error) {
+          const token = data.credentials.token;
+          const response = await fetch(
+            `https://graph.facebook.com/v2.5/me?fields=email,name,gender,birthday,work,about,education&access_token=` +
+              token
+          );
+          var fbUser = await response.json();
+          var names  = fbUser.name.split(" ");
+    
+          const userData = new FormData()
+          userData.append('email', fbUser.email);
+          userData.append('last_name', names[0]);
+          userData.append('first_name', names[1]);
+          userData.append('is_social', true);
+          
+          console.log("social ==", userData);
+          const url = serverurl.basic_url + 'sociallogin';
+          fetch(url , {
+            method: "post",
+            body: userData
+          })
+          .then(res => res.json())
+          .then(res => {
+            dispatch(fetchDataSuccess(res));
+            return res;
+          })
+          .catch(error => {
+            dispatch(fetchDataError(error));
+          })
+        }else{
+          dispatch(fetchDataError(error));
         }
+      }
     );
-    } catch (err) {
-    console.log(err);
   }
 }
 
-export async function fbLogin(token, props) {
-    const databaseRef = firebaseService.database().ref("users");
+export async function fbLogin(token, props) {   
     const response = await fetch(
       `https://graph.facebook.com/v2.5/me?fields=email,name,gender,birthday,work,about,education&access_token=` +
         token
     );
     var fbUser = await response.json();
-  
-    createdUser.Pseudo = fbUser.name;
-    createdUser.Email = fbUser.email;
-    createdUser.isFBLogin = true;
-  
-    databaseRef
-      .orderByChild("Email")
-      .equalTo(createdUser.Email)
-      .once("value", snapshot => {
-        if (snapshot.val() === null) {
-          Actions.signupCapitalScreen({ user: createdUser, pwd: token });
-        } else {
-          snapshot.forEach(child => {
-            window.currentUser = child.val();
-          });
-  
-          let userInfo = {
-            username: createdUser.Email,
-            userpwd: token,
-            loginMethod: "facebook",
-            ID: window.currentUser["userID"]
-          };
-          _storeData("userInfo", userInfo);
-          _storeData("logged", true);
-          Actions.customTabNavigator();
-        }
-      });
+    var names  = fbUser.name.split(" ");
+    const userData = new FormData()
+    userData.append('email', fbUser.email);
+    userData.append('last_name', names[0]);
+    userData.append('first_name', names[1]);
+    userData.append('is_social', true);
+
+    console.log("social ==", userData);
+    const url = serverurl.basic_url + 'sociallogin';
+    postRequest(userData, url);
   }
 
   export async function fblogOut() {

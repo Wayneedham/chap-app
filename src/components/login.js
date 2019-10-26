@@ -16,6 +16,7 @@ import {
 
 import * as userActions from "../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../reducers/fetchdata';
+import { setReduxAddInfo } from "../reducers/fetchdata";
 
 import styles from "./loginStyle";
 import fonts from "../sharedStyles/fontStyle";
@@ -35,8 +36,13 @@ class LoginComponent extends React.Component {
     this.setState({ isLoading: nextProps.pending });
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){
-        console.log("login error")
+      if(Object.keys(responseData).includes("message")){       
+        Alert.alert(
+          "",
+          responseData["message"],
+          [{ text: "OK", onPress: () => {this.props.actions.initResponseData("");}}],
+          { cancelable: false }
+        );
       }
       else if(Object.keys(responseData).includes("id")){
         console.log("login success");
@@ -58,6 +64,7 @@ class LoginComponent extends React.Component {
 
   onFacebook() {
     console.log("facebook login");
+    this.props.actions.userSocialLogin();
   }
 
   async checkMailExist(mail) {
@@ -192,7 +199,9 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       userLogin: userActions.userLogin,
-      userSignup: userActions.userSignup
+      userSocialLogin: userActions.handleFacebookLogin,
+      userSignup: userActions.userSignup,
+      initResponseData: setReduxAddInfo
     },
     dispatch
   )

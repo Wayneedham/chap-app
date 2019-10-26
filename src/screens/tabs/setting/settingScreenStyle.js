@@ -61,6 +61,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#D2D4D8",
     borderBottomWidth: 1
   },
+  item_wrap_txt_social:{
+    fontSize: responsiveFontSize(1.9),
+    color: "#AEAEAE"
+  },
   item_wrap:{
     paddingHorizontal: 20,
     justifyContent: "center",

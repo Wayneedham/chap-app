@@ -4,7 +4,8 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  Alert
+  Alert,
+  Linking
 } from 'react-native';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -28,6 +29,7 @@ class settingScreen extends Component{
   }
 
   onUserLogout(){
+    userActions.fblogOut();
     this.props.actions.initReduxData("");
     userActions.clearData();
     Actions.reset("loginScreen");
@@ -44,9 +46,14 @@ class settingScreen extends Component{
   onMembership(){
     this.props.navigation.navigate("membership");
   }
-  
 
-  render(){
+  onContactSupport(){
+    Linking.openURL('mailto:support@chap.com');
+  }
+
+  render(){   
+    const isPremium = window.currentUser["is_premium"];
+    const isSocial = window.currentUser["is_social"];
     return(
       <View style={styles.container}>
         <Text style={[styles.title, fonts.montserrat_bold]}>Setttings</Text>
@@ -56,20 +63,32 @@ class settingScreen extends Component{
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>My Account</Text>
           <View style={styles.pro}>
             <Text style={[styles.proText, fonts.montserrat_semibold]}>
-              FREE
+              {isPremium ? "PRO" : "FREE"}
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.item_wrap} 
-          onPress={()=>this.onChangePassword()}>
-          <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Change Password</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.item_wrap} onPress={()=>this.onMembership()}>
-          <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Upgrade Membership</Text>
-        </TouchableOpacity>
+        {
+          isSocial ? (
+            <View style={styles.item_wrap}>
+              <Text style={[styles.item_wrap_txt_social, fonts.montserrat_regular]}>Change Password</Text>
+            </View>
+          ) : (
+            <TouchableOpacity 
+              style={styles.item_wrap} 
+              onPress={()=>this.onChangePassword()}>
+              <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Change Password</Text>
+            </TouchableOpacity>
+          )
+        }
+        {
+          isPremium === false && (
+            <TouchableOpacity style={styles.item_wrap} onPress={()=>this.onMembership()}>
+              <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Upgrade Membership</Text>
+            </TouchableOpacity>
+          )
+        }
 
-        <TouchableOpacity style={[styles.item_wrap, {marginTop: 50}, styles.item_wrap_top_border]}>
+        <TouchableOpacity style={[styles.item_wrap, {marginTop: 50}, styles.item_wrap_top_border]} onPress={()=>this.onContactSupport()}>
           <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>Contact Support</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.item_wrap, styles.log_out_wrap, styles.item_wrap_top_border]} onPress={()=>this.onLogout()}>

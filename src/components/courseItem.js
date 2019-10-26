@@ -11,25 +11,17 @@ import fonts from "../sharedStyles/fontStyle";
 
 class CourseItem extends Component{
   render(){
-    const{courseTitleText, courseDetailText, isSubscribe, URL} = this.props;
+    const{URL} = this.props;
     return(
       <View style={styles.courseWrap}>       
         <View style={styles.subscribeWrap}>
-          {
-            isSubscribe ? (
-              <TouchableOpacity onPress={()=>this.props.onVideoPlay(URL)}>
-                <Image 
-                  style={styles.videoPlayImg}
-                  resizeMode="contain"
-                  source={require("../../assets/icons/icon_videoplay.png")}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.props.onSubScribe()}>
-                <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Subscribe Now</Text>
-              </TouchableOpacity>
-            )
-          }          
+          <TouchableOpacity onPress={()=>this.props.onVideoPlay(URL)}>
+            <Image 
+              style={styles.videoPlayImg}
+              resizeMode="contain"
+              source={require("../../assets/icons/icon_videoplay.png")}
+            />
+          </TouchableOpacity>     
         </View>
       </View>
     )

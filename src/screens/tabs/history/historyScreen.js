@@ -3,10 +3,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
   FlatList,
-  TextInput,
-  Modal
+  TextInput
 } from 'react-native';
 
 import { connect } from 'react-redux';

@@ -1,17 +1,15 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
+import { StyleSheet} from "react-native";
 import { responsiveHeight,
          responsiveWidth,
          responsiveFontSize
 } from 'react-native-responsive-dimensions';
-import colorStyle from "../../../sharedStyles/colorStyle";
+import colorStyle from "../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingHorizontal: responsiveWidth(3),
     paddingTop: 30,
-    flexDirection: "column",
-    backgroundColor: "white"
+    backgroundColor: "#F9F9F9"
   },
   aboutTxt:{   
     fontSize: responsiveFontSize(2),
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
   subscribeWrap:{
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30
+    marginVertical: 30
   },
   subscribeBtn:{
     width: responsiveWidth(70),

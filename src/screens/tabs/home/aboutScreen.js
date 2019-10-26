@@ -38,12 +38,8 @@ class aboutScreen extends Component{
           <Image 
             source={require("../../../../assets/image/horse_2.jpg")}
             resizeMode={"contain"}
-            style={styles.horseImg}
+            style={[styles.horseImg, {marginBottom: 100}]}
           />
-          <Text style={[styles.aboutTxt, fonts.montserrat_regular, {marginBottom: 100}]}>
-            About monthly subscription:
-            {"\n"}{"\n"}They get unlimited aging for $20 per month. $10 is how much they pay per each use if not on the unlimited program
-          </Text>
         </ScrollView>
       </View>
       
