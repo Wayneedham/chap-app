@@ -9,12 +9,11 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as Progress from "react-native-progress";
 import stripe from "tipsi-stripe";
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
-import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import ProgressBar from "../../../components/progressBar";
 import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -43,7 +42,6 @@ class detectScreen extends Component{
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      console.log("test == ", responseData);
       
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
@@ -54,7 +52,8 @@ class detectScreen extends Component{
             "",
             responseData["message"],
             [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false});              
+              this.setState({isShowModal: false});     
+              this.props.actions.initReduxData("");         
             } }],
             { cancelable: false }
           );
@@ -76,7 +75,6 @@ class detectScreen extends Component{
   }
 
   onCreateDetect =(userData)=>{    
-    console.log("userData==", userData);
     postDetectData = userData;
     
     const isFreeUser = window.currentUser["is_premium"];
@@ -95,6 +93,7 @@ class detectScreen extends Component{
     }else{
       this.setState({isShowModal: true});
       this.props.actions.postHorse(userData);
+      postDetectData = "";
     }    
   }
 
@@ -116,6 +115,7 @@ class detectScreen extends Component{
     })
     .catch(error => {
       console.warn("Payment failed", { error });    
+      this.setState({isShowModal: false}); 
     });
   }
 
@@ -149,6 +149,7 @@ const mapDispatchToProps = dispatch => ({
     {
       postHorse: userActions.postNewHorse,
       detectPurchase: userActions.videoPurchase,
+      initReduxData: setReduxAddInfo
     },
     dispatch
   )

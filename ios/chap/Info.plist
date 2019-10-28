@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1.2</string>
 	<key>FacebookAppID</key>
 	<string>2243234166004919</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -58,7 +58,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow to use camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please allow to use photo gallery.</string>
 	<key>UIAppFonts</key>

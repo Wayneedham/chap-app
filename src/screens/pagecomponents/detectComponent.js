@@ -10,6 +10,7 @@ import {
 import ActionSheet from 'react-native-actionsheet';
 import { TextField } from "react-native-material-textfield";
 import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
 
 import RadioButton from "../../components/radioButton"; 
 import styles from "./detectComponentStyle";
@@ -134,8 +135,28 @@ _pickImage = async () => {
         }
     ImagePicker.launchImageLibrary(options, (response) => {    
         if (!response.didCancel) {
-          let source = { uri: response.uri };
-          this.setState({imgSrc: source, imgURI: response.uri});
+          Image.getSize( response.uri, ( width, height ) =>
+          {
+              let imgScale = 1;
+              console.log("height ===", height);
+              console.log("width ===", width);
+              if(width > 2500 || height > 2500){
+                imgScale = 0.5;
+              }
+              ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
+                  .then(({uri}) => {
+                    let source = { uri };
+                    this.setState({imgSrc: source, imgURI: uri});
+                })
+                  .catch( err => {
+                      console.log('error=', err);
+              });   
+          }, ( error ) =>
+          {              
+              console.log( error );
+          });
+          // let source = { uri: response.uri };
+          // this.setState({imgSrc: source, imgURI: response.uri});
         }
     });
 }
