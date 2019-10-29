@@ -15,9 +15,10 @@ import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import ProgressBar from "../../../components/progressBar";
+import DetectModal from "../../../components/detectModal";
 import CustomBar from "../../../components/customBar";
 import styles from "./createScreenStyle";
-
+import serverurl from '../../../../config/const/serverurl';
 
 stripe.setOptions({
   publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
@@ -36,7 +37,9 @@ class createScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
-      initData: false
+      initData: false,
+      recentData: "",
+      isRecent: false
     };    
   }
   
@@ -65,7 +68,10 @@ class createScreen extends Component{
             "",
             "The image was detected successfully.",
             [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false, initData: true});            
+              this.setState({isShowModal: false, initData: true}); 
+              const recentData = responseData["recent"];  
+              recentData["file"] = serverurl.server_url + recentData["file"];              
+              this.setState({recentData: recentData, isRecent: true});              
             }}],
             { cancelable: false }
           );
@@ -120,8 +126,12 @@ class createScreen extends Component{
     });
   }
 
+  onDismissRecent =()=>{
+    this.setState({recentData: "", isRecent: false});
+  }
+
   render(){
-    const{isShowModal, initData} = this.state;
+    const{isShowModal, initData, recentData, isRecent} = this.state;
     // const{pending} = this.props;
     return(
       <ScrollView style={styles.container}>
@@ -134,6 +144,11 @@ class createScreen extends Component{
           initData={initData}
         />        
         <ProgressBar isPending={isShowModal}/>
+        <DetectModal 
+          recentData={recentData}
+          isRecent={isRecent}
+          onDone={this.onDismissRecent}
+        />
       </ScrollView>
     )
   }

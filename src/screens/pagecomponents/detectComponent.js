@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 
 import RadioButton from "../../components/radioButton"; 
+import HelpComopnent from "../pagecomponents/helpComponent";
 import styles from "./detectComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
 
@@ -29,6 +30,7 @@ class detectComponent extends Component{
       imgSrc: "",
       imgURI: "",
       isShowModal: this.props.pending,
+      isHelpModal: false,
       radioOptions:  [
         {key: 'lower', text: "Lower", selected: true },
         {key: 'upper', text: "Upper", selected: false }
@@ -124,43 +126,47 @@ class detectComponent extends Component{
           this.setState({imgSrc: source, imgURI: response.uri});
         }
     });  
-}
+  }
 
-_pickImage = async () => {
-    let options = {
-            mediaType: 'photo',
-            quality: 1,
-            allowsEditing: true,
-            aspect: [4, 3],
-        }
-    ImagePicker.launchImageLibrary(options, (response) => {    
-        if (!response.didCancel) {
-          Image.getSize( response.uri, ( width, height ) =>
-          {
-              let imgScale = 1;
-              if(width > 3000 || height > 3000){
-                imgScale = 0.5;
-              }
-              ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
-                  .then(({uri}) => {
-                    let source = { uri };
-                    this.setState({imgSrc: source, imgURI: uri});
-                })
-                  .catch( err => {
-                      console.log('error=', err);
-              });   
-          }, ( error ) =>
-          {              
-              console.log( error );
-          });
-          // let source = { uri: response.uri };
-          // this.setState({imgSrc: source, imgURI: response.uri});
-        }
-    });
-}
+  _pickImage = async () => {
+      let options = {
+              mediaType: 'photo',
+              quality: 1,
+              allowsEditing: true,
+              aspect: [4, 3],
+          }
+      ImagePicker.launchImageLibrary(options, (response) => {    
+          if (!response.didCancel) {
+            Image.getSize( response.uri, ( width, height ) =>
+            {
+                let imgScale = 1;
+                if(width > 3000 || height > 3000){
+                  imgScale = 0.5;
+                }
+                ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
+                    .then(({uri}) => {
+                      let source = { uri };
+                      this.setState({imgSrc: source, imgURI: uri});
+                  })
+                    .catch( err => {
+                        console.log('error=', err);
+                });   
+            }, ( error ) =>
+            {              
+                console.log( error );
+            });
+            // let source = { uri: response.uri };
+            // this.setState({imgSrc: source, imgURI: response.uri});
+          }
+      });
+  }
+
+  onShowHelp(flag){
+    this.setState({isHelpModal: flag});
+  }
 
   render(){
-    const{txt_img_desc, txt_img_name, radioOptions, imgSrc} = this.state;
+    const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isHelpModal} = this.state;
     // const{pending} = this.props;
     return(
       <View>
@@ -182,7 +188,15 @@ _pickImage = async () => {
             onChangeText={text => this.setState({ txt_img_name: text })}
           />
           <View>
-            <Text style={[styles.imgTypeTxt, fonts.montserrat_regular]}>Select Image Type</Text>
+            <View style={styles.rowWrap}>
+              <Text style={[styles.imgTypeTxt, fonts.montserrat_regular]}>Select Image Type</Text>
+              <TouchableOpacity style={styles.helpWrap} onPress={()=>this.onShowHelp(true)}>
+                <Image 
+                  source={require("../../../assets/icons/icon_help.png")}
+                  style={styles.helpIcon}
+                />
+              </TouchableOpacity>
+            </View>
             <RadioButton 
               options={radioOptions} 
               onSelectImgType={this.onSelectImgType}
@@ -209,6 +223,11 @@ _pickImage = async () => {
           options={actionOptions}
           cancelButtonIndex={CANCEL_INDEX}
           onPress={this.handlePhotoPress}
+        />
+
+        <HelpComopnent 
+          isShow={isHelpModal}
+          onDone={()=>{this.onShowHelp(false)}}
         />
       </View>
     )

@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import {
-  View,
   Text,
   ScrollView,
-  Alert,
-  Modal
+  Alert
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import stripe from "tipsi-stripe";
-import FastImage from 'react-native-fast-image';
-import {
-  responsiveWidth
-} from 'react-native-responsive-dimensions';
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
@@ -74,8 +68,7 @@ class detectScreen extends Component{
             [{ text: "OK", onPress: () => {
               this.setState({isShowModal: false, initData: true});     
               const recentData = responseData["recent"];  
-              recentData["file"] = serverurl.server_url + recentData["file"];
-              console.log("recentData===", recentData); 
+              recentData["file"] = serverurl.server_url + recentData["file"];              
               this.setState({recentData: recentData, isRecent: true});    
             }}],
             { cancelable: false }

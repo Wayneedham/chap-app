@@ -36,6 +36,17 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontSize: responsiveFontSize(2)
   },
+  rowWrap:{
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  helpWrap:{
+    marginLeft: 10
+  },
+  helpIcon:{
+    width: 20,
+    height: 20
+  },
   imgTypeTxt:{
     marginVertical: 10,
     fontSize: responsiveFontSize(2),
