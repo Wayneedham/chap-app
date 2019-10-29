@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   subscribeWrap:{
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30
+    marginTop: 20
   },
   subscribeBtn:{
     width: responsiveWidth(70),

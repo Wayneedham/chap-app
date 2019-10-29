@@ -7,6 +7,7 @@ import {
   responsiveWidth
 } from 'react-native-responsive-dimensions';
 import FastImage from 'react-native-fast-image';
+import moment from "moment";
 
 import CustomBar from "../../../components/customBar";
 import styles from "./detailScreenStyle";
@@ -21,7 +22,6 @@ class detailScreen extends Component{
   }
 
   goBack = () => {
-    // Actions.pop();
     this.props.navigation.goBack();
   }
 
@@ -47,6 +47,9 @@ class detailScreen extends Component{
               })}
           />
           <View style={styles.detail_txt_wrap}>
+            <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+            {"Uploaded At: "}<Text style={[fonts.montserrat_regular]}>{moment(detailItem.uploaded_at).format('YYYY.MM.DD, h:mm:ss a')}</Text>
+            </Text>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
             {"Image Type: "}<Text style={[fonts.montserrat_regular]}>{detailItem.image_type}</Text>
             </Text>

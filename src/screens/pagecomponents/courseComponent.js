@@ -48,7 +48,7 @@ class courseComponent extends Component{
         console.log("purchase error")
       }
       else if(Object.keys(responseData).includes("id")){
-        console.log("purchase success ==", responseData);       
+        console.log("purchase success111 ==", responseData);       
         window.currentUser = responseData;
         userActions._storeData("userInfo", responseData);
       }
