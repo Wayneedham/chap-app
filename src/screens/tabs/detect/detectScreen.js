@@ -10,13 +10,19 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import stripe from "tipsi-stripe";
+import FastImage from 'react-native-fast-image';
+import {
+  responsiveWidth
+} from 'react-native-responsive-dimensions';
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import ProgressBar from "../../../components/progressBar";
+import DetectModal from "../../../components/detectModal";
 import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
+import serverurl from '../../../../config/const/serverurl';
 
 stripe.setOptions({
   publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
@@ -35,7 +41,9 @@ class detectScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
-      initData: false
+      initData: false,
+      recentData: "",
+      isRecent: false
     };    
   }
   
@@ -59,12 +67,16 @@ class detectScreen extends Component{
           );
         }
         else if(Object.keys(responseData).includes("recent")){   
-  
+          
           Alert.alert(
             "",
             "The image was detected successfully.",
             [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false, initData: true});            
+              this.setState({isShowModal: false, initData: true});     
+              const recentData = responseData["recent"];  
+              recentData["file"] = serverurl.server_url + recentData["file"];
+              console.log("recentData===", recentData); 
+              this.setState({recentData: recentData, isRecent: true});    
             }}],
             { cancelable: false }
           );
@@ -119,10 +131,12 @@ class detectScreen extends Component{
     });
   }
 
+  onDismissRecent =()=>{
+    this.setState({recentData: "", isRecent: false});
+  }
+
   render(){
-    const{isShowModal, initData} = this.state;
-    console.log("isShowModal===", isShowModal);
-    // const{pending} = this.props;
+    const{isShowModal, initData, recentData, isRecent} = this.state; 
     return(
       <ScrollView style={styles.container}>
         <Text style={[styles.title, fonts.montserrat_bold]}>New</Text>
@@ -132,6 +146,11 @@ class detectScreen extends Component{
         />        
         <ProgressBar 
           isPending={isShowModal}
+        />
+        <DetectModal 
+          recentData={recentData}
+          isRecent={isRecent}
+          onDone={this.onDismissRecent}
         />
       </ScrollView>
     )

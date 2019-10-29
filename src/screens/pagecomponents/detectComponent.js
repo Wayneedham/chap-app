@@ -138,9 +138,7 @@ _pickImage = async () => {
           Image.getSize( response.uri, ( width, height ) =>
           {
               let imgScale = 1;
-              console.log("height ===", height);
-              console.log("width ===", width);
-              if(width > 2500 || height > 2500){
+              if(width > 3000 || height > 3000){
                 imgScale = 0.5;
               }
               ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
