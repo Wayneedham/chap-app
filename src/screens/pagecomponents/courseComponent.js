@@ -87,7 +87,7 @@ class courseComponent extends Component{
     const isPurchase = window.currentUser["is_video"];
     const{isShowModal, videoURL, isPending} = this.state;
     return(
-      <View>
+      <View style={styles.container}>
         {
           isPurchase === false ? (
             <ScrollView>        
@@ -106,15 +106,16 @@ class courseComponent extends Component{
               </View>      
             </ScrollView>
           ) : (
-            <View>
-              <CourseItem                 
+            <View style={styles.videoWrap}>
+              <Text style={[styles.comeTxt, fonts.montserrat_semibold]}>Coming Soon....</Text>
+              {/* <CourseItem                 
                 onVideoPlay={this.onVideoPlay}               
                 URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
               />
               <CourseItem                 
                 onVideoPlay={this.onVideoPlay}               
                 URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
-              />
+              /> */}
             </View>
           )
         }

@@ -35,6 +35,23 @@ const styles = StyleSheet.create({
   buttonText:{
     fontSize: 20,
     color: "black"
+  },
+  helpWrap:{
+    position: "absolute",
+    bottom: 30,
+    left: 0,
+    width: responsiveWidth(100),
+    flexDirection: 'row',
+    justifyContent: "center"
+  },
+  moreTxt:{
+    fontSize: responsiveFontSize(1.4),
+    color: colorStyle.colorMainGray,
+  },
+  webTxt:{
+    fontSize: responsiveFontSize(1.4),
+    color: "green",
+    textDecorationLine: "underline"
   }
 })
 

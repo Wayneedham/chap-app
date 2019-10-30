@@ -31,6 +31,16 @@ const styles = StyleSheet.create({
   subscribeText:{
     fontSize: responsiveFontSize(2.5),
     color: colorStyle.colorMainGray
+  },
+  videoWrap:{
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%"
+  },
+  comeTxt:{
+    fontSize: responsiveFontSize(3),
+    paddingBottom: 100,
+    color: colorStyle.colorMainGray
   }
 })
 

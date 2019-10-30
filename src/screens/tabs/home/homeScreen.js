@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 
 import styles from "./homeScreenStyle";
@@ -47,6 +48,12 @@ class homeScreen extends Component{
         <TouchableOpacity style={styles.buttonWrap} onPress={this.onAbout}>
           <Text style={[styles.buttonText, fonts.montserrat_bold]}>About CHAP</Text>
         </TouchableOpacity>
+        <View style={styles.helpWrap}>
+          <Text style={styles.moreTxt}>{"For more Information, Please visit "}</Text>
+          <TouchableOpacity onPress={()=>{Linking.openURL("https://www.agemyhorse.com");}}>
+            <Text style={styles.webTxt}>www.agemyhorse.com</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
