@@ -31,6 +31,7 @@ const optionsCardForm = {
 };
 
 var postDetectData = "";
+let isUpgrade = false;
 
 class createScreen extends Component{
   constructor(props) {
@@ -62,8 +63,20 @@ class createScreen extends Component{
             { cancelable: false }
           );
         }
-        else if(Object.keys(responseData).includes("recent")){   
-  
+        else if(Object.keys(responseData).includes("id")){   
+          window.currentUser = responseData;
+          userActions._storeData("userInfo", responseData);
+          Alert.alert(
+            "",
+            "The membership was upgraded successfully.",
+            [{ text: "OK", onPress: () => {
+              this.setState({isShowModal: false});      
+            }}],
+            { cancelable: false }
+          );
+          console.log("post success  sss");     
+        }
+        else if(Object.keys(responseData).includes("recent")){ 
           Alert.alert(
             "",
             "The image was detected successfully.",
@@ -105,14 +118,38 @@ class createScreen extends Component{
   }
 
   onProcessPayment (token){
-    const userData = new FormData()
-    userData.append('user', window.currentUser["id"]);
-    userData.append('token', token);
-    userData.append('type', "detection");
-    this.props.actions.detectPurchase(userData);
+    if(isUpgrade){
+      const url = serverurl.basic_url + 'upgrade';
+      const userData = new FormData()
+      userData.append('email', window.currentUser["email"]);
+      userData.append('token', token);
+      this.props.actions.upgradeMembership(userData, url);
+    }else{
+      const userData = new FormData()
+      userData.append('user', window.currentUser["id"]);
+      userData.append('token', token);
+      userData.append('type', "detection");
+      this.props.actions.detectPurchase(userData);
+    }
   }
 
   onSubScribe =()=>{
+    isUpgrade = false;
+    this.setState({isShowModal: true});
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error });    
+      this.setState({isShowModal: false}); 
+    });
+  }
+
+  onUpgrade =()=>{
+    isUpgrade = true;
     this.setState({isShowModal: true});
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -141,6 +178,7 @@ class createScreen extends Component{
         />
         <DetectComponent 
           onPostHorse={this.onCreateDetect}
+          onUpgrade={this.onUpgrade}
           initData={initData}
         />        
         <ProgressBar isPending={isShowModal}/>
@@ -164,6 +202,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       postHorse: userActions.postNewHorse,
+      upgradeMembership: userActions.postRequest,
       detectPurchase: userActions.videoPurchase,
       initReduxData: setReduxAddInfo
     },

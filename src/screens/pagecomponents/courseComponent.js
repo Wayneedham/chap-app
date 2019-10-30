@@ -101,7 +101,7 @@ class courseComponent extends Component{
               </Text>    
               <View style={styles.subscribeWrap}>
                 <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onSubScribe()}>
-                  <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Subscribe Now</Text>
+                  <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Buy Now</Text>
                 </TouchableOpacity>    
               </View>      
             </ScrollView>

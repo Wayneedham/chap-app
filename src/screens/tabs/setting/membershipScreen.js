@@ -40,8 +40,7 @@ class membershipScreen extends Component{
     };   
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log("nextProps === ", nextProps);    
+  componentWillReceiveProps(nextProps){      
     if(nextProps.pending === false){
       const responseData = nextProps.data;
       if(Object.keys(responseData).includes("message")){
@@ -123,25 +122,25 @@ class membershipScreen extends Component{
         />
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
         1. Pay as you Go - $10/Horse
-        {"\n"}A. Available at anytime with this free App
-        {"\n"}B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours.
+        {"\n"}{" "}A. Available at anytime with this free App
+        {"\n"}{" "}B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours.
 
         {"\n"}{"\n"}2. Unlimited Use - $20/Month
-        {"\n"}A. Age as many Horses and as many Pictures as you’d like for just $20/Month
-        {"\n"}B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours.
+        {"\n"}{" "}A. Age as many Horses and as many Pictures as you’d like for just $20/Month
+        {"\n"}{" "}B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours.
         </Text>
         <View style={styles.subscribeWrap}>
           <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onUpgrade()}>
-            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Upgrade Now</Text>
+            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Upgrade To Unlimited</Text>
           </TouchableOpacity>
         </View>  
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
         {"\n"}3. Video Course - $99
-        {"\n"}A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging.
+        {"\n"}{" "}A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging.
         </Text>
         <View style={[styles.subscribeWrap, {marginBottom: 50}]}>
           <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onSubScribe()}>
-            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Subscribe Now</Text>
+            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Buy Now</Text>
           </TouchableOpacity>
         </View>       
         <ProgressBar 

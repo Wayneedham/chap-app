@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   },
   aboutTxt:{   
     fontSize: responsiveFontSize(2),
-    color: colorStyle.colorMainGray
+    color: colorStyle.colorMainGraym,
+    marginBottom: 100
   },
   horseImg:{
     width: "100%",

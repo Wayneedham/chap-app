@@ -48,7 +48,7 @@ class settingScreen extends Component{
   }
 
   onContactSupport(){
-    Linking.openURL('mailto:support@chap.com');
+    Linking.openURL('mailto:support@agemyhorse.com');
   }
 
   render(){   

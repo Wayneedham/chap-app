@@ -71,6 +71,9 @@ class detectComponent extends Component{
     this.setState({txt_img_type: selected.key});
   }
 
+  onUpgrade(){
+    this.props.onUpgrade();
+  }
 
   onPostImg(){
     const{txt_img_type, txt_img_desc, txt_img_name, imgURI} = this.state;
@@ -155,8 +158,6 @@ class detectComponent extends Component{
             {              
                 console.log( error );
             });
-            // let source = { uri: response.uri };
-            // this.setState({imgSrc: source, imgURI: response.uri});
           }
       });
   }
@@ -166,7 +167,8 @@ class detectComponent extends Component{
   }
 
   render(){
-    const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isHelpModal} = this.state;
+    const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isHelpModal, txt_img_type} = this.state;
+    const is_premium = window.currentUser["is_premium"];
     // const{pending} = this.props;
     return(
       <View>
@@ -201,6 +203,9 @@ class detectComponent extends Component{
               options={radioOptions} 
               onSelectImgType={this.onSelectImgType}
             />
+            <Text style={[styles.helpTxt, fonts.montserrat_regular]}>
+              {txt_img_type==="lower" ? "Can Only detect up to 17 Years Old" : "Can Only detect up to 20 Years Old"}
+            </Text>
           </View>
           <TextField 
             style={styles.detailsTxtWrap}
@@ -215,9 +220,20 @@ class detectComponent extends Component{
           style={styles.update_container}
         >
           <Text style={[styles.update_txt, fonts.montserrat_regular]}>
-            {"POST"}
+            {is_premium ? "Post" : "Post (PayAsYouGo)"}
           </Text>          
-        </TouchableOpacity>
+        </TouchableOpacity>    
+        {
+          is_premium === false && 
+          <TouchableOpacity
+            onPress={() => this.onUpgrade()}
+            style={styles.upgrade_container}
+          >
+            <Text style={[styles.update_txt, fonts.montserrat_regular]}>
+              {"Upgrade To Unlimited"}
+            </Text>          
+          </TouchableOpacity>
+        }        
         <ActionSheet
           ref={o => this.ActionSheet = o}
           options={actionOptions}

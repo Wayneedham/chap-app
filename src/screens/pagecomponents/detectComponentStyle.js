@@ -47,6 +47,12 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20
   },
+  helpTxt:{
+    fontSize: responsiveFontSize(1.3),
+    color: 'red',
+    paddingLeft: 12,
+    paddingTop: 2
+  },
   imgTypeTxt:{
     marginVertical: 10,
     fontSize: responsiveFontSize(2),
@@ -59,7 +65,15 @@ const styles = StyleSheet.create({
   update_container: {
     height: responsiveHeight(8),
     marginTop: 40,
-    marginBottom: 50,
+    borderRadius: 7,
+    backgroundColor: colorStyle.colorYellow,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  upgrade_container: {
+    height: responsiveHeight(8),
+    marginTop: 20,
+    marginBottom: 80,
     borderRadius: 7,
     backgroundColor: colorStyle.colorYellow,
     justifyContent: "center",
