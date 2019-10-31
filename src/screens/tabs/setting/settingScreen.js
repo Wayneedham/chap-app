@@ -10,7 +10,7 @@ import {
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Actions } from "react-native-router-flux";
-import { setReduxAddInfo } from "../../../reducers/fetchdata";
+import { getDataError, getDataSuccess, getDataPending, setReduxAddInfo } from "../../../reducers/fetchdata";
 import * as userActions from "../../../actions/userActions";
 import styles from "./settingScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -107,6 +107,13 @@ class settingScreen extends Component{
   }
 }
 
+
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  pending: getDataPending(state.fetchdata)
+})
+
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
@@ -117,6 +124,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(settingScreen);
+

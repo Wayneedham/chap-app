@@ -217,11 +217,15 @@ class detectComponent extends Component{
         </View>
         <TouchableOpacity
           onPress={() => this.onPostImg()}
-          style={styles.update_container}
+          style={[styles.update_container, is_premium?{marginBottom: 70}:{}]}
         >
           <Text style={[styles.update_txt, fonts.montserrat_regular]}>
             {is_premium ? "Post" : "Post (PayAsYouGo)"}
-          </Text>          
+          </Text>   
+          {
+            is_premium === false &&
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>($10/Horse)</Text>    
+          }   
         </TouchableOpacity>    
         {
           is_premium === false && 
@@ -232,6 +236,7 @@ class detectComponent extends Component{
             <Text style={[styles.update_txt, fonts.montserrat_regular]}>
               {"Upgrade To Unlimited"}
             </Text>          
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>($20/Month)</Text>    
           </TouchableOpacity>
         }        
         <ActionSheet

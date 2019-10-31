@@ -888,6 +888,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 2CSAMJ7Z99;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -1480,7 +1481,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1508,7 +1509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
+				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1521,7 +1522,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Wayne Needham (2CSAMJ7Z99)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1549,7 +1550,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
+				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View ,
-         Image, NativeModules, AppState} from 'react-native';
-import { Router, Scene, ActionConst, Actions , Tabs ,  } from 'react-native-router-flux';
+import { Router, Scene } from 'react-native-router-flux';
 import { connect, Provider } from 'react-redux';
 import configureStore from './src/store/configureStore';
 import SplashScreen from 'react-native-splash-screen';
@@ -16,6 +14,11 @@ import customTabNavigator from "./src/screens/tabs/tabNavigator";
 
 // var notification_num = 3;
 export default class App extends Component {
+
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
   render() {
     return (
       <Provider store={store}>

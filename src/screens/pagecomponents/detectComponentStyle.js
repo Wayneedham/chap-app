@@ -62,6 +62,10 @@ const styles = StyleSheet.create({
     color: colorStyle.colorMainGray,
     fontSize: responsiveFontSize(2)
   },
+  update_small_txt:{
+    fontSize: responsiveFontSize(1.6),
+    marginTop: 3
+  },
   update_container: {
     height: responsiveHeight(8),
     marginTop: 40,

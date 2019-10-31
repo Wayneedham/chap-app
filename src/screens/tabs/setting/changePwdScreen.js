@@ -19,6 +19,7 @@ import CustomBar from "../../../components/customBar";
 import * as userActions from "../../../actions/userActions";
 import serverurl from '../../../../config/const/serverurl'; 
 import styles from "./changePwdScreenStyle";
+import fonts from "../../../sharedStyles/fontStyle";
 
 class changePasswordScreen extends Component{
 
@@ -40,9 +41,16 @@ class changePasswordScreen extends Component{
         console.log("pwd error=", responseData)
         this.showAlert(responseData["message"]);
       }
-      else if(Object.keys(responseData).includes("id")){
-        console.log("pwd success ==", responseData);    
-        this.showAlert("You updated password successfully.");   
+      else if(Object.keys(responseData).includes("id")){       
+        Alert.alert(
+          "",
+          "You updated password successfully.",
+          [{ text: "OK", onPress: () => {
+            this.props.navigation.goBack();         
+          }}],
+          { cancelable: false }
+        );
+
       }
     }
   }
