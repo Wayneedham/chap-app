@@ -4,6 +4,9 @@ import {
   createBottomTabNavigator,
   StackNavigator
 } from "react-navigation";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import homeScreen from "./home/homeScreen";
 import createScreen from "./home/createScreen";
 import videoScreen from "./home/videoScreen";
@@ -21,6 +24,7 @@ import detailsScreen from "./history/detailScreen";
 
 import detectScreen from "./detect/detectScreen";
 
+import {setActiveHistoryScreen} from '../../reducers/fetchdata';
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
 import fonts from "../../sharedStyles/fontStyle";
@@ -96,7 +100,7 @@ class customTabNavigator extends React.Component {
   
   render() {
     return (
-      <BaseNavigator/>
+      <BaseNavigator screenProps={this.props}/>
     );
   }
 }
@@ -107,50 +111,33 @@ export const BaseNavigator = createBottomTabNavigator(
       screen: HomeStack,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
-          screenProps.isActiveMenu ? (
-            <View style={styles.tabItem_container}>
-              <Image
-                resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
-                style={[
-                  styles.tabaricon,
-                  { tintColor: colorStyle.colorInactiveTab }
-                ]}
-              />
-              <Text
-                allowFontScaling={false}
-                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
-              >
-                {" "}
-                Home{" "}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.tabItem_container}>
-              <Image
-                resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_home.png")}
-                style={[
-                  styles.tabaricon,
-                  focused
-                    ? { tintColor: colorStyle.colorMainGray }
-                    : { tintColor: colorStyle.colorInactiveTab }
-                ]}
-              />
-              <Text
-                allowFontScaling={false}
-                style={[
-                  focused ? styles.focusedicontext : styles.unfocusedicontext,
-                  fonts.montserrat_medium
-                ]}
-              >
-                {" "}
-                Home{" "}
-              </Text>
-            </View>
-          ),
+         (
+          <View style={styles.tabItem_container}>
+            <Image
+              resizeMode="contain"
+              source={require("../../../assets/icons/icon_tab_home.png")}
+              style={[
+                styles.tabaricon,
+                focused
+                  ? { tintColor: colorStyle.colorMainGray }
+                  : { tintColor: colorStyle.colorInactiveTab }
+              ]}
+            />
+            <Text
+              allowFontScaling={false}
+              style={[
+                focused ? styles.focusedicontext : styles.unfocusedicontext,
+                fonts.montserrat_medium
+              ]}
+            >
+              {" "}
+              Home{" "}
+            </Text>
+          </View>
+         ),
         tabBarOnPress: ({ navigation, defaultHandler, jumpToIndex }) => {
           defaultHandler();
+          screenProps.actions.setActive(0);
           navigation.navigate("home");
         }
       })
@@ -159,25 +146,7 @@ export const BaseNavigator = createBottomTabNavigator(
       screen: courseScreen,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
-          screenProps.isActiveMenu ? (
-            <View style={styles.tabItem_container}>
-              <Image
-                resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_video.png")}
-                style={[
-                  styles.tabaricon,
-                  { tintColor: colorStyle.colorInactiveTab }
-                ]}
-              />
-              <Text
-                allowFontScaling={false}
-                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
-              >
-                {" "}
-                Videos{" "}
-              </Text>
-            </View>
-          ) : (
+          (
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
@@ -200,32 +169,18 @@ export const BaseNavigator = createBottomTabNavigator(
                 Videos{" "}
               </Text>
             </View>
-          )
+          ),
+          tabBarOnPress: ({ navigation, defaultHandler, jumpToIndex }) => {
+            defaultHandler();
+            screenProps.actions.setActive(1);
+          }
       })
     },
     DETECT: {
       screen: detectScreen,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
-          screenProps.isActiveMenu ? (
-            <View style={styles.tabItem_container}>
-              <Image
-                resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_detect.png")}
-                style={[
-                  styles.tabaricon,
-                  { tintColor: colorStyle.colorInactiveTab }
-                ]}
-              />
-              <Text
-                allowFontScaling={false}
-                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
-              >
-                {" "}
-                Detection{" "}
-              </Text>
-            </View>
-          ) : (
+         (
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
@@ -248,32 +203,18 @@ export const BaseNavigator = createBottomTabNavigator(
                 Detection{" "}
               </Text>
             </View>
-          )
+          ),
+          tabBarOnPress: ({ navigation, defaultHandler, jumpToIndex }) => {
+            defaultHandler();
+            screenProps.actions.setActive(2);
+          }
       })
     },
     HISTORY: {
       screen: HistoryStack,
       navigationOptions: ({ screenProps }) => ({
         tabBarIcon: ({ focused }) =>
-          screenProps.isActiveMenu ? (
-            <View style={styles.tabItem_container}>
-              <Image
-                resizeMode="contain"
-                source={require("../../../assets/icons/icon_tab_history.png")}
-                style={[
-                  styles.tabaricon,
-                  { tintColor: colorStyle.colorInactiveTab }
-                ]}
-              />
-              <Text
-                allowFontScaling={false}
-                style={[styles.unfocusedicontext, fonts.montserrat_medium]}
-              >
-                {" "}
-                History{" "}
-              </Text>
-            </View>
-          ) : (
+         (
             <View style={styles.tabItem_container}>
               <Image
                 resizeMode="contain"
@@ -296,7 +237,11 @@ export const BaseNavigator = createBottomTabNavigator(
                 History{" "}
               </Text>
             </View>
-          )
+          ),
+          tabBarOnPress: ({ navigation, defaultHandler, jumpToIndex }) => {
+            defaultHandler();
+            screenProps.actions.setActive(3);
+          }
       })
     },
     SETTINGS: {
@@ -327,10 +272,9 @@ export const BaseNavigator = createBottomTabNavigator(
           </View>
         ),
         tabBarOnPress: ({ navigation, defaultHandler }) => {
-          const { isFocused } = navigation;
-          if (!isFocused()) {
-            defaultHandler();
-          }        
+          defaultHandler();
+          navigation.navigate("setting");
+          screenProps.actions.setActive(4);    
         }
       })
     },   
@@ -344,4 +288,19 @@ export const BaseNavigator = createBottomTabNavigator(
   }
 );
 
-export default customTabNavigator;
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      setActive: setActiveHistoryScreen
+    },
+    dispatch
+  )
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(customTabNavigator);
+
+// export default customTabNavigator;

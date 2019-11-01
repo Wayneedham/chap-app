@@ -27,7 +27,13 @@ class detailScreen extends Component{
 
   render(){
     const detailItem = this.props.navigation.getParam("detailItem");
-    const age = detailItem.age === null ? 0 : detailItem.age;
+    let age = detailItem.age === null ? 0 : detailItem.age;
+    if(detailItem.image_type.toLowerCase() === "lower"){
+      age = parseFloat(age) >= 17 ? "17 or Older" : parseFloat(age).toFixed(5);
+    }else{
+      age = parseFloat(age) >= 20 ? "20 or Older" : parseFloat(age).toFixed(5);
+    }
+
     const{calcImgHeight} = this.state;
     return(
       <View style={styles.container}>
@@ -54,7 +60,7 @@ class detailScreen extends Component{
             {"Image Type: "}<Text style={[fonts.montserrat_regular]}>{detailItem.image_type}</Text>
             </Text>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-              {"Age: "} <Text style={[fonts.montserrat_regular]}>{parseFloat(age).toFixed(5)}</Text>
+              {"Age: "} <Text style={[fonts.montserrat_regular]}>{age}</Text>
             </Text>
             <View>
               <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>

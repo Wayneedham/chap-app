@@ -37,21 +37,22 @@ class changePasswordScreen extends Component{
     this.setState({ isPending: nextProps.pending });
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){
-        console.log("pwd error=", responseData)
-        this.showAlert(responseData["message"]);
-      }
-      else if(Object.keys(responseData).includes("id")){       
-        Alert.alert(
-          "",
-          "You updated password successfully.",
-          [{ text: "OK", onPress: () => {
-            this.props.navigation.goBack();         
-          }}],
-          { cancelable: false }
-        );
-
-      }
+      if(nextProps.isactive === 4){
+        if(Object.keys(responseData).includes("message")){
+          console.log("pwd error=", responseData)
+          this.showAlert(responseData["message"]);
+        }
+        else if(Object.keys(responseData).includes("id")){       
+          Alert.alert(
+            "",
+            "You updated password successfully.",
+            [{ text: "OK", onPress: () => {
+              this.props.navigation.goBack();         
+            }}],
+            { cancelable: false }
+          );
+        }
+      }      
     }
   }
 
@@ -164,6 +165,7 @@ class changePasswordScreen extends Component{
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 

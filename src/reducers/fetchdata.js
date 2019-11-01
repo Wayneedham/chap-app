@@ -1,10 +1,11 @@
 import {FETCH_DATA_PENDING, FETCH_DATA_SUCCESS, FETCH_DATA_ERROR} from '../actions/actions';
-
+export const HISTORY_ACTIVE_SCREEN = 'HISTORY_ACTIVE_SCREEN';
 
 const initialState = {
     pending: false,
     data: "",
     historyLis:[],
+    isactive: 0,
     error: null
 }
 
@@ -27,6 +28,11 @@ export default function reducer(state = initialState, action) {
                 pending: false,
                 error: action.error
             }
+        case HISTORY_ACTIVE_SCREEN: 
+            return {
+                ...state,
+                isactive: action.payload
+            }
         default: 
             return state;
     }
@@ -46,5 +52,11 @@ function getReduxInfo(payload, TYPE){
 export const setReduxAddInfo = (payload) => {
     return (dispatch, getState) => {
         return dispatch(getReduxInfo(payload, FETCH_DATA_SUCCESS));
+    }
+}
+
+export const setActiveHistoryScreen = (payload) => {
+    return (dispatch, getState) => {
+        return dispatch(getReduxInfo(payload, HISTORY_ACTIVE_SCREEN));
     }
 }

@@ -28,7 +28,7 @@ const optionsCardForm = {
   }
 };
 
-var postDetectData = "";
+let postDetectData = "";
 let isUpgrade = false;
 
 class detectScreen extends Component{
@@ -39,57 +39,58 @@ class detectScreen extends Component{
       initData: false,
       recentData: "",
       isRecent: false
-    };    
+    };
   }
   
-  componentWillReceiveProps(nextProps){    
+  componentWillReceiveProps(nextProps){  
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
         postDetectData = "";
       }else{
-        if(Object.keys(responseData).includes("message")){
-          Alert.alert(
-            "",
-            responseData["message"],
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false});     
-              this.props.actions.initReduxData("");         
-            } }],
-            { cancelable: false }
-          );
-        }
-        else if(Object.keys(responseData).includes("id")){   
-          window.currentUser = responseData;
-          userActions._storeData("userInfo", responseData);
-          Alert.alert(
-            "",
-            "The membership was upgraded successfully.",
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false});      
-            }}],
-            { cancelable: false }
-          );
-          console.log("post success  sss");     
-        }
-        else if(Object.keys(responseData).includes("recent")){             
-          Alert.alert(
-            "",
-            "The image was detected successfully.",
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false, initData: true});     
-              const recentData = responseData["recent"];  
-              recentData["file"] = serverurl.server_url + recentData["file"];              
-              this.setState({recentData: recentData, isRecent: true});    
-            }}],
-            { cancelable: false }
-          );
-          console.log("post success  sss");     
-        }
+        if(nextProps.isactive === 2) {
+          if(Object.keys(responseData).includes("message")){
+            Alert.alert(
+              "",
+              responseData["message"],
+              [{ text: "OK", onPress: () => {
+                this.setState({isShowModal: false});     
+                this.props.actions.initReduxData("");         
+              } }],
+              { cancelable: false }
+            );
+          }
+          else if(Object.keys(responseData).includes("id") && isUpgrade === true){   
+            window.currentUser = responseData;
+            userActions._storeData("userInfo", responseData);
+            Alert.alert(
+              "",
+              "The membership was upgraded successfully.",
+              [{ text: "OK", onPress: () => {
+                this.setState({isShowModal: false});     
+                this.props.actions.initReduxData("");     
+              }}],
+              { cancelable: false }
+            );   
+          }
+          else if(Object.keys(responseData).includes("recent")){
+            Alert.alert(
+              "",
+              "The image was detected successfully.",
+              [{ text: "OK", onPress: () => {  
+                const recentData = responseData["recent"];  
+                recentData["file"] = serverurl.server_url + recentData["file"];              
+                this.setState({recentData: recentData, isRecent: true, isShowModal: false, initData: true});    
+                postDetectData = "";    
+                this.props.actions.initReduxData(""); 
+              }}],
+              { cancelable: false }
+            );    
+          }
+        }        
       }
-    }
+    }    
   }
 
   onCreateDetect =(userData)=>{    
@@ -191,6 +192,7 @@ class detectScreen extends Component{
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 

@@ -37,29 +37,31 @@ class profileScreen extends Component{
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){       
-        this.showAlert(responseData["message"]);
-        Alert.alert(
-          "",
-          responseData["message"],
-          [{ text: "OK", onPress: () => {
-            this.setState({isPending: false});            
-          }}],
-          { cancelable: false }
-        ); 
-      }
-      else if(Object.keys(responseData).includes("id")){         
-        window.currentUser = responseData;
-        userActions._storeData("userInfo", responseData);
-        Alert.alert(
-          "",
-          "You updated account successfully.",
-          [{ text: "OK", onPress: () => {
-            this.setState({isPending: false});            
-          }}],
-          { cancelable: false }
-        );       
-      }
+      if(nextProps.isactive === 4){
+        if(Object.keys(responseData).includes("message")){       
+          this.showAlert(responseData["message"]);
+          Alert.alert(
+            "",
+            responseData["message"],
+            [{ text: "OK", onPress: () => {
+              this.setState({isPending: false});            
+            }}],
+            { cancelable: false }
+          ); 
+        }
+        else if(Object.keys(responseData).includes("id")){         
+          window.currentUser = responseData;
+          userActions._storeData("userInfo", responseData);
+          Alert.alert(
+            "",
+            "You updated account successfully.",
+            [{ text: "OK", onPress: () => {
+              this.setState({isPending: false});            
+            }}],
+            { cancelable: false }
+          );       
+        }
+      }      
     }
   }
 
@@ -165,6 +167,7 @@ class profileScreen extends Component{
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 

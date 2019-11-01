@@ -25,6 +25,16 @@ class detectModal extends Component{
 
   render(){
     const{isRecent, recentData} = this.props;
+    let age = "";
+    if(recentData !== undefined && recentData !== ""){
+      age = recentData.age === null ? 0 : recentData.age;
+      if(recentData.image_type.toLowerCase() === "lower"){
+        age = parseFloat(age) >= 17 ? "17 or Older" : age;
+      }else{
+        age = parseFloat(age) >= 20 ? "20 or Older" : age;
+      }
+    }    
+
     const {calcImgHeight} = this.state;
     return(
       <Modal 
@@ -48,7 +58,7 @@ class detectModal extends Component{
             <Text style={[styles.itemTitle, fonts.montserrat_bold]}>
               {"Detected Age:  "}
             </Text>
-            <Text style={[styles.itemTitle, fonts.montserrat_medium]}>{recentData["age"]}</Text>
+            <Text style={[styles.itemTitle, fonts.montserrat_medium]}>{age}</Text>
           </View>
           <View style={styles.imgWrap}>
             <FastImage 

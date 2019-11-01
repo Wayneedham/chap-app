@@ -30,7 +30,7 @@ const optionsCardForm = {
   }
 };
 
-var postDetectData = "";
+let postDetectData = "";
 let isUpgrade = false;
 
 class createScreen extends Component{
@@ -44,52 +44,65 @@ class createScreen extends Component{
     };    
   }
   
+  componentDidMount(){
+    console.log("postDetectData==", this.props.data);
+  }
+  
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      
+      console.log("responseData create==", responseData);
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
         postDetectData = "";
       }else{
-        if(Object.keys(responseData).includes("message")){
-          Alert.alert(
-            "",
-            responseData["message"],
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false});     
-              this.props.actions.initReduxData("");         
-            } }],
-            { cancelable: false }
-          );
-        }
-        else if(Object.keys(responseData).includes("id")){   
-          window.currentUser = responseData;
-          userActions._storeData("userInfo", responseData);
-          Alert.alert(
-            "",
-            "The membership was upgraded successfully.",
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false});      
-            }}],
-            { cancelable: false }
-          );
-          console.log("post success  sss");     
-        }
-        else if(Object.keys(responseData).includes("recent")){ 
-          Alert.alert(
-            "",
-            "The image was detected successfully.",
-            [{ text: "OK", onPress: () => {
-              this.setState({isShowModal: false, initData: true}); 
-              const recentData = responseData["recent"];  
-              recentData["file"] = serverurl.server_url + recentData["file"];              
-              this.setState({recentData: recentData, isRecent: true});              
-            }}],
-            { cancelable: false }
-          );
-          console.log("post success  sss");     
-        }
+        if(nextProps.isactive === 0){
+          if(Object.keys(responseData).includes("message")){
+            Alert.alert(
+              "",
+              responseData["message"],
+              [{ text: "OK", onPress: () => {
+                this.setState({isShowModal: false});     
+                this.props.actions.initReduxData("");         
+              } }],
+              { cancelable: false }
+            );
+          }
+          else if(Object.keys(responseData).includes("id") && isUpgrade === true){   
+            window.currentUser = responseData;
+            userActions._storeData("userInfo", responseData);
+            Alert.alert(
+              "",
+              "The membership was upgraded successfully.",
+              [{ text: "OK", onPress: () => {
+                this.setState({isShowModal: false});      
+                this.props.actions.initReduxData("");    
+              }}],
+              { cancelable: false }
+            );
+            console.log("post success  sss");     
+          }
+          else if(Object.keys(responseData).includes("recent")){ 
+            const recentData = responseData["recent"];  
+            recentData["file"] = serverurl.server_url + recentData["file"];            
+            setTimeout(() => {
+              Alert.alert(
+                "",
+                "The image was detected successfully.",
+                [{ text: "OK", onPress: () => {              
+                  this.setState({
+                    isShowModal: false,
+                    recentData: recentData, 
+                    isRecent: true, 
+                    initData: true
+                  });
+                  this.props.actions.initReduxData(""); 
+                }}],
+                { cancelable: false }
+              );
+            }, 300);
+          }
+        }        
       }
     }
   }
@@ -169,6 +182,8 @@ class createScreen extends Component{
 
   render(){
     const{isShowModal, initData, recentData, isRecent} = this.state;
+    console.log("isRecent==", isRecent);
+    console.log("isShowModal==", isShowModal);
     // const{pending} = this.props;
     return(
       <ScrollView style={styles.container}>
@@ -194,7 +209,8 @@ class createScreen extends Component{
 
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
-  data: getDataSuccess(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),  
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 

@@ -9,7 +9,12 @@ import styles from "./horseListItemStyle";
 class horseListItem extends React.Component{
   render(){
     const {horseItem} = this.props;
-    const age = horseItem.age === null ? 0 : horseItem.age;
+    let age = horseItem.age === null ? 0 : horseItem.age;
+    if(horseItem.image_type.toLowerCase() === "lower"){
+      age = parseFloat(age) >= 17 ? "17 or Older" : parseFloat(age).toFixed(5);
+    }else{
+      age = parseFloat(age) >= 20 ? "20 or Older" : parseFloat(age).toFixed(5);
+    }
     return(
       <TouchableOpacity style={styles.container} onPress={this.props.onClick}>
         <FastImage 
@@ -21,7 +26,7 @@ class horseListItem extends React.Component{
           {"Name: " + horseItem.name}
         </Text>
         <Text>
-          {"Age: " + parseFloat(age).toFixed(3)}
+          {"Age: " + age}
         </Text>
       </TouchableOpacity>
     )

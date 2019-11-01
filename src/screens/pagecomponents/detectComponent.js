@@ -40,7 +40,7 @@ class detectComponent extends Component{
   }
 
   componentWillReceiveProps(nextProps){  
-    if(nextProps.initData && this.props.initData !== nextProps.initData){
+    if(nextProps.initData === true){
       this.setState({
         txt_img_desc: "",
         txt_img_type: "lower",
@@ -204,7 +204,7 @@ class detectComponent extends Component{
               onSelectImgType={this.onSelectImgType}
             />
             <Text style={[styles.helpTxt, fonts.montserrat_regular]}>
-              {txt_img_type==="lower" ? "Can Only detect up to 17 Years Old" : "Can Only detect up to 20 Years Old"}
+              {txt_img_type==="lower" ? "Can Only detect up to 17 Years Old." : "Can Only detect up to 20 Years Old."}
             </Text>
           </View>
           <TextField 

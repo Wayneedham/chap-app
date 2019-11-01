@@ -15,7 +15,7 @@ import stripe from "tipsi-stripe";
 import CustomBar from "../../../components/customBar";
 import ProgressBar from "../../../components/progressBar";
 import * as userActions from "../../../actions/userActions";
-import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import serverurl from '../../../../config/const/serverurl'; 
 import styles from "./membershipScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -41,29 +41,45 @@ class membershipScreen extends Component{
   }
 
   componentWillReceiveProps(nextProps){      
+    console.log("test=", nextProps);
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){
-        Alert.alert(
-          "",
-          responseData["message"],
-          [{ text: "OK", onPress: () => {this.setState({isPending: false});} }],
-          { cancelable: false }
-        );
-      }
-      else if(Object.keys(responseData).includes("id")){   
-        window.currentUser = responseData;
-        userActions._storeData("userInfo", responseData);
-        Alert.alert(
-          "",
-          "The membership was upgraded successfully.",
-          [{ text: "OK", onPress: () => {
-            this.setState({isPending: false});   
-            this.props.navigation.goBack();         
-          }}],
-          { cancelable: false }
-        );
-        console.log("post success  sss");     
+      if(nextProps.isactive === 4){
+        if(Object.keys(responseData).includes("message")){
+          Alert.alert(
+            "",
+            responseData["message"],
+            [{ text: "OK", onPress: () => {this.setState({isPending: false});} }],
+            { cancelable: false }
+          );
+        }
+        else if(Object.keys(responseData).includes("id")){   
+          window.currentUser = responseData;
+          userActions._storeData("userInfo", responseData);
+          if(isUpgrade){
+            Alert.alert(
+              "",
+              "The membership was upgraded successfully.",
+              [{ text: "OK", onPress: () => {
+                this.setState({isPending: false});  
+                this.props.actions.initReduxData("");  
+                this.props.navigation.goBack();         
+              }}],
+              { cancelable: false }
+            );
+          }else{
+            Alert.alert(
+              "",
+              "You purchased videos for course successfully.",
+              [{ text: "OK", onPress: () => {
+                this.setState({isPending: false});   
+                this.props.actions.initReduxData(""); 
+                this.props.navigation.goBack();         
+              }}],
+              { cancelable: false }
+            );
+          }    
+        }      
       }
     }
   }
@@ -87,16 +103,17 @@ class membershipScreen extends Component{
   }
 
   onSubScribe(){
-    isUpgrade = false;
-    stripe
-    .paymentRequestWithCardForm(optionsCardForm)
-    .then(token => {
-      if(token)
-        this.onProcessPayment(token.tokenId);
-    })
-    .catch(error => {
-      console.warn("Payment failed", { error });    
-    });
+    Alert.alert("", "The feature will come soon.")
+    // isUpgrade = false;
+    // stripe
+    // .paymentRequestWithCardForm(optionsCardForm)
+    // .then(token => {
+    //   if(token)
+    //     this.onProcessPayment(token.tokenId);
+    // })
+    // .catch(error => {
+    //   console.warn("Payment failed", { error });    
+    // });
   }
 
   onUpgrade(){
@@ -155,6 +172,7 @@ class membershipScreen extends Component{
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 
@@ -162,6 +180,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       upgradeMembership: userActions.postRequest,
+      initReduxData: setReduxAddInfo
     },
     dispatch
   )

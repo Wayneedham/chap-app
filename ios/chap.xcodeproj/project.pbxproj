@@ -1482,6 +1482,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1509,7 +1510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
+				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1523,6 +1524,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1550,7 +1552,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
+				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
