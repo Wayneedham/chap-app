@@ -21,7 +21,7 @@ import styles from "./courseComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
 
 stripe.setOptions({
-  publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
+  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_test_mEk3SpdSiKRzNQADwueQKbpR
 });
 const optionsCardForm = {
   theme: {
@@ -40,18 +40,19 @@ class courseComponent extends Component{
     };   
   }
 
- componentWillReceiveProps(nextProps){
-    this.setState({ isPending: nextProps.pending });
+ componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(Object.keys(responseData).includes("message")){
-        console.log("purchase error")
-      }
-      else if(Object.keys(responseData).includes("id")){
-        console.log("purchase success111 ==", responseData);       
-        window.currentUser = responseData;
-        userActions._storeData("userInfo", responseData);
-      }
+      if(nextProps.isactive === 0 || nextProps.isactive === 1){
+        if(Object.keys(responseData).includes("message")){
+          console.log("purchase error")
+        }
+        else if(Object.keys(responseData).includes("id")){
+          console.log("purchase success111 ==", responseData);       
+          window.currentUser = responseData;
+          userActions._storeData("userInfo", responseData);
+        }
+      }      
     }
   }
 
@@ -69,6 +70,7 @@ class courseComponent extends Component{
     .then(token => {
       if(token)
         this.onProcessPayment(token.tokenId);
+        this.setState({ isPending: true });
     })
     .catch(error => {
       console.warn("Payment failed", { error });    
@@ -144,6 +146,7 @@ class courseComponent extends Component{
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
   pending: getDataPending(state.fetchdata)
 })
 

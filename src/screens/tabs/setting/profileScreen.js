@@ -15,7 +15,7 @@ import {
 } from "react-native-responsive-dimensions";
 
 
-import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
+import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import * as userActions from "../../../actions/userActions";
 import serverurl from '../../../../config/const/serverurl';
 import CustomBar from "../../../components/customBar";
@@ -56,7 +56,8 @@ class profileScreen extends Component{
             "",
             "You updated account successfully.",
             [{ text: "OK", onPress: () => {
-              this.setState({isPending: false});            
+              this.setState({isPending: false});     
+              this.props.actions.initReduxData("");        
             }}],
             { cancelable: false }
           );       
@@ -175,6 +176,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       changeProfile: userActions.postRequest,
+      initReduxData: setReduxAddInfo
     },
     dispatch
   )

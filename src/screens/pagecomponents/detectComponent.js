@@ -210,7 +210,6 @@ class detectComponent extends Component{
           <TextField 
             style={styles.detailsTxtWrap}
             label={"Image Description(Optional)"}
-            multiline={true}  
             value={txt_img_desc}
             onChangeText={text => this.setState({ txt_img_desc: text })}
           />

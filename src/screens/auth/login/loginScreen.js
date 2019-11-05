@@ -35,10 +35,6 @@ class loginScreen extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log("forgot === ", nextProps);
-  }
-
   async requestCameraPermission() {
     try {
       const granted = await PermissionsAndroid.requestMultiple([

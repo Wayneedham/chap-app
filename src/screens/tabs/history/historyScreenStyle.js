@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     color: colorStyle.colorMainGray
   },
   search_wrap:{
-    height: 30,
+    height: 50,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 5,
-    marginBottom: 10
+    paddingHorizontal: 2,
+    marginBottom: 5
   },
   searchIcon:{
     width: 20,

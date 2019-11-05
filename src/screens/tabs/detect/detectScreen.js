@@ -19,7 +19,7 @@ import fonts from "../../../sharedStyles/fontStyle";
 import serverurl from '../../../../config/const/serverurl';
 
 stripe.setOptions({
-  publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
+  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
 });
 const optionsCardForm = {
   theme: {
@@ -95,7 +95,7 @@ class detectScreen extends Component{
 
   onCreateDetect =(userData)=>{    
     postDetectData = userData;
-    
+    this.setState({initData: false});
     const isFreeUser = window.currentUser["is_premium"];
     if(!isFreeUser){
       Alert.alert(
@@ -130,11 +130,11 @@ class detectScreen extends Component{
       userData.append('type', "detection");
       this.props.actions.detectPurchase(userData);
     }
+    this.setState({isShowModal: true});
   }
 
   onSubScribe =()=>{
-    isUpgrade = false;
-    this.setState({isShowModal: true});
+    isUpgrade = false;    
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -142,14 +142,12 @@ class detectScreen extends Component{
         this.onProcessPayment(token.tokenId);
     })
     .catch(error => {
-      console.warn("Payment failed", { error });    
-      this.setState({isShowModal: false}); 
+      console.warn("Payment failed", { error });
     });
   }
 
   onUpgrade =()=>{
-    isUpgrade = true;
-    this.setState({isShowModal: true});
+    isUpgrade = true;  
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -157,8 +155,7 @@ class detectScreen extends Component{
         this.onProcessPayment(token.tokenId);
     })
     .catch(error => {
-      console.warn("Payment failed", { error });    
-      this.setState({isShowModal: false}); 
+      console.warn("Payment failed", { error }); 
     });
   }
 

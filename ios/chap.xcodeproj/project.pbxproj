@@ -1510,7 +1510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
+				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1552,7 +1552,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_device_provision;
+				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

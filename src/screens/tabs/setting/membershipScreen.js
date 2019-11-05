@@ -21,7 +21,7 @@ import styles from "./membershipScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
 stripe.setOptions({
-  publishableKey: "pk_test_mEk3SpdSiKRzNQADwueQKbpR" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
+  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
 });
 const optionsCardForm = {
   theme: {
@@ -40,8 +40,7 @@ class membershipScreen extends Component{
     };   
   }
 
-  componentWillReceiveProps(nextProps){      
-    console.log("test=", nextProps);
+  componentWillReceiveProps(nextProps){ 
     if(nextProps.pending === false){
       const responseData = nextProps.data;
       if(nextProps.isactive === 4){

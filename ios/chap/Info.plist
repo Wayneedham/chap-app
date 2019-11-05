@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.4</string>
+	<string>1.5</string>
 	<key>FacebookAppID</key>
 	<string>2243234166004919</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -62,7 +62,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>Please allow to use calendar.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow to use camera.</string>
+	<string>You need to access camera to take a horse image.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Please allow to use location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -70,7 +70,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>Please allow to use motion.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow to use photo gallery.</string>
+	<string>You need to access photo gallery to take a horse image.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please allow to use speech recognition</string>
 	<key>UIAppFonts</key>
