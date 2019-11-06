@@ -52,6 +52,7 @@ class courseComponent extends Component{
           window.currentUser = responseData;
           userActions._storeData("userInfo", responseData);
         }
+        this.setState({isPending: false});
       }      
     }
   }
