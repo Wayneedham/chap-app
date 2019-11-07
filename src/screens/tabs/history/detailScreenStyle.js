@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   detail_txt_wrap:{
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 80
   },
   detail_bold_txt:{
     fontSize: 15,

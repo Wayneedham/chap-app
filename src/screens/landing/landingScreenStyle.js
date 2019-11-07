@@ -1,13 +1,8 @@
-import { StyleSheet, Platform, Dimensions } from "react-native";
-import { responsiveHeight,
-         responsiveWidth,
-         responsiveFontSize
-} from 'react-native-responsive-dimensions';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "red"
+    flex: 1
   },
   landing:{
     width: "100%",

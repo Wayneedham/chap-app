@@ -104,7 +104,7 @@ class customTabNavigator extends React.Component {
     );
   }
 }
-historyScreen
+
 export const BaseNavigator = createBottomTabNavigator(
   {
     HOME: {

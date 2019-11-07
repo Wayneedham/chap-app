@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   already_txt_container: {
     flexDirection: "row",
-    position: "absolute",
+    position: 'absolute',
     bottom: responsiveHeight(5),
     alignSelf: "center"
   },

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text
+  Text,
+  ScrollView
 } from 'react-native';
 import {
   responsiveWidth
@@ -36,7 +37,7 @@ class detailScreen extends Component{
 
     const{calcImgHeight} = this.state;
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <CustomBar 
           title={"Details"}
           navigate={this.props.navigation}
@@ -72,7 +73,7 @@ class detailScreen extends Component{
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
