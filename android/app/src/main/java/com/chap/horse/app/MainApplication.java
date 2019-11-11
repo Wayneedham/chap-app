@@ -1,4 +1,4 @@
-package com.chap;
+package com.chap.horse.app;
 
 import android.app.Application;
 
