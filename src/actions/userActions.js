@@ -1,6 +1,6 @@
 
 import { Actions } from 'react-native-router-flux';
-import { AsyncStorage , Platform} from "react-native"
+import { AsyncStorage , Platform, Alert} from "react-native"
 import serverurl from '../../config/const/serverurl'; 
 import {
   fetchDataPending, 
@@ -122,6 +122,7 @@ export async function fbLogin(token, props) {
         return res;
       })
       .catch(error => {
+        Alert.alert('', error.message)
         dispatch(fetchDataError(error));
       })
     }

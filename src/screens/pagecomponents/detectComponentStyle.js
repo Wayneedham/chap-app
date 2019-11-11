@@ -8,7 +8,7 @@ import colorStyle from "../../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   img_container:{
     width: "100%",
-    height: 200,
+    height: responsiveHeight(28),
     alignItems: "center",
     justifyContent: "center"
   },
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 3
   },
   uploadTxt:{
-    fontSize: responsiveFontSize(2),
+    fontSize: 18,
     color: "white"
   },
   details_container:{
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   detailsTxtWrap:{
     marginVertical: 10,
-    fontSize: responsiveFontSize(2)
+    fontSize: 18
   },
   rowWrap:{
     flexDirection: "row",
@@ -48,22 +48,22 @@ const styles = StyleSheet.create({
     height: 20
   },
   helpTxt:{
-    fontSize: responsiveFontSize(1.3),
+    fontSize: 11,
     color: 'red',
     paddingLeft: 12,
     paddingTop: 2
   },
   imgTypeTxt:{
     marginVertical: 10,
-    fontSize: responsiveFontSize(2),
+    fontSize: 17,
     color: colorStyle.colorMainGray
   },
   update_txt: {
     color: colorStyle.colorMainGray,
-    fontSize: responsiveFontSize(2)
+    fontSize: 18
   },
   update_small_txt:{
-    fontSize: responsiveFontSize(1.6),
+    fontSize: 14,
     marginTop: 3
   },
   update_container: {

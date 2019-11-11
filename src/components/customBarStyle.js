@@ -1,6 +1,4 @@
 import { StyleSheet } from "react-native";
-import { responsiveFontSize
-  } from 'react-native-responsive-dimensions';
 import colorStyle from "../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
@@ -10,9 +8,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  title: {
+  barTitle: {
     textAlign: "center",
-    fontSize: responsiveFontSize(3.3),
+    fontSize: 27,
     color: colorStyle.colorMainGray
   },
   back_wrap:{

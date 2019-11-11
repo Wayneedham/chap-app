@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: "center",
-    fontSize: responsiveFontSize(3.5),
+    fontSize: 32,
     color: colorStyle.colorMainGray
   },
   search_wrap:{

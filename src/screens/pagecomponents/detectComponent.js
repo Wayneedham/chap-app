@@ -185,7 +185,7 @@ class detectComponent extends Component{
         <View style={styles.details_container}>
           <TextField 
             style={styles.detailsTxtWrap}
-            label={"Image Name"}  
+            label={"Horse's Name"}  
             value={txt_img_name}
             onChangeText={text => this.setState({ txt_img_name: text })}
           />

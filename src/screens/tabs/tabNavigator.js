@@ -282,6 +282,8 @@ export const BaseNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       showLabel: false,
+      drawUnderStatusBar: true,
+      navBarTopPadding: 24,
       style: { borderTopColor: "transparent" }
     },
     initialRouteName: "HOME"

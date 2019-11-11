@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: "center",
-    fontSize: responsiveFontSize(3.5),
+    fontSize: 32,
     color: colorStyle.colorMainGray,
     lineHeight: 70,    
     height: 70,

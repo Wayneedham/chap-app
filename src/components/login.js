@@ -110,7 +110,7 @@ class LoginComponent extends React.Component {
       return;
     }
     
-    if (userActions.verficationEmail(userEmail)) {
+    if (userActions.verficationEmail(userEmail)) {      
       const userData = new FormData()
       userData.append('email', userEmail);
       userData.append('password', userPwd);

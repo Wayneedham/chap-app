@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   title:{
     textAlign: "center",
-    fontSize: responsiveFontSize(3.5),
+    fontSize: 32,
     color: colorStyle.colorMainGray,
     lineHeight: 70,    
     height: 70,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   proText: {
     color: colorStyle.colorMainGray,
-    fontSize: responsiveFontSize(1.6),
+    fontSize: 12,
     textAlign: "center"
   },
   free: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   freeText: {
     color: "#FFFFFF",
-    fontSize: responsiveFontSize(1.6),
+    fontSize: 12,
     textAlign: "center"
   },
   row_wrap:{
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   item_wrap_txt_social:{
-    fontSize: responsiveFontSize(1.9),
+    fontSize: 16,
     color: "#AEAEAE"
   },
   item_wrap:{
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1
   },
   item_wrap_txt:{        
-    fontSize: responsiveFontSize(1.9),
+    fontSize: 16,
     color: colorStyle.colorMainGray,    
   },
   log_out_wrap:{

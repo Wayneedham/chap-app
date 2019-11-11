@@ -19,7 +19,7 @@ class customBar extends Component{
     const {title} = this.props;
     return(
       <View style={styles.topbar_wrap}>
-        <Text style={[styles.title, fonts.montserrat_bold]}>{title}</Text>
+        <Text style={[styles.barTitle, fonts.montserrat_bold]}>{title}</Text>
         <TouchableOpacity style={styles.back_wrap} onPress={this.goBack}>
           <Image
             source={require("../../assets/icons/icon_back_white.png")}

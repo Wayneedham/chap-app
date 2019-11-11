@@ -1,7 +1,5 @@
 import { StyleSheet} from "react-native";
-import { responsiveHeight,
-         responsiveWidth,
-         responsiveFontSize
+import { responsiveWidth
 } from 'react-native-responsive-dimensions';
 import colorStyle from "../../sharedStyles/colorStyle";
 
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: responsiveFontSize(3.3),
+    fontSize: 30,
     color: colorStyle.colorMainGray
   },
   dismissWrap: {
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
   },
   dismiss:{
     textAlign: "center",
-    fontSize: responsiveFontSize(2.2),
+    fontSize: 20,
     color: colorStyle.colorYellow,
     paddingHorizontal: 10,
     paddingVertical: 5
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 3
   },
   detailTxt:{   
-    fontSize: responsiveFontSize(2),
+    fontSize: 18,
     color: colorStyle.colorMainGray
   },
   horseImg:{

@@ -101,6 +101,7 @@ class profileScreen extends Component{
 
   render(){
     const { userEmail, userFname, userLname, isPending } = this.state;
+    const {is_social} = window.currentUser;
     return (
       <View style={styles.container}>
         <CustomBar 
@@ -139,27 +140,31 @@ class profileScreen extends Component{
             returnKeyType="done"
           />
         </View>
-        <TouchableOpacity
-          onPress={() => this.onProfileUpdate()}
-          style={styles.update_container}
-        >
-          <Text style={[styles.update_txt, fonts.montserrat_regular]}>
-            {"UPDATE"}
-          </Text>
-          {isPending && (
-            <Progress.CircleSnail
-              color={"#fff"}
-              style={{
-                position: "absolute",
-                top: responsiveHeight(2),
-                right: responsiveHeight(3),
-                zIndex: 10
-              }}
-              size={responsiveHeight(4)}
-              indeterminate={true}
-            />
-          )}
-        </TouchableOpacity>
+        {
+          is_social===false &&
+          <TouchableOpacity
+            onPress={() => this.onProfileUpdate()}
+            style={styles.update_container}
+          >
+            <Text style={[styles.update_txt, fonts.montserrat_regular]}>
+              {"UPDATE"}
+            </Text>
+            {isPending && (
+              <Progress.CircleSnail
+                color={"#fff"}
+                style={{
+                  position: "absolute",
+                  top: responsiveHeight(2),
+                  right: responsiveHeight(3),
+                  zIndex: 10
+                }}
+                size={responsiveHeight(4)}
+                indeterminate={true}
+              />
+            )}
+          </TouchableOpacity>
+        }
+        
       </View>
     );
   }

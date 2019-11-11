@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     height: "100%"
   },
   comeTxt:{
-    fontSize: responsiveFontSize(3),
+    fontSize: 27,
     paddingBottom: 100,
     color: colorStyle.colorMainGray
   }

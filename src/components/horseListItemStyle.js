@@ -9,7 +9,7 @@ import colorStyle from "../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   container:{
     width: responsiveWidth(47),
-    height: 180,
+    height: 200,
     marginBottom: 10,
     paddingHorizontal: 5,
     alignItems: "center"
