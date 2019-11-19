@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Modal,
+  TouchableOpacity,
+  Dimensions,
   ScrollView
 } from 'react-native';
 import {
-  responsiveWidth
+  responsiveWidth, responsiveHeight
 } from 'react-native-responsive-dimensions';
 import FastImage from 'react-native-fast-image';
+import ImageZoom from 'react-native-image-pan-zoom';
 import moment from "moment";
 
 import CustomBar from "../../../components/customBar";
@@ -18,12 +22,17 @@ class detailScreen extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      calcImgHeight: 0
+      calcImgHeight: 0,
+      zoomModal: false,
     };
   }
 
   goBack = () => {
     this.props.navigation.goBack();
+  }
+
+  onZoomImage =(flag)=>{
+    this.setState({zoomModal: flag})
   }
 
   render(){
@@ -35,24 +44,27 @@ class detailScreen extends Component{
       age = parseFloat(age) >= 20 ? "20 or Older" : parseFloat(age).toFixed(5);
     }
 
-    const{calcImgHeight} = this.state;
+    const{calcImgHeight, zoomModal} = this.state;
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
-          title={"Details"}
+          title={detailItem["name"]}
           navigate={this.props.navigation}
         />
         <View style={styles.detail_wrap}>
-          <FastImage 
-            resizeMode="contain"
-            style={{ width: responsiveWidth(94), height: calcImgHeight }}
-            source={{ uri: detailItem.file }}
-            onLoad={evt =>
-              this.setState({
-                calcImgHeight:
-                  evt.nativeEvent.height / evt.nativeEvent.width * responsiveWidth(94), // By this, you keep the image ratio
-              })}
-          />
+          <TouchableOpacity onPress={()=>this.onZoomImage(true)}>
+            <FastImage 
+              resizeMode="contain"
+              style={{ width: responsiveWidth(94), height: calcImgHeight }}
+              source={{ uri: detailItem.file }}
+              onLoad={evt =>
+                this.setState({
+                  calcImgHeight:
+                    evt.nativeEvent.height / evt.nativeEvent.width * responsiveWidth(94), // By this, you keep the image ratio
+                })}
+            />
+          </TouchableOpacity>
+          
           <View style={styles.detail_txt_wrap}>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
             {"Uploaded At: "}<Text style={[fonts.montserrat_regular]}>{moment(detailItem.uploaded_at).format('YYYY.MM.DD, h:mm:ss a')}</Text>
@@ -73,6 +85,26 @@ class detailScreen extends Component{
             </View>
           </View>
         </View>
+        <Modal
+          animationType={'slide'}      
+          visible={zoomModal}
+          onRequestClose={()=>{}}>
+            <View style={styles.modal_container}>
+              <ImageZoom cropWidth={Dimensions.get('window').width}
+                        cropHeight={Dimensions.get('window').height}
+                        imageWidth={responsiveWidth(100)}
+                        imageHeight={responsiveHeight(100)}>
+                <FastImage 
+                  style={{width:responsiveWidth(100), height:responsiveHeight(100)}}
+                  source={{uri:detailItem.file}}
+                  resizeMode="contain"
+                  />
+              </ImageZoom>
+              <TouchableOpacity style={styles.dismissWrap} onPress={()=>this.onZoomImage(false)}>
+                <Text style={[styles.dismiss, fonts.montserrat_bold]}>Close</Text>
+              </TouchableOpacity>
+            </View>
+        </Modal>
       </ScrollView>
     )
   }

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   pro: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFCF1B",
+    backgroundColor: "#00A74C",
     borderRadius: 5,
     height: 24,
     paddingHorizontal: 8.5,

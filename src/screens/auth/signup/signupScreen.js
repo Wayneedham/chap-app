@@ -35,6 +35,13 @@ class signupScreen extends Component{
         <Text style={[styles.txt_title, fonts.montserrat_bold]}>
           Sign Up
         </Text>
+        <LoginComponent
+          isLogin={false}
+          userEmail={userEmail}
+          userPwd={userPwd}
+          userFname={userFname}
+          userLname={userLname}
+        />
         <View style={{ paddingVertical: 5 }}>
           <TextField
             ref={fname => {
@@ -88,13 +95,7 @@ class signupScreen extends Component{
             onChangeText={password => this.setState({ userConfirmPwd: password })}
           />
         </View>
-        <LoginComponent
-          isLogin={false}
-          userEmail={userEmail}
-          userPwd={userPwd}
-          userFname={userFname}
-          userLname={userLname}
-        />
+        
         <View style={styles.already_txt_register_container}>
           <Text style={[styles.already_txt, fonts.montserrat_regular]}>
             Already have an account ?

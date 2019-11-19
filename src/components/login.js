@@ -9,14 +9,11 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from "react-native-router-flux";
-import * as Progress from "react-native-progress";
-import {
-  responsiveHeight
-} from "react-native-responsive-dimensions";
 
 import * as userActions from "../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../reducers/fetchdata';
 import { setReduxAddInfo } from "../reducers/fetchdata";
+import CustomButton from "./customButton";
 
 import styles from "./loginStyle";
 import fonts from "../sharedStyles/fontStyle";
@@ -134,36 +131,14 @@ class LoginComponent extends React.Component {
   }
 
   render() {
+    const{isLoading} = this.state;
     return (
       <View style={styles.input_container}>
-        <TouchableOpacity
-          onPress={() => this.onSignin(this.props.isLogin)}
-          style={
-            this.props.hasAcceptedTerms !== undefined
-              ? this.props.hasAcceptedTerms
-                ? styles.signin_container
-                : styles.signin_container_off
-              : styles.signin_container
-          }
-        >
-          <Text style={[styles.signin_txt, fonts.montserrat_regular]}>
-            {this.props.isLogin ? "Sign In" : "Sign Up"}
-          </Text>
-          {this.state.isLoading && (
-            <Progress.CircleSnail
-              color={"#fff"}
-              style={{
-                position: "absolute",
-                top: responsiveHeight(2),
-                right: responsiveHeight(3),
-                zIndex: 10
-              }}
-              size={responsiveHeight(4)}
-              indeterminate={true}
-            />
-          )}
-        </TouchableOpacity>
-
+        <CustomButton 
+          title={this.props.isLogin ? "Sign In" : "Sign Up"}
+          onClick={() => this.onSignin(this.props.isLogin)}
+          isPending={isLoading}
+        />  
         <View>
           <Text style={[styles.input_container_ortxt, fonts.montserrat_medium]}>
             {"or connect with social"}

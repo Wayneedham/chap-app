@@ -11,6 +11,7 @@ import homeScreen from "./home/homeScreen";
 import createScreen from "./home/createScreen";
 import videoScreen from "./home/videoScreen";
 import aboutScreen from "./home/aboutScreen";
+import tutorialScreen from "./home/tutorialScreen";
 
 import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
@@ -43,6 +44,9 @@ export const HomeStack = StackNavigator(
     },
     about: {
       screen: aboutScreen
+    },
+    tutorial: {
+      screen: tutorialScreen
     }
   },
   {

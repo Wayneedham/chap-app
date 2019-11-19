@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F9F9"
   },
   logo_container:{
-    paddingVertical: 50,
+    paddingTop: 50,
+    paddingBottom: 30,
     alignItems: "center"
   },
   bigTxt:{
@@ -21,20 +22,34 @@ const styles = StyleSheet.create({
     fontSize: 35
   },
   logo_img:{
-    height: 65
+    height: 120
   },
   buttonWrap:{
     backgroundColor: "#00A74C",
+    width: responsiveWidth(80),
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 3,
+    marginBottom: 10
+  },
+  buttonText:{
+    fontSize: 35,
+    color: "black"
+  },
+
+  aboutbtnWrap:{
+    backgroundColor: "black",
     width: responsiveWidth(60),
     height: 40,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 3,
-    marginBottom: 15
+    marginBottom: 10
   },
-  buttonText:{
-    fontSize: 20,
-    color: "black"
+  aboutTxt:{
+    fontSize: 25,
+    color: "#00A74C"
   },
   helpWrap:{
     position: "absolute",

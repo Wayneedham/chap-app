@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  Image,
+  Image,  
   FlatList,
   TextInput
 } from 'react-native';
@@ -85,7 +85,7 @@ class historyScreen extends Component{
         <View style={styles.topbar_wrap}>
           <Text style={[styles.title, fonts.montserrat_bold]}>HISTORY</Text>        
         </View>
-        <View style={styles.search_wrap}>
+        <View style={styles.search_wrap}>          
           <Image 
             style={styles.searchIcon}
             source={require("../../../../assets/icons/icon_search.png")}

@@ -1,5 +1,5 @@
 export default {
-	colorYellow: '#FFCF1B',
+	colorYellow: '#00A74C',
 	colorLightGray: '#898989',
   colorInactiveTab: '#898989',
   colorMainGray: '#232E40',

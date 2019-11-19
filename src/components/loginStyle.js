@@ -8,8 +8,7 @@ import colorStyle from "../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   input_container: {
     flex: 1,
-    flexDirection: "column",
-    marginTop: responsiveHeight(6)
+    flexDirection: "column"
   },
   signin_container: {
     height: responsiveHeight(8),

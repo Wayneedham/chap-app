@@ -192,18 +192,18 @@ class detectComponent extends Component{
           <View>
             <View style={styles.rowWrap}>
               <Text style={[styles.imgTypeTxt, fonts.montserrat_regular]}>Select Image Type</Text>
-              <TouchableOpacity style={styles.helpWrap} onPress={()=>this.onShowHelp(true)}>
+              {/* <TouchableOpacity style={styles.helpWrap} onPress={()=>this.onShowHelp(true)}>
                 <Image 
                   source={require("../../../assets/icons/icon_help.png")}
                   style={styles.helpIcon}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <RadioButton 
               options={radioOptions} 
               onSelectImgType={this.onSelectImgType}
             />
-            <Text style={[styles.helpTxt, fonts.montserrat_regular]}>
+            <Text style={[styles.helpTxt, fonts.montserrat_bold]}>
               {txt_img_type==="lower" ? "Can Only detect up to 17 Years Old." : "Can Only detect up to 20 Years Old."}
             </Text>
           </View>
@@ -218,7 +218,7 @@ class detectComponent extends Component{
           onPress={() => this.onPostImg()}
           style={[styles.update_container, is_premium?{marginBottom: 70}:{}]}
         >
-          <Text style={[styles.update_txt, fonts.montserrat_regular]}>
+          <Text style={[styles.update_txt, fonts.montserrat_bold]}>
             {is_premium ? "Post" : "Post (PayAsYouGo)"}
           </Text>   
           {
@@ -232,7 +232,7 @@ class detectComponent extends Component{
             onPress={() => this.onUpgrade()}
             style={styles.upgrade_container}
           >
-            <Text style={[styles.update_txt, fonts.montserrat_regular]}>
+            <Text style={[styles.update_txt, fonts.montserrat_bold]}>
               {"Upgrade To Unlimited"}
             </Text>          
             <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>($20/Month)</Text>    

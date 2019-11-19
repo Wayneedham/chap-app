@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  TouchableOpacity,
   Alert
 } from 'react-native';
 
 import { TextField } from "react-native-material-textfield";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as Progress from "react-native-progress";
-import {
-  responsiveHeight
-} from "react-native-responsive-dimensions";
-
 
 import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import * as userActions from "../../../actions/userActions";
 import serverurl from '../../../../config/const/serverurl';
 import CustomBar from "../../../components/customBar";
+import CustomButton from "../../../components/customButton";
 import styles from "./profileScreenStyle";
-import fonts from "../../../sharedStyles/fontStyle";
 
 class profileScreen extends Component{
 
@@ -66,7 +59,7 @@ class profileScreen extends Component{
     }
   }
 
-  onProfileUpdate(){
+  onProfileUpdate =()=>{
     const url = serverurl.basic_url + 'changeprofile';
     const { userEmail, userFname, userLname } = this.state;
 
@@ -142,27 +135,11 @@ class profileScreen extends Component{
         </View>
         {
           is_social===false &&
-          <TouchableOpacity
-            onPress={() => this.onProfileUpdate()}
-            style={styles.update_container}
-          >
-            <Text style={[styles.update_txt, fonts.montserrat_regular]}>
-              {"UPDATE"}
-            </Text>
-            {isPending && (
-              <Progress.CircleSnail
-                color={"#fff"}
-                style={{
-                  position: "absolute",
-                  top: responsiveHeight(2),
-                  right: responsiveHeight(3),
-                  zIndex: 10
-                }}
-                size={responsiveHeight(4)}
-                indeterminate={true}
-              />
-            )}
-          </TouchableOpacity>
+          <CustomButton 
+            title={"UPDATE"}
+            onClick={this.onProfileUpdate}
+            isPending={isPending}
+          />            
         }
         
       </View>

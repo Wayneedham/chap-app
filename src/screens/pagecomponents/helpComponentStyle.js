@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+  txtContainer:{
+    width: responsiveWidth(85)
+  },
   title: {
     textAlign: "center",
     fontSize: 30,
@@ -35,7 +38,6 @@ const styles = StyleSheet.create({
   },
   rowWrap:{
     flexDirection: "row",
-    alignItems: "center",
     marginBottom: 3
   },
   detailTxt:{   

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },  
   update_txt: {
     color: colorStyle.colorMainGray,
-    fontSize: responsiveFontSize(2)
+    fontSize: 24
   },
   update_container: {
     height: responsiveHeight(8),

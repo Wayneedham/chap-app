@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import {
   View,
-  Text,
-  TouchableOpacity,
   Alert
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TextField } from "react-native-material-textfield";
-import * as Progress from "react-native-progress";
-import {
-  responsiveHeight
-} from "react-native-responsive-dimensions";
 
 import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import CustomBar from "../../../components/customBar";
+import CustomButton from "../../../components/customButton";
 import * as userActions from "../../../actions/userActions";
 import serverurl from '../../../../config/const/serverurl'; 
 import styles from "./changePwdScreenStyle";
-import fonts from "../../../sharedStyles/fontStyle";
 
 class changePasswordScreen extends Component{
 
@@ -56,7 +50,7 @@ class changePasswordScreen extends Component{
     }
   }
 
-  onChangePwd(){
+  onChangePwd =()=>{
     const{cPwd, nPwd, vPwd} = this.state;
     if (cPwd === "") {
       this.showAlert("Enter old password please.");
@@ -136,27 +130,11 @@ class changePasswordScreen extends Component{
             returnKeyType="done"
           />
         </View>
-        <TouchableOpacity
-          style={styles.update_container}
-          onPress={()=>this.onChangePwd()}
-        >
-          <Text style={[styles.update_txt, fonts.montserrat_regular]}>
-            {"CHANGE PASSWORD"}
-          </Text>
-          {isPending && (
-            <Progress.CircleSnail
-              color={"#fff"}
-              style={{
-                position: "absolute",
-                top: responsiveHeight(2),
-                right: responsiveHeight(3),
-                zIndex: 10
-              }}
-              size={responsiveHeight(4)}
-              indeterminate={true}
-            />
-          )}
-        </TouchableOpacity>
+        <CustomButton 
+          title={"CHANGE PASSWORD"}
+          onClick={this.onChangePwd}
+          isPending={isPending}
+        />        
       </View>
     )
   }

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     height: 20
   },
   helpTxt:{
-    fontSize: 11,
+    fontSize: 13,
     color: 'red',
     paddingLeft: 12,
     paddingTop: 2
