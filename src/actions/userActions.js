@@ -78,7 +78,6 @@ export async function fbLogin(token, props) {
     userData.append('first_name', names[1]);
     userData.append('is_social', true);
 
-    console.log("social ==", userData);
     const url = serverurl.basic_url + 'sociallogin';
     postRequest(userData, url);
   }
@@ -140,7 +139,6 @@ export async function fbLogin(token, props) {
       .then(res => {
         dispatch(fetchDataSuccess(res));
         const allList = res["all"];
-        console.log("allList == ", allList);
         dispatch(fetchListSuccess(allList));
         return res;
       })
@@ -236,5 +234,8 @@ export async function fbLogin(token, props) {
      }
   }
 
+  export function calcuateHorseAge(value){
+    
+  }
   
   
