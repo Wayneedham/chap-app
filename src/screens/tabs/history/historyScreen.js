@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as userActions from "../../../actions/userActions";
-// import {getDataError, getDataSuccess, getDataPending} from '../../../reducers/fetchdata';
 import {getListError, getListSuccess, getListPending} from '../../../reducers/fetchhistory';
 import HorseListItem from "../../../components/horseListItem";
 import ProgressBar from "../../../components/progressBar";

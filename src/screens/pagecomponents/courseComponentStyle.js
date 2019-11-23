@@ -1,18 +1,16 @@
 import { StyleSheet} from "react-native";
-import { responsiveHeight,
-         responsiveWidth,
-         responsiveFontSize
+import { responsiveWidth
 } from 'react-native-responsive-dimensions';
 import colorStyle from "../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: responsiveWidth(3),
-    paddingTop: 30,
+    paddingTop: 10,
     backgroundColor: "#F9F9F9"
   },
   aboutTxt:{   
-    fontSize: responsiveFontSize(2),
+    fontSize: 17,
     color: colorStyle.colorMainGray
   },
   subscribeWrap:{
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorStyle.colorYellow
   },
   subscribeText:{
-    fontSize: responsiveFontSize(2.5),
+    fontSize: 23,
     color: colorStyle.colorMainGray
   },
   videoWrap:{

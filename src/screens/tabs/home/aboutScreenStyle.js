@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   aboutTxt:{   
-    fontSize: responsiveFontSize(2),
-    color: colorStyle.colorMainGraym,
+    fontSize: 18,
+    color: colorStyle.colorMainGray,
     marginBottom: 100
   },
   horseImg:{

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   aboutTxt:{   
-    fontSize: responsiveFontSize(2),
+    fontSize: 17,
     color: colorStyle.colorMainGray
   },
   subscribeWrap:{
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   subscribeBtn:{
-    width: responsiveWidth(70),
+    width: responsiveWidth(80),
     height: 55,
     alignItems: "center",
     justifyContent: "center",
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorStyle.colorYellow
   },
   subscribeText:{
-    fontSize: responsiveFontSize(2.5),
+    fontSize: 23,
     color: colorStyle.colorMainGray
   }
 })

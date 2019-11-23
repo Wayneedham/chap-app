@@ -14,6 +14,7 @@ import FastImage from 'react-native-fast-image';
 import ImageZoom from 'react-native-image-pan-zoom';
 import moment from "moment";
 
+import * as userActions from "../../../actions/userActions";
 import CustomBar from "../../../components/customBar";
 import styles from "./detailScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -38,11 +39,12 @@ class detailScreen extends Component{
   render(){
     const detailItem = this.props.navigation.getParam("detailItem");
     let age = detailItem.age === null ? 0 : detailItem.age;
-    if(detailItem.image_type.toLowerCase() === "lower"){
-      age = parseFloat(age) >= 17 ? "17 or Older" : parseFloat(age).toFixed(5);
-    }else{
-      age = parseFloat(age) >= 20 ? "20 or Older" : parseFloat(age).toFixed(5);
-    }
+    age = userActions.calcuateHorseAge(age);
+    // if(detailItem.image_type.toLowerCase() === "lower"){
+    //   age = parseFloat(age) >= 17 ? "17 or Older" : parseFloat(age).toFixed(5);
+    // }else{
+    //   age = parseFloat(age) >= 20 ? "20 or Older" : parseFloat(age).toFixed(5);
+    // }
 
     const{calcImgHeight, zoomModal} = this.state;
     return(

@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
-import { responsiveHeight,
+import { 
+  responsiveHeight,
+  responsiveFontSize
 } from 'react-native-responsive-dimensions';
 import colorStyle from "../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   update_txt: {
     color: colorStyle.colorMainGray,
-    fontSize: 24
+    fontSize: responsiveFontSize(2.3)
   },
   update_container: {
     height: responsiveHeight(8),

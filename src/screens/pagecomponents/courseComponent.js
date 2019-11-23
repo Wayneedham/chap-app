@@ -91,10 +91,10 @@ class courseComponent extends Component{
     const{isShowModal, videoURL, isPending} = this.state;
     return(
       <View style={styles.container}>
-        <View style={styles.videoWrap}>
+        {/* <View style={styles.videoWrap}>
           <Text style={[styles.comeTxt, fonts.montserrat_semibold]}>Coming Soon....</Text>            
-        </View>
-        {/* {
+        </View> */}
+        {
           isPurchase === false ? (
             <ScrollView>        
               <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
@@ -112,8 +112,7 @@ class courseComponent extends Component{
               </View>      
             </ScrollView>
           ) : (
-            <View style={styles.videoWrap}>
-              <Text style={[styles.comeTxt, fonts.montserrat_semibold]}>Coming Soon....</Text>
+            <View style={styles.videoWrap}>            
                <CourseItem                 
                 onVideoPlay={this.onVideoPlay}               
                 URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
@@ -124,7 +123,7 @@ class courseComponent extends Component{
               /> 
             </View>
           )
-        } */}
+        }
         <ProgressBar 
           isPending={isPending}
         />
