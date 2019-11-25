@@ -44,6 +44,7 @@ class historyScreen extends Component{
         let list = [];
         responseData.map(item=>{
           item["file"] = serverurl.server_url + item["file"];
+          item["detect_file"] = serverurl.server_url + item["detect_file"];  
           list.push(item);
         })
         this.setState({horseList: list});

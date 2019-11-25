@@ -7,7 +7,6 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import stripe from "tipsi-stripe";
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
@@ -17,16 +16,8 @@ import DetectModal from "../../../components/detectModal";
 import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import serverurl from '../../../../config/const/serverurl';
+import stripe, {optionsCardForm} from '../../../../config/stripe';
 
-stripe.setOptions({
-  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
-});
-const optionsCardForm = {
-  theme: {
-    primaryForegroundColor: "#585F6F",
-    accentColor: "#FFCF1B"
-  }
-};
 
 let postDetectData = "";
 let isUpgrade = false;
@@ -80,7 +71,8 @@ class detectScreen extends Component{
               "The image was detected successfully.",
               [{ text: "OK", onPress: () => {  
                 const recentData = responseData["recent"];  
-                recentData["file"] = serverurl.server_url + recentData["file"];              
+                recentData["file"] = serverurl.server_url + recentData["file"];    
+                recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];                
                 this.setState({recentData: recentData, isRecent: true, isShowModal: false, initData: true});    
                 postDetectData = "";    
                 this.props.actions.initReduxData(""); 

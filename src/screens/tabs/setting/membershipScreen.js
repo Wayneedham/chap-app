@@ -10,7 +10,6 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import stripe from "tipsi-stripe";
 
 import CustomBar from "../../../components/customBar";
 import ProgressBar from "../../../components/progressBar";
@@ -19,16 +18,8 @@ import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../
 import serverurl from '../../../../config/const/serverurl'; 
 import styles from "./membershipScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
+import stripe, {optionsCardForm} from '../../../../config/stripe';
 
-stripe.setOptions({
-  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_live_i5V112Spm1uMo3odGTGW9E3s
-});
-const optionsCardForm = {
-  theme: {
-    primaryForegroundColor: "#585F6F",
-    accentColor: "#FFCF1B"
-  }
-};
 let isUpgrade = false;
 
 class membershipScreen extends Component{

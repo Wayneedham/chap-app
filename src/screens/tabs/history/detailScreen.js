@@ -58,7 +58,7 @@ class detailScreen extends Component{
             <FastImage 
               resizeMode="contain"
               style={{ width: responsiveWidth(94), height: calcImgHeight }}
-              source={{ uri: detailItem.file }}
+              source={{ uri: detailItem.detect_file }}
               onLoad={evt =>
                 this.setState({
                   calcImgHeight:
@@ -98,7 +98,7 @@ class detailScreen extends Component{
                         imageHeight={responsiveHeight(100)}>
                 <FastImage 
                   style={{width:responsiveWidth(100), height:responsiveHeight(100)}}
-                  source={{uri:detailItem.file}}
+                  source={{uri:detailItem.detect_file}}
                   resizeMode="contain"
                   />
               </ImageZoom>

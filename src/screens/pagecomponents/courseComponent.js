@@ -10,7 +10,6 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import VideoPlayer from 'react-native-video-controls';
-import stripe from "tipsi-stripe";
 
 import * as userActions from "../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../../reducers/fetchdata';
@@ -19,16 +18,8 @@ import ProgressBar from "../../components/progressBar";
 import CourseItem from "../../components/courseItem"; 
 import styles from "./courseComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
+import stripe, {optionsCardForm} from '../../../config/stripe';
 
-stripe.setOptions({
-  publishableKey: "pk_live_i5V112Spm1uMo3odGTGW9E3s" // client test : pk_test_mEk3SpdSiKRzNQADwueQKbpR
-});
-const optionsCardForm = {
-  theme: {
-    primaryForegroundColor: "#585F6F",
-    accentColor: "#FFCF1B"
-  }
-};
 
 class courseComponent extends Component{
   constructor(props) {

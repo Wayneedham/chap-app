@@ -140,24 +140,26 @@ class detectComponent extends Component{
           }
       ImagePicker.launchImageLibrary(options, (response) => {    
           if (!response.didCancel) {
-            Image.getSize( response.uri, ( width, height ) =>
-            {
-                let imgScale = 1;
-                if(width > 3000 || height > 3000){
-                  imgScale = 0.5;
-                }
-                ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
-                    .then(({uri}) => {
-                      let source = { uri };
-                      this.setState({imgSrc: source, imgURI: uri});
-                  })
-                    .catch( err => {
-                        console.log('error=', err);
-                });   
-            }, ( error ) =>
-            {              
-                console.log( error );
-            });
+            let source = { uri: response.uri };
+            this.setState({imgSrc: source, imgURI: response.uri});
+            // Image.getSize( response.uri, ( width, height ) =>
+            // {
+            //     let imgScale = 1;
+            //     if(width > 3000 || height > 3000){
+            //       imgScale = 0.5;
+            //     }
+            //     ImageResizer.createResizedImage(response.uri, width * imgScale, height * imgScale, 'JPEG', 80)
+            //         .then(({uri}) => {
+            //           let source = { uri };
+            //           this.setState({imgSrc: source, imgURI: uri});
+            //       })
+            //         .catch( err => {
+            //             console.log('error=', err);
+            //     });   
+            // }, ( error ) =>
+            // {              
+            //     console.log( error );
+            // });
           }
       });
   }

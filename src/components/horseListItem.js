@@ -23,7 +23,7 @@ class horseListItem extends React.Component{
         <FastImage 
           resizeMode="cover"
           style={styles.horseImg}
-          source={{ uri: horseItem.file }}
+          source={{ uri: horseItem.detect_file }}
         />
         <Text>
           {"Name: " + horseItem.name}

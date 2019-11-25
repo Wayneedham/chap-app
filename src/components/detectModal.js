@@ -64,7 +64,7 @@ class detectModal extends Component{
             <FastImage 
               resizeMode="contain"
               style={{ width: responsiveWidth(94), height: calcImgHeight }}
-              source={{ uri: recentData.file }}
+              source={{ uri: recentData.detect_file }}
               onLoad={evt =>
                 this.setState({
                   calcImgHeight:
