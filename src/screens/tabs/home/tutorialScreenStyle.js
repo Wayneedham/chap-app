@@ -47,7 +47,14 @@ const styles = StyleSheet.create({
   horseImg:{
     width: "100%",
     height: 150
-  }
+  },
+  videoPlayWrap:{
+    height: 200, 
+    alignItems: 'center'
+  },
+  videoPlayImg:{
+    height: "100%"
+  },
 })
 
 module.exports = styles;

@@ -3,10 +3,14 @@ import {
   View,
   Text,
   Image,
+  Modal,
+  TouchableOpacity,
   ScrollView
 } from 'react-native';
+import VideoPlayer from 'react-native-video-controls';
 
 import CustomBar from "../../../components/customBar";
+import CourseItem from "../../../components/courseItem";
 import styles from "./tutorialScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -26,7 +30,24 @@ const tutorialList2 = [
 
 
 class tutorialScreen extends Component{
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowModal: false
+    };   
+  }
+  
+  onVideoPlay =()=>{
+    this.setState({isShowModal: true})
+  }
+
+  onDismiss(){
+    this.setState({isShowModal: false});
+  }
+
   render(){
+    const{isShowModal} = this.state;
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
@@ -65,6 +86,23 @@ class tutorialScreen extends Component{
             ))
           }           
         </View>
+        <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
+          <Image 
+            style={styles.videoPlayImg}
+            resizeMode="contain"
+            source={require("../../../../assets/icons/icon_videoplay.png")}
+          />
+        </TouchableOpacity> 
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={isShowModal}
+          onRequestClose={()=>{}}>
+          <VideoPlayer
+            source={{ uri: "https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV" }}            
+            onBack={()=>this.onDismiss()}
+          />
+        </Modal>
         <View style={{height: 100}}/>
       </ScrollView>
     )
