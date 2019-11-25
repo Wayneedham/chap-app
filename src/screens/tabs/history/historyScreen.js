@@ -40,13 +40,14 @@ class historyScreen extends Component{
       this.setState({isShowModal: false});
       const responseData = nextProps.data;
       if(responseData.length > 0){   
-        console.log("load success  ss=====", responseData);     
+         
         let list = [];
-        responseData.map(item=>{
+        responseData.map(item=>{          
+          item["detect_file"] = serverurl.server_url + (item["detect_file"] ===''? item["file"] : item["detect_file"]);  
           item["file"] = serverurl.server_url + item["file"];
-          item["detect_file"] = serverurl.server_url + item["detect_file"];  
           list.push(item);
         })
+        console.log("load success  ss=====", list);    
         this.setState({horseList: list});
       }
     }

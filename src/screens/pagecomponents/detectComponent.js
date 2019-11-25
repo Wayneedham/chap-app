@@ -171,7 +171,7 @@ class detectComponent extends Component{
   render(){
     const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isHelpModal, txt_img_type} = this.state;
     const is_premium = window.currentUser["is_premium"];
-    // const{pending} = this.props;
+  
     return(
       <View>
         <View style={styles.img_container}>

@@ -17,7 +17,7 @@ import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import serverurl from '../../../../config/const/serverurl';
 import stripe, {optionsCardForm} from '../../../../config/stripe';
-
+import moment from "moment";
 
 let postDetectData = "";
 let isUpgrade = false;
@@ -70,9 +70,9 @@ class detectScreen extends Component{
               "",
               "The image was detected successfully.",
               [{ text: "OK", onPress: () => {  
-                const recentData = responseData["recent"];  
-                recentData["file"] = serverurl.server_url + recentData["file"];    
-                recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];                
+                const recentData = responseData["recent"];
+                recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);
+                recentData["file"] = serverurl.server_url + recentData["file"];                 
                 this.setState({recentData: recentData, isRecent: true, isShowModal: false, initData: true});    
                 postDetectData = "";    
                 this.props.actions.initReduxData(""); 
@@ -88,7 +88,18 @@ class detectScreen extends Component{
   onCreateDetect =(userData)=>{    
     postDetectData = userData;
     this.setState({initData: false});
-    const isFreeUser = window.currentUser["is_premium"];
+    let isFreeUser = window.currentUser["is_premium"];
+    if(!isFreeUser){
+      if(window.currentUser['video_created_at'] !== undefined && window.currentUser["is_video"]===true){
+        const video_purchase_date = moment(window.currentUser['video_created_at']);  
+        const diff_days = moment().diff(video_purchase_date, "days");
+        console.log("diff ==", diff_days);
+        if(diff_days < 31){
+          isFreeUser = true;
+        }
+      }
+    }
+    
     if(!isFreeUser){
       Alert.alert(
         "",

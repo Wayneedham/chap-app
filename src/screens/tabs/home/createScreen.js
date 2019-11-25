@@ -73,9 +73,9 @@ class createScreen extends Component{
             console.log("post success  sss");     
           }
           else if(Object.keys(responseData).includes("recent")){ 
-            const recentData = responseData["recent"];  
-            recentData["file"] = serverurl.server_url + recentData["file"];
-            recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];              
+            const recentData = responseData["recent"]; 
+            recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
+            recentData["file"] = serverurl.server_url + recentData["file"];            
             setTimeout(() => {
               Alert.alert(
                 "",
