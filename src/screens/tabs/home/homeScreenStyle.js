@@ -8,7 +8,7 @@ import colorStyle from "../../../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: responsiveWidth(3),
+    paddingHorizontal: responsiveWidth(2),
     alignItems: "center",
     backgroundColor: "#F9F9F9"
   },
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   buttonWrap:{
     backgroundColor: "#00A74C",
-    width: responsiveWidth(80),
+    width: responsiveWidth(85),
     height: 60,
     alignItems: "center",
     justifyContent: "center",
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
   aboutbtnWrap:{
     backgroundColor: "black",
-    width: responsiveWidth(60),
+    width: responsiveWidth(65),
     height: 40,
     alignItems: "center",
     justifyContent: "center",

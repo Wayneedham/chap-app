@@ -4,7 +4,8 @@ import {
   Text,
   ScrollView,
   Alert,
-  Modal
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -170,27 +171,27 @@ class createScreen extends Component{
 
   render(){
     const{isShowModal, initData, recentData, isRecent} = this.state;
-    console.log("isRecent==", isRecent);
-    console.log("isShowModal==", isShowModal);
-    // const{pending} = this.props;
+    const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
-      <ScrollView style={styles.container}>
-        <CustomBar 
-          title={"New"}
-          navigate={this.props.navigation}
-        />
-        <DetectComponent 
-          onPostHorse={this.onCreateDetect}
-          onUpgrade={this.onUpgrade}
-          initData={initData}
-        />        
-        <ProgressBar isPending={isShowModal}/>
-        <DetectModal 
-          recentData={recentData}
-          isRecent={isRecent}
-          onDone={this.onDismissRecent}
-        />
-      </ScrollView>
+      <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
+        <ScrollView style={styles.container}>
+          <CustomBar 
+            title={"New"}
+            navigate={this.props.navigation}
+          />
+          <DetectComponent 
+            onPostHorse={this.onCreateDetect}
+            onUpgrade={this.onUpgrade}
+            initData={initData}
+          />        
+          <ProgressBar isPending={isShowModal}/>
+          <DetectModal 
+            recentData={recentData}
+            isRecent={isRecent}
+            onDone={this.onDismissRecent}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }

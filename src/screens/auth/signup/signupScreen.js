@@ -3,6 +3,8 @@ import {
   View,
   Text,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
   TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -30,89 +32,94 @@ class signupScreen extends Component{
 
   render(){
     const { userEmail, userPwd, userConfirmPwd, hidePassword, userFname, userLname } = this.state;
+    const behavior = Platform.OS === 'ios' ? 'padding' : null
     return (
-      <ScrollView style={styles.register_container}>
-        <Text style={[styles.txt_title, fonts.montserrat_bold]}>
-          Sign Up
-        </Text>
-        <LoginComponent
-          isLogin={false}
-          userEmail={userEmail}
-          userPwd={userPwd}
-          userFname={userFname}
-          userLname={userLname}
-        />
-        <View style={{ paddingVertical: 5 }}>
-          <TextField
-            ref={fname => {
-              this.fnameInput = fname;
-            }}
-            label={"First Name"}
-            value={userFname}
-            onChangeText={fname => this.setState({ userFname: fname })}
-            onSubmitEditing={() => this.lnameInput.focus()}
-            returnKeyType="next"
-          />
-          <TextField
-            ref={lname => {
-              this.lnameInput = lname;
-            }}
-            label={"Last Name"}
-            value={userLname}
-            onChangeText={lname => this.setState({ userLname: lname })}
-            onSubmitEditing={() => this.emailInput.focus()}
-            returnKeyType="next"
-          />
-          <TextField
-            ref={email => {
-              this.emailInput = email;
-            }}
-            label={"Email"}
-            value={userEmail}
-            autoCapitalize={"none"}
-            onChangeText={email => this.setState({ userEmail: email })}
-            onSubmitEditing={() => this.passwordInput.focus()}
-            returnKeyType="next"
-          />
-          <TextField
-            ref={password => {
-              this.passwordInput = password;
-            }}
-            label={"Password"}
-            value={userPwd}
-            autoCapitalize={"none"}
-            secureTextEntry={hidePassword}
-            onChangeText={password => this.setState({ userPwd: password })}
-          />
-          <TextField
-            ref={password => {
-              this.confirmInput = password;
-            }}
-            label={"Confirm Password"}
-            value={userConfirmPwd}
-            autoCapitalize={"none"}
-            secureTextEntry={hidePassword}
-            onChangeText={password => this.setState({ userConfirmPwd: password })}
-          />
-        </View>
-        
-        <View style={styles.already_txt_register_container}>
-          <Text style={[styles.already_txt, fonts.montserrat_regular]}>
-            Already have an account ?
+      <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
+        <ScrollView style={styles.register_container}>
+          <Text style={[styles.txt_title, fonts.montserrat_bold]}>
+            Sign Up
           </Text>
-          <TouchableOpacity onPress={() => this.onSignin()}>
-            <Text
-              style={[
-                styles.already_txt,
-                fonts.montserrat_semibold,
-                { textDecorationLine: "underline" }
-              ]}
-            >
-              Sign in
+          <LoginComponent
+            isLogin={false}
+            userEmail={userEmail}
+            userPwd={userPwd}
+            userFname={userFname}
+            userLname={userLname}
+          />
+          <View style={{ paddingVertical: 5 }}>
+            <TextField
+              ref={fname => {
+                this.fnameInput = fname;
+              }}
+              label={"First Name"}
+              value={userFname}
+              onChangeText={fname => this.setState({ userFname: fname })}
+              onSubmitEditing={() => this.lnameInput.focus()}
+              returnKeyType="next"
+            />
+            <TextField
+              ref={lname => {
+                this.lnameInput = lname;
+              }}
+              label={"Last Name"}
+              value={userLname}
+              onChangeText={lname => this.setState({ userLname: lname })}
+              onSubmitEditing={() => this.emailInput.focus()}
+              returnKeyType="next"
+            />
+            <TextField
+              ref={email => {
+                this.emailInput = email;
+              }}
+              label={"Email"}
+              value={userEmail}
+              autoCapitalize={"none"}
+              onChangeText={email => this.setState({ userEmail: email })}
+              onSubmitEditing={() => this.passwordInput.focus()}
+              returnKeyType="next"
+            />
+            <TextField
+              ref={password => {
+                this.passwordInput = password;
+              }}
+              label={"Password"}
+              value={userPwd}
+              autoCapitalize={"none"}
+              secureTextEntry={hidePassword}
+              onChangeText={password => this.setState({ userPwd: password })}
+              onSubmitEditing={() => this.confirmInput.focus()}
+              returnKeyType="next"
+            />
+            <TextField
+              ref={password => {
+                this.confirmInput = password;
+              }}
+              label={"Confirm Password"}
+              value={userConfirmPwd}
+              autoCapitalize={"none"}
+              secureTextEntry={hidePassword}
+              onChangeText={password => this.setState({ userConfirmPwd: password })}
+            />
+          </View>
+          
+          <View style={styles.already_txt_register_container}>
+            <Text style={[styles.already_txt, fonts.montserrat_regular]}>
+              Already have an account ?
             </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TouchableOpacity onPress={() => this.onSignin()}>
+              <Text
+                style={[
+                  styles.already_txt,
+                  fonts.montserrat_semibold,
+                  { textDecorationLine: "underline" }
+                ]}
+              >
+                Sign in
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
   Alert
 } from 'react-native';
 
@@ -202,38 +204,40 @@ class detectScreen extends Component{
 
   render(){
     const{isShowModal, initData, recentData, isRecent, isPromptDialog, horseAge} = this.state; 
-    console.log("isShowModal===", isShowModal);
+    const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
-      <ScrollView style={styles.container}>
-        <Text style={[styles.title, fonts.montserrat_bold]}>New</Text>
-        <DetectComponent 
-          onPostHorse={this.onCreateDetect}
-          onUpgrade={this.onUpgrade}
-          initData={initData}
-        />  
-        <DetectModal 
-          recentData={recentData}
-          isRecent={isRecent}
-          onDone={this.onDismissRecent}
-        />
-        <Dialog.Container visible={isPromptDialog}>
-          <Dialog.Description>
-            The image was detected successfully.{"\n\n"}
-            <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
-          </Dialog.Description>
-          <Dialog.Input 
-            placeholder={"Enter Horse's Age"}
-            value={horseAge}
-            keyboardType={'decimal-pad'}
-            returnKeyType={'done'}
-            onChangeText={txt => this.setState({ horseAge: txt })}
+      <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
+        <ScrollView style={styles.container}>
+          <Text style={[styles.title, fonts.montserrat_bold]}>New</Text>
+          <DetectComponent 
+            onPostHorse={this.onCreateDetect}
+            onUpgrade={this.onUpgrade}
+            initData={initData}
+          />  
+          <DetectModal 
+            recentData={recentData}
+            isRecent={isRecent}
+            onDone={this.onDismissRecent}
           />
-          <Dialog.Button label="Ok" onPress={this.handleConfirm}/>
-        </Dialog.Container>
-        <ProgressBar 
-          isPending={isShowModal}
-        />
-      </ScrollView>
+          <Dialog.Container visible={isPromptDialog}>
+            <Dialog.Description>
+              The image was detected successfully.{"\n\n"}
+              <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
+            </Dialog.Description>
+            <Dialog.Input 
+              placeholder={"Enter Horse's Age"}
+              value={horseAge}
+              keyboardType={'decimal-pad'}
+              returnKeyType={'done'}
+              onChangeText={txt => this.setState({ horseAge: txt })}
+            />
+            <Dialog.Button label="Ok" onPress={this.handleConfirm}/>
+          </Dialog.Container>
+          <ProgressBar 
+            isPending={isShowModal}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }

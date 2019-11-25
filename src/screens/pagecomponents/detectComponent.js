@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  KeyboardAvoidingView,
   Alert
 } from 'react-native';
 
@@ -212,6 +213,7 @@ class detectComponent extends Component{
           <TextField 
             style={styles.detailsTxtWrap}
             label={"Image Description(Optional)"}
+            returnKeyType={'done'}
             value={txt_img_desc}
             onChangeText={text => this.setState({ txt_img_desc: text })}
           />
