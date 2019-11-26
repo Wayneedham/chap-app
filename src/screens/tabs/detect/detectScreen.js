@@ -32,8 +32,7 @@ class detectScreen extends Component{
       isShowModal: false,
       initData: false,
       recentData: "",
-      horseAge: '',
-      isPromptDialog: false,
+      horseAge: '',      
       isRecent: false
     };
   }
@@ -84,19 +83,27 @@ class detectScreen extends Component{
                 }}],
                 { cancelable: false }
               );  
-            }else{
-              recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];
-              recentData["file"] = serverurl.server_url + recentData["file"];                 
-              this.setState({
-                recentData,
-                isShowModal: false, 
-                isPromptDialog: true});  
-              postDetectData = ""; 
+            }else{              
+              Alert.alert(
+                "",
+                "The image was detected successfully",
+                [{text: "OK", onPress: ()=>{
+                  recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];
+                  recentData["file"] = serverurl.server_url + recentData["file"];                 
+                  this.setState({
+                    recentData,
+                    isRecent: true,
+                    isShowModal: false,
+                    initData: true});  
+                  postDetectData = ""; 
+                }}]
+              )
+
             }
             // this.props.actions.initReduxData("");  
               
           }else if(Object.keys(responseData).includes("detect_file")){
-            this.setState({isShowModal: false, initData: true, isRecent: true}); 
+            this.setState({isShowModal: false}); 
           }
           this.props.actions.initReduxData(""); 
         }        
@@ -186,24 +193,22 @@ class detectScreen extends Component{
     this.setState({recentData: "", isRecent: false});
   }
 
-  handleConfirm =()=>{
-    const{recentData, horseAge} = this.state;
+  handleConfirm =(horseAge)=>{
+    const{recentData} = this.state;
     const url = serverurl.basic_url + 'answer';
     const userData = new FormData()
     userData.append('user', window.currentUser["id"]);
     userData.append('detection', recentData["id"]);
     userData.append('age', horseAge);
-    
+    console.log("userData===", userData);
     this.props.actions.postNewRequest(userData, url);   // send horse's age via email. 
-    this.setState({isPromptDialog: false}, ()=>{
-      setTimeout(()=>{
-        this.setState({isShowModal: true})
-      }, 300);
-    });       
+    setTimeout(()=>{
+      this.setState({isShowModal: true})
+    }, 300);   
   }
 
   render(){
-    const{isShowModal, initData, recentData, isRecent, isPromptDialog, horseAge} = this.state; 
+    const{isShowModal, initData, recentData, isRecent} = this.state; 
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
@@ -218,21 +223,8 @@ class detectScreen extends Component{
             recentData={recentData}
             isRecent={isRecent}
             onDone={this.onDismissRecent}
-          />
-          <Dialog.Container visible={isPromptDialog}>
-            <Dialog.Description>
-              The image was detected successfully.{"\n\n"}
-              <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
-            </Dialog.Description>
-            <Dialog.Input 
-              placeholder={"Enter Horse's Age"}
-              value={horseAge}
-              keyboardType={'decimal-pad'}
-              returnKeyType={'done'}
-              onChangeText={txt => this.setState({ horseAge: txt })}
-            />
-            <Dialog.Button label="Ok" onPress={this.handleConfirm}/>
-          </Dialog.Container>
+            handleConfirm={this.handleConfirm}
+          />          
           <ProgressBar 
             isPending={isShowModal}
           />

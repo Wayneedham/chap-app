@@ -10,6 +10,7 @@ import FastImage from 'react-native-fast-image';
 import {
   responsiveWidth
 } from 'react-native-responsive-dimensions';
+import Dialog from "react-native-dialog";
 
 import styles from "./detectModalStyle";
 import fonts from "../sharedStyles/fontStyle";
@@ -19,8 +20,18 @@ class detectModal extends Component{
   constructor(props){
     super(props);
     this.state = {
-      calcImgHeight: 0
+      calcImgHeight: 0,
+      isPromptDialog: true,
+      horseAge: ""
     }
+  }
+
+  onConfirm(){
+    const{horseAge} = this.state;
+    if(parseInt(horseAge, 10) > 0){
+      this.setState({isPromptDialog: false});
+      this.props.handleConfirm(horseAge)
+    }    
   }
 
   render(){
@@ -35,7 +46,7 @@ class detectModal extends Component{
       }
     }    
 
-    const {calcImgHeight} = this.state;
+    const {calcImgHeight, horseAge, isPromptDialog} = this.state;
     return(
       <Modal 
         animationType={'slide'}      
@@ -72,6 +83,19 @@ class detectModal extends Component{
                 })}
             />
           </View>
+          <Dialog.Container visible={isPromptDialog}>
+            <Dialog.Description>            
+              <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
+            </Dialog.Description>
+            <Dialog.Input 
+              placeholder={"Enter Horse's Age"}
+              value={horseAge}
+              keyboardType={'decimal-pad'}
+              returnKeyType={'done'}
+              onChangeText={txt => this.setState({ horseAge: txt })}
+            />
+            <Dialog.Button label="Ok" onPress={()=>this.onConfirm()}/>
+          </Dialog.Container>
         </View>        
       </Modal>
     )
