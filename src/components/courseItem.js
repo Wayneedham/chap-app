@@ -11,10 +11,11 @@ import fonts from "../sharedStyles/fontStyle";
 
 class CourseItem extends Component{
   render(){
-    const{URL} = this.props;
+    const{URL, title} = this.props;
     return(
       <View style={styles.courseWrap}>       
-        <View style={styles.subscribeWrap}>
+        <Text style={[styles.courseDetailTxt, fonts.montserrat_semibold]}>{title}</Text>
+        <View style={styles.subscribeWrap}>          
           <TouchableOpacity onPress={()=>this.props.onVideoPlay(URL)}>
             <Image 
               style={styles.videoPlayImg}

@@ -8,6 +8,7 @@ import colorStyle from "../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   courseWrap:{
     height: "50%",
+    width: "100%",
     paddingVertical: 10
   },
   courseTitleTxt:{
@@ -21,8 +22,7 @@ const styles = StyleSheet.create({
   subscribeWrap:{
     flex: 1,
     height: "100%",
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center'
   },
   videoPlayImg:{
     height: "80%"

@@ -23,17 +23,16 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(3.3),
     color: colorStyle.colorMainGray
   },
-  dismissWrap: {
+  back_wrap:{
     position: "absolute",
-    bottom: 5,
-    right: -5
+    left: 0,
+    bottom: 20,
+    width: 20,
+    height: 20
   },
-  dismiss:{
-    textAlign: "center",
-    fontSize: responsiveFontSize(2.2),
-    color: colorStyle.colorYellow,
-    paddingHorizontal: 10,
-    paddingVertical: 5
+  back:{
+    width: 20,
+    height: 20
   },
   itemWrap:{
     paddingVertical: 5,

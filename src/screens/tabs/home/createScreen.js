@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
   ScrollView,
   Alert,
   KeyboardAvoidingView,
@@ -10,12 +8,12 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Actions } from 'react-native-router-flux';
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import ProgressBar from "../../../components/progressBar";
-import DetectModal from "../../../components/detectModal";
 import CustomBar from "../../../components/customBar";
 import styles from "./createScreenStyle";
 import serverurl from '../../../../config/const/serverurl';
@@ -29,9 +27,7 @@ class createScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
-      initData: false,
-      recentData: "",
-      isRecent: false
+      initData: false
     };    
   }
   
@@ -84,10 +80,9 @@ class createScreen extends Component{
                 [{ text: "OK", onPress: () => {              
                   this.setState({
                     isShowModal: false,
-                    recentData: recentData, 
-                    isRecent: true, 
-                    initData: true
-                  });
+                    initData: true});  
+                  postDetectData = ""; 
+                  Actions.detectResultScreen({recentData});
                   this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
@@ -164,13 +159,8 @@ class createScreen extends Component{
       console.warn("Payment failed", { error }); 
     });
   }
-
-  onDismissRecent =()=>{
-    this.setState({recentData: "", isRecent: false});
-  }
-
   render(){
-    const{isShowModal, initData, recentData, isRecent} = this.state;
+    const{isShowModal, initData} = this.state;
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
@@ -184,12 +174,7 @@ class createScreen extends Component{
             onUpgrade={this.onUpgrade}
             initData={initData}
           />        
-          <ProgressBar isPending={isShowModal}/>
-          <DetectModal 
-            recentData={recentData}
-            isRecent={isRecent}
-            onDone={this.onDismissRecent}
-          />
+          <ProgressBar isPending={isShowModal}/>       
         </ScrollView>
       </KeyboardAvoidingView>
     )

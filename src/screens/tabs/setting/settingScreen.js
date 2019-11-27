@@ -19,7 +19,7 @@ class settingScreen extends Component{
   onLogout(){
     Alert.alert(
       '',
-      'Would you log out now ? ',
+      'Would you like to Log Out? ',
       [
         {text: 'OK', onPress: () =>{this.onUserLogout()}},
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed')}        

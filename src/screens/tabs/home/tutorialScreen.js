@@ -54,6 +54,14 @@ class tutorialScreen extends Component{
           title={"Tutorial"}
           navigate={this.props.navigation}
         />
+        <Text style={[styles.detailTxt, fonts.montserrat_regular]}>Watch the Tutorial</Text>
+        <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
+          <Image 
+            style={styles.videoPlayImg}
+            resizeMode="contain"
+            source={require("../../../../assets/icons/icon_videoplay.png")}
+          />
+        </TouchableOpacity> 
         <View style={styles.txtContainer}>
           {
             tutorialList1.map((title,index)=>(
@@ -85,21 +93,14 @@ class tutorialScreen extends Component{
               </View>
             ))
           }           
-        </View>
-        <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
-          <Image 
-            style={styles.videoPlayImg}
-            resizeMode="contain"
-            source={require("../../../../assets/icons/icon_videoplay.png")}
-          />
-        </TouchableOpacity> 
+        </View>        
         <Modal
           animationType="slide"
           transparent={false}
           visible={isShowModal}
           onRequestClose={()=>{}}>
           <VideoPlayer
-            source={{ uri: "https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV" }}            
+            source={{ uri: "https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course2.MOV" }}            
             onBack={()=>this.onDismiss()}
           />
         </Modal>

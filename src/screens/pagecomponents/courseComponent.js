@@ -104,11 +104,13 @@ class courseComponent extends Component{
             </ScrollView>
           ) : (
             <View style={styles.videoWrap}>            
-               <CourseItem                 
+               <CourseItem   
+                title="Video 1 - The Science Video"                  
                 onVideoPlay={this.onVideoPlay}               
                 URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
               />
-              <CourseItem                 
+              <CourseItem       
+                title="Video 2 - The Art Video"          
                 onVideoPlay={this.onVideoPlay}               
                 URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
               /> 

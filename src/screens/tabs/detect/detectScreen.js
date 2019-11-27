@@ -9,13 +9,12 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Dialog from "react-native-dialog";
+import { Actions } from 'react-native-router-flux';
 
 import DetectComponent from "../../pagecomponents/detectComponent";
 import * as userActions from "../../../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../../reducers/fetchdata';
 import ProgressBar from "../../../components/progressBar";
-import DetectModal from "../../../components/detectModal";
 import styles from "./detectScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import serverurl from '../../../../config/const/serverurl';
@@ -30,17 +29,13 @@ class detectScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
-      initData: false,
-      recentData: "",
-      horseAge: '',      
-      isRecent: false
+      initData: false
     };
   }
   
   componentWillReceiveProps(nextProps){ 
     const responseData = nextProps.data;
-    if(nextProps.pending === false && responseData!==""){      
-      console.log("responseData===", responseData);
+    if(nextProps.pending === false && responseData!==""){
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
         postDetectData = "";
@@ -91,19 +86,13 @@ class detectScreen extends Component{
                   recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];
                   recentData["file"] = serverurl.server_url + recentData["file"];                 
                   this.setState({
-                    recentData,
-                    isRecent: true,
                     isShowModal: false,
                     initData: true});  
                   postDetectData = ""; 
+                  Actions.detectResultScreen({recentData});
                 }}]
               )
-
-            }
-            // this.props.actions.initReduxData("");  
-              
-          }else if(Object.keys(responseData).includes("detect_file")){
-            this.setState({isShowModal: false}); 
+            }          
           }
           this.props.actions.initReduxData(""); 
         }        
@@ -111,8 +100,7 @@ class detectScreen extends Component{
     }    
   }
 
-  onCreateDetect =(userData)=>{    
-    // this.setState({isPromptDialog: true});
+  onCreateDetect =(userData)=>{        
     console.log("window.currentUser=", window.currentUser);
     postDetectData = userData;
     this.setState({initData: false});
@@ -189,26 +177,8 @@ class detectScreen extends Component{
     });
   }
 
-  onDismissRecent =()=>{
-    this.setState({recentData: "", isRecent: false});
-  }
-
-  handleConfirm =(horseAge)=>{
-    const{recentData} = this.state;
-    const url = serverurl.basic_url + 'answer';
-    const userData = new FormData()
-    userData.append('user', window.currentUser["id"]);
-    userData.append('detection', recentData["id"]);
-    userData.append('age', horseAge);
-    console.log("userData===", userData);
-    this.props.actions.postNewRequest(userData, url);   // send horse's age via email. 
-    setTimeout(()=>{
-      this.setState({isShowModal: true})
-    }, 300);   
-  }
-
   render(){
-    const{isShowModal, initData, recentData, isRecent} = this.state; 
+    const{isShowModal, initData} = this.state; 
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
@@ -219,12 +189,6 @@ class detectScreen extends Component{
             onUpgrade={this.onUpgrade}
             initData={initData}
           />  
-          <DetectModal 
-            recentData={recentData}
-            isRecent={isRecent}
-            onDone={this.onDismissRecent}
-            handleConfirm={this.handleConfirm}
-          />          
           <ProgressBar 
             isPending={isShowModal}
           />
