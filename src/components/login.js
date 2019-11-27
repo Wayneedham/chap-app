@@ -29,7 +29,6 @@ class LoginComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("nextProps === ", nextProps);
     this.setState({ isLoading: nextProps.pending });
     if(nextProps.pending === false){
       const responseData = nextProps.data;

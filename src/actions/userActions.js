@@ -237,11 +237,16 @@ export async function fbLogin(token, props) {
   export function calcuateHorseAge(value){
     const age = Math.round(value);
     let ageStr = '';
-    if((age-1)>0){
-      ageStr = (age-1) + " - " + (age + 1) + " Years Old"
+    if(age >= 17){
+      ageStr = "17 or Older";
     }else{
-      ageStr = "0 - " + (age + 1) + " Years Old"
+      if((age-1)>0){
+        ageStr = (age-1) + " - " + (age + 1) + " Years Old"
+      }else{
+        ageStr = "0 - " + (age + 1) + " Years Old"
+      }
     }
+    
     return ageStr;
   }
   
