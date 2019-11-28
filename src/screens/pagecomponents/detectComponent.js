@@ -103,7 +103,6 @@ class detectComponent extends Component{
     });
 
     this.props.onPostHorse(userData);
-    // this.props.actions.postHorse(userData);
   }
 
   handlePhotoPress =(index)=> {

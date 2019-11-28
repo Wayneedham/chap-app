@@ -101,7 +101,7 @@ class detectScreen extends Component{
   }
 
   onCreateDetect =(userData)=>{        
-    console.log("window.currentUser=", window.currentUser);
+    console.log("window.currentUser=", window.currentUser);   
     postDetectData = userData;
     this.setState({initData: false});
     let isProUser = window.currentUser["is_premium"];

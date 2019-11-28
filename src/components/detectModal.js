@@ -81,6 +81,7 @@ class detectModal extends Component{
           />
         </View>
         <Dialog.Container visible={isPromptDialog}>
+           <Dialog.Title>Just Curious!!!</Dialog.Title>
           <Dialog.Description>            
             <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
           </Dialog.Description>

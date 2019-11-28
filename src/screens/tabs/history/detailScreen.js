@@ -69,7 +69,7 @@ class detailScreen extends Component{
           
           <View style={styles.detail_txt_wrap}>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-            {"Uploaded At: "}<Text style={[fonts.montserrat_regular]}>{moment(detailItem.uploaded_at).format('YYYY.MM.DD, h:mm:ss a')}</Text>
+            {"Uploaded At: "}<Text style={[fonts.montserrat_regular]}>{moment(detailItem.uploaded_at).format('MM-DD-YYYY')}</Text>
             </Text>
             <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
             {"Image Type: "}<Text style={[fonts.montserrat_regular]}>{detailItem.image_type}</Text>
