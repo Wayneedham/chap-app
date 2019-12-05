@@ -13,6 +13,7 @@ import CustomBar from "../../../components/customBar";
 import serverurl from '../../../../config/const/serverurl';
 import styles from "./tutorialScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
+import { Actions } from 'react-native-router-flux';
 
 const tutorialList1 = [
   "Clear, not Blurry",
@@ -39,11 +40,14 @@ class tutorialScreen extends Component{
   }
   
   onVideoPlay =()=>{
-    this.setState({isShowModal: true})
+    // this.setState({isShowModal: true})
+    // Orientation.lockToLandscape();
+    Actions.videoPlayScreen({video_url: serverurl.tutorial_video});
   }
 
   onDismiss(){
     this.setState({isShowModal: false});
+    Orientation.lockToPortrait();
   }
 
   render(){

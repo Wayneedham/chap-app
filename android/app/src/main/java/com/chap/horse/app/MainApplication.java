@@ -3,6 +3,7 @@ package com.chap.horse.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.yamill.orientation.OrientationPackage;
 import com.gettipsi.stripe.StripeReactPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new OrientationPackage(),
             new StripeReactPackage(),
             new ReactVideoPackage(),
             new RNTextGradientPackage(),

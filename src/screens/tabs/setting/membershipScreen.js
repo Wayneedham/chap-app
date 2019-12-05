@@ -93,17 +93,17 @@ class membershipScreen extends Component{
   }
 
   onSubScribe(){
-    Alert.alert("", "The feature will come soon.")
-    // isUpgrade = false;
-    // stripe
-    // .paymentRequestWithCardForm(optionsCardForm)
-    // .then(token => {
-    //   if(token)
-    //     this.onProcessPayment(token.tokenId);
-    // })
-    // .catch(error => {
-    //   console.warn("Payment failed", { error });    
-    // });
+    // Alert.alert("", "The feature will come soon.")
+    isUpgrade = false;
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error });    
+    });
   }
 
   onUpgrade(){

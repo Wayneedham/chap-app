@@ -20,6 +20,7 @@ import serverurl from '../../../config/const/serverurl';
 import styles from "./courseComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
 import stripe, {optionsCardForm} from '../../../config/stripe';
+import { Actions } from 'react-native-router-flux';
 
 
 class courseComponent extends Component{
@@ -71,7 +72,8 @@ class courseComponent extends Component{
   }
 
   onVideoPlay =(url)=>{
-    this.setState({videoURL: url, isShowModal: true})
+    Actions.videoPlayScreen({video_url: url});
+    // this.setState({videoURL: url, isShowModal: true})
   }
 
   onDismiss(){

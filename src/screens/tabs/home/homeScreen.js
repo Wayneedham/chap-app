@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Linking
 } from 'react-native';
+import Orientation from 'react-native-orientation';
 
 import styles from "./homeScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -13,6 +14,10 @@ import fonts from "../../../sharedStyles/fontStyle";
 class homeScreen extends Component{
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount(){
+    Orientation.lockToPortrait();
   }
 
   onDetect =()=>{
