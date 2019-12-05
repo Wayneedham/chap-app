@@ -10,7 +10,7 @@ import {
 import VideoPlayer from 'react-native-video-controls';
 
 import CustomBar from "../../../components/customBar";
-import CourseItem from "../../../components/courseItem";
+import serverurl from '../../../../config/const/serverurl';
 import styles from "./tutorialScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -100,7 +100,7 @@ class tutorialScreen extends Component{
           visible={isShowModal}
           onRequestClose={()=>{}}>
           <VideoPlayer
-            source={{ uri: "https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course2.MOV" }}            
+            source={{ uri: serverurl.tutorial_video }}            
             onBack={()=>this.onDismiss()}
           />
         </Modal>

@@ -16,6 +16,7 @@ import {getDataError, getDataSuccess, getDataPending} from '../../reducers/fetch
 
 import ProgressBar from "../../components/progressBar";
 import CourseItem from "../../components/courseItem"; 
+import serverurl from '../../../config/const/serverurl';
 import styles from "./courseComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
 import stripe, {optionsCardForm} from '../../../config/stripe';
@@ -107,12 +108,12 @@ class courseComponent extends Component{
                <CourseItem   
                 title="Video 1 - The Science Video"                  
                 onVideoPlay={this.onVideoPlay}               
-                URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
+                URL={serverurl.course_video_1}
               />
               <CourseItem       
                 title="Video 2 - The Art Video"          
                 onVideoPlay={this.onVideoPlay}               
-                URL={"https://ml-ref-data.s3.us-east-2.amazonaws.com/course/course1.MOV"}
+                URL={serverurl.course_video_2}
               /> 
             </View>
           )
