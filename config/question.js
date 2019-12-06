@@ -1,5 +1,5 @@
 export default {
-  video_question_1: [
+  video_question: [
     {
       question: "When do the Cups Disappear on the Lower #1’s?",
       answer: "6 Years Old"
