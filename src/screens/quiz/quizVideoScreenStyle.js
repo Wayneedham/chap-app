@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { responsiveWidth,
-  responsiveFontSize
+  responsiveFontSize,
+  responsiveHeight
 } from 'react-native-responsive-dimensions';
 
 const styles = StyleSheet.create({
@@ -33,6 +34,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: responsiveWidth(3),
     textAlign: 'center',
     color: 'white'
+  },
+  answerMsg:{
+    fontSize: responsiveFontSize(3.7),
+    paddingHorizontal: responsiveWidth(3),
+    textAlign: 'center',
+    color: 'green',
+    marginTop: 30
   },
   watchMsg:{
     marginTop: 40,
@@ -72,6 +80,9 @@ const styles = StyleSheet.create({
   answerBtnWrap:{
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  answerTextBtn:{
+    marginTop: 50
   },
   nextBtnView:{
     backgroundColor: 'white',

@@ -67,7 +67,7 @@ class quizVideoScreen extends Component{
 
   onPrev(){
     const{question_index} = this.state;
-    if((question_index -1)>0){
+    if(question_index>0){
       this.setState({question_index:(question_index - 1), isQuiz: true, horseAge: ""})
     }
   }

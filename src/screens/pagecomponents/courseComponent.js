@@ -79,6 +79,8 @@ class courseComponent extends Component{
   onQuiz =(index)=>{
     if(index === 1){
       Actions.quizVideoScreen();
+    }else{
+      Actions.quizTextScreen();
     }
   }
 

@@ -89,7 +89,7 @@ export default {
       answer: "Cementum"
     },
     {
-      question: "When is a horse considered “A Full Mouthed Horse?”",
+      question: "When is a horse considered “A Full Mouth Horse?”",
       answer: "5 Years Old"
     }   
   ]
