@@ -6,10 +6,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Dialog from "react-native-dialog";
+import { Actions } from 'react-native-router-flux';
 
+import {shuffle} from "../../actions/userActions";
 import styles from "./quizVideoScreenStyle";
 import fonts from "../../sharedStyles/fontStyle";
-import { Actions } from 'react-native-router-flux';
 
 const answerList = [
   "9", "14", "8~9", "3", "11~12", "19~20", "8~9", "16~18",
@@ -40,22 +41,8 @@ const quizImgList = [
   require("../../../assets/image/quiz/Horse_21.jpg"),
   require("../../../assets/image/quiz/Horse_22.jpg")
 ]
-let quizImgURL = "../../../assets/image/quiz/Horse_1.jpg";
-
-function shuffle(arra1) {
-  var ctr = arra1.length, temp, index;
-  while (ctr > 0) {
-    index = Math.floor(Math.random() * ctr);
-    ctr--;
-    temp = arra1[ctr];
-    arra1[ctr] = arra1[index];
-    arra1[index] = temp;
-  }
-  return arra1;
-}
 
 class quizVideoScreen extends Component{
-
   constructor(props) {
     super(props);
     var list = [];
