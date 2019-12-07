@@ -11,15 +11,67 @@ import styles from "./quizVideoScreenStyle";
 import fonts from "../../sharedStyles/fontStyle";
 import { Actions } from 'react-native-router-flux';
 
+const answerList = [
+  "9", "14", "8~9", "3", "11~12", "19~20", "8~9", "16~18",
+  "4", "15", "25", "6", "16", "2", "13", "9", "17", "5",
+  "11~14", "32", "10", "11"
+]
+const quizImgList = [
+  require("../../../assets/image/quiz/Horse_1.jpg"),
+  require("../../../assets/image/quiz/Horse_2.jpg"),
+  require("../../../assets/image/quiz/Horse_3.jpg"),
+  require("../../../assets/image/quiz/Horse_4.jpg"),
+  require("../../../assets/image/quiz/Horse_5.jpg"),
+  require("../../../assets/image/quiz/Horse_6.jpg"),
+  require("../../../assets/image/quiz/Horse_7.jpg"),
+  require("../../../assets/image/quiz/Horse_8.jpg"),
+  require("../../../assets/image/quiz/Horse_9.jpg"),
+  require("../../../assets/image/quiz/Horse_10.jpg"),
+  require("../../../assets/image/quiz/Horse_11.jpg"),
+  require("../../../assets/image/quiz/Horse_12.jpg"),
+  require("../../../assets/image/quiz/Horse_13.jpg"),
+  require("../../../assets/image/quiz/Horse_14.jpg"),
+  require("../../../assets/image/quiz/Horse_15.jpg"),
+  require("../../../assets/image/quiz/Horse_16.jpg"),
+  require("../../../assets/image/quiz/Horse_17.jpg"),
+  require("../../../assets/image/quiz/Horse_18.jpg"),
+  require("../../../assets/image/quiz/Horse_19.jpg"),
+  require("../../../assets/image/quiz/Horse_20.jpg"),
+  require("../../../assets/image/quiz/Horse_21.jpg"),
+  require("../../../assets/image/quiz/Horse_22.jpg")
+]
+let quizImgURL = "../../../assets/image/quiz/Horse_1.jpg";
+
+function shuffle(arra1) {
+  var ctr = arra1.length, temp, index;
+  while (ctr > 0) {
+    index = Math.floor(Math.random() * ctr);
+    ctr--;
+    temp = arra1[ctr];
+    arra1[ctr] = arra1[index];
+    arra1[index] = temp;
+  }
+  return arra1;
+}
+
 class quizVideoScreen extends Component{
 
   constructor(props) {
     super(props);
+    var list = [];
+    const lowEnd = 1, highEnd = 22;
+    for (var i = lowEnd; i <= highEnd; i++) {
+        list.push(i);
+    }
+    const randomArr = shuffle(list);
     this.state = {
       isQuiz: true,
       isPromptDialog: false,
-      horseAge: ""
+      horseAge: "",
+      question_index: 0,
+      sortArr: randomArr
     };   
+    console.log("randomArr===", randomArr);
   }
 
   goBack =()=>{
@@ -27,11 +79,17 @@ class quizVideoScreen extends Component{
   }
 
   onPrev(){
-
+    const{question_index} = this.state;
+    if((question_index -1)>0){
+      this.setState({question_index:(question_index - 1), isQuiz: true, horseAge: ""})
+    }
   }
 
   onNext(){
-    
+    const{question_index} = this.state;
+    if((question_index + 1)<answerList.length){
+      this.setState({question_index:(question_index + 1), isQuiz: true, horseAge: ""})
+    }
   }
 
   onAnswer(){
@@ -43,11 +101,18 @@ class quizVideoScreen extends Component{
   }
 
   onVideoPlay(){
-
+    const{question_index, sortArr} = this.state;
+    const orderNum = sortArr[question_index];
+    const quizVideoURL = "https://ml-ref-data.s3.us-east-2.amazonaws.com/QA/" + orderNum + ".mp4";
+    Actions.videoPlayScreen({video_url: quizVideoURL});
   }
 
   render(){
-    const{isQuiz, isPromptDialog, horseAge} = this.state;
+    const{isQuiz, isPromptDialog, horseAge, question_index, sortArr} = this.state;
+    const orderNum = sortArr[question_index];
+    const rightAnswerAge = answerList[orderNum-1];
+    const quizImgURL =quizImgList[orderNum-1];
+    
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
@@ -67,18 +132,18 @@ class quizVideoScreen extends Component{
             <Image 
               style={styles.quizImg}
               resizeMode="contain"
-              source={require("../../../assets/image/quiz/Horse_1.jpg")}
+              source={quizImgURL}
             />            
           </View>
           ) : (
             <View style={styles.answerView}>
-              <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>This Horse is 9 Years Old.</Text>  
+              <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{"This Horse is " + rightAnswerAge+" Years Old."}</Text>  
               <Text style={[styles.watchMsg, fonts.montserrat_semibold]}>Watch Video</Text>            
               <View style={styles.videoPlaywrap}>
                 <Image 
                   style={styles.answerImg}
                   resizeMode="cover"
-                  source={require("../../../assets/image/quiz/Horse_1.jpg")}
+                  source={quizImgURL}
                 />  
                 <TouchableOpacity style={styles.videoPlayImgBtn} onPress={()=>this.onVideoPlay()}>
                   <Image 
