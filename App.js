@@ -10,6 +10,7 @@ const RouterWithRedux = connect()(Router);
 import landingScreen from './src/screens/landing/landingScreen';
 import loginScreen from './src/screens/auth/login/loginScreen';
 import videoPlayScreen from './src/screens/video/videoPlayScreen';
+import quizVideoScreen from './src/screens/quiz/quizVideoScreen';
 import detectResultScreen from './src/screens/tabs/detect/detectResultScreen';
 import signupScreen from './src/screens/auth/signup/signupScreen';
 import customTabNavigator from "./src/screens/tabs/tabNavigator";
@@ -70,6 +71,14 @@ export default class App extends Component {
               key="videoPlayScreen"
               component={videoPlayScreen}
               title="videoPlayScreen"
+              initial={false}
+              hideNavBar={true}
+            />
+
+            <Scene
+              key="quizVideoScreen"
+              component={quizVideoScreen}
+              title="quizVideoScreen"
               initial={false}
               hideNavBar={true}
             />

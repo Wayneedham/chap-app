@@ -8,24 +8,33 @@ import colorStyle from "../sharedStyles/colorStyle";
 const styles = StyleSheet.create({
   courseWrap:{
     height: "50%",
-    width: "100%",
     paddingVertical: 10
   },
-  courseTitleTxt:{
-    fontSize: responsiveFontSize(3),
-    color: colorStyle.colorMainGray
+  courseTitleWrap:{
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   courseDetailTxt:{
     fontSize: responsiveFontSize(2),
     color: colorStyle.colorMainGray
   },
+  quizBtn:{
+    backgroundColor: colorStyle.colorGreen,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 4
+  },
+  quizTxt:{
+    fontSize: responsiveFontSize(1.8),    
+  },
   subscribeWrap:{
-    flex: 1,
-    height: "100%",
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: "80%"
   },
   videoPlayImg:{
-    height: "80%"
+    height: "90%"
   },
   subscribeBtn:{
     width: responsiveWidth(70),

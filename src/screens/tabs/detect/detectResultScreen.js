@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  Alert
+  ScrollView
 } from 'react-native';
 
 import { connect } from 'react-redux';

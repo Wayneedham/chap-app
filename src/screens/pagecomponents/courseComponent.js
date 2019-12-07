@@ -76,6 +76,12 @@ class courseComponent extends Component{
     // this.setState({videoURL: url, isShowModal: true})
   }
 
+  onQuiz =(index)=>{
+    if(index === 1){
+      Actions.quizVideoScreen();
+    }
+  }
+
   onDismiss(){
     this.setState({isShowModal: false});
   }
@@ -106,15 +112,19 @@ class courseComponent extends Component{
               </View>      
             </ScrollView>
           ) : (
-            <View style={styles.videoWrap}>            
+            <View>            
                <CourseItem   
                 title="Video 1 - The Science Video"                  
-                onVideoPlay={this.onVideoPlay}               
+                onVideoPlay={this.onVideoPlay}   
+                onQuiz ={this.onQuiz}      
+                index={0}      
                 URL={serverurl.course_video_1}
               />
               <CourseItem       
                 title="Video 2 - The Art Video"          
-                onVideoPlay={this.onVideoPlay}               
+                onVideoPlay={this.onVideoPlay}     
+                onQuiz ={this.onQuiz}     
+                index={1}                
                 URL={serverurl.course_video_2}
               /> 
             </View>
