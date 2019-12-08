@@ -29,6 +29,7 @@ class videoPlayScreen extends Component{
         <VideoPlayer
           source={{ uri: video_url }}            
           onBack={()=>this.onBack()}
+          onEnd={()=>this.onBack()}
         />
       </View>
     )
