@@ -3,6 +3,7 @@ import { responsiveWidth,
   responsiveFontSize,
   responsiveHeight
 } from 'react-native-responsive-dimensions';
+import colorStyle from "../../sharedStyles/colorStyle";
 
 const styles = StyleSheet.create({
   container: {
@@ -42,15 +43,19 @@ const styles = StyleSheet.create({
     color: 'green',
     marginTop: 30
   },
-  watchMsg:{
-    marginTop: 40,
+  watchMsg:{   
     fontSize: responsiveFontSize(2),
     textAlign: 'center',
+    marginBottom: 5,
     color: 'white'
+  },
+  quizImgWrap:{
+    width: '100%',
+    height: '60%'
   },
   quizImg:{
     width: '100%',
-    height: '60%'
+    height: '100%'
   },
   answerView:{
     alignItems: 'center'
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
   videoPlaywrap:{
     width: '80%',
     height: '50%',
+    marginBottom: 40,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -93,6 +99,23 @@ const styles = StyleSheet.create({
   nextBtnTxt:{
     fontSize: responsiveFontSize(2.2),
     color: 'black'
+  },
+  modal_container:{
+    flex: 1,
+    backgroundColor: "black"
+  },
+  dismissWrap: {
+    position: "absolute",
+    padding: 3,
+    top: 15,
+    right: 5
+  },
+  dismiss:{
+    textAlign: "center",
+    fontSize: 25,
+    color: colorStyle.colorYellow,
+    paddingHorizontal: 10,
+    paddingVertical: 5
   }
 })
 

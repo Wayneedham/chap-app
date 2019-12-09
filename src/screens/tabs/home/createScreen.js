@@ -27,6 +27,7 @@ class createScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
+      isUpload: false,
       initData: false
     };    
   }
@@ -55,7 +56,7 @@ class createScreen extends Component{
               { cancelable: false }
             );
           }
-          else if(Object.keys(responseData).includes("id") && isUpgrade === true){   
+          else if(Object.keys(responseData).includes("email") && isUpgrade === true){   
             window.currentUser = responseData;
             userActions._storeData("userInfo", responseData);
             Alert.alert(
@@ -67,27 +68,44 @@ class createScreen extends Component{
               }}],
               { cancelable: false }
             );
-            console.log("post success  sss");     
           }
           else if(Object.keys(responseData).includes("recent")){ 
             const recentData = responseData["recent"]; 
-            recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
-            recentData["file"] = serverurl.server_url + recentData["file"];            
-            setTimeout(() => {
+            if(recentData["detect_file"]===''){
               Alert.alert(
                 "",
-                "The image was detected successfully.",
-                [{ text: "OK", onPress: () => {              
+                "Cannot detect this image. Please try another image again.",
+                [{ text: "OK", onPress: () => {  
                   this.setState({
-                    isShowModal: false,
-                    initData: true});  
-                  postDetectData = ""; 
-                  Actions.detectResultScreen({recentData});
+                    recentData: "", 
+                    isShowModal: false, 
+                    initData: true, 
+                    isUpload: false});    
+                  postDetectData = "";    
                   this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
-              );
-            }, 300);
+              );  
+            }else{
+              recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
+              recentData["file"] = serverurl.server_url + recentData["file"];            
+              setTimeout(() => {
+                Alert.alert(
+                  "",
+                  "The image was detected successfully.",
+                  [{ text: "OK", onPress: () => {              
+                    this.setState({
+                      isShowModal: false,
+                      isUpload: false,
+                      initData: true});  
+                    postDetectData = ""; 
+                    Actions.detectResultScreen({recentData});
+                    this.props.actions.initReduxData(""); 
+                  }}],
+                  { cancelable: false }
+                );
+              }, 300);
+            }            
           }
         }        
       }
@@ -111,7 +129,7 @@ class createScreen extends Component{
         { cancelable: false }
       );
     }else{
-      this.setState({isShowModal: true});
+      this.setState({isShowModal: true, isUpload: true});
       this.props.actions.postHorse(userData);
       postDetectData = "";
     }    
@@ -124,14 +142,15 @@ class createScreen extends Component{
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
       this.props.actions.upgradeMembership(userData, url);
+      this.setState({isShowModal: true, isUpload: false});
     }else{
       const userData = new FormData()
       userData.append('user', window.currentUser["id"]);
       userData.append('token', token);
       userData.append('type', "detection");
       this.props.actions.detectPurchase(userData);
-    }
-    this.setState({isShowModal: true});
+      this.setState({isShowModal: true, isUpload: true});
+    }    
   }
 
   onSubScribe =()=>{
@@ -160,7 +179,7 @@ class createScreen extends Component{
     });
   }
   render(){
-    const{isShowModal, initData} = this.state;
+    const{isShowModal, initData, isUpload} = this.state;
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
@@ -174,7 +193,9 @@ class createScreen extends Component{
             onUpgrade={this.onUpgrade}
             initData={initData}
           />        
-          <ProgressBar isPending={isShowModal}/>       
+          <ProgressBar 
+            isPending={isShowModal} 
+            isTimer={isUpload ? true: false}/>       
         </ScrollView>
       </KeyboardAvoidingView>
     )

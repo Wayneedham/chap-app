@@ -3,10 +3,16 @@ import {
   View,
   Image,
   Text,
+  Modal,
+  Dimensions,
   TouchableOpacity
 } from 'react-native';
 import Dialog from "react-native-dialog";
 import { Actions } from 'react-native-router-flux';
+import {
+  responsiveWidth, responsiveHeight
+} from 'react-native-responsive-dimensions';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 import {shuffle} from "../../actions/userActions";
 import styles from "./quizVideoScreenStyle";
@@ -56,7 +62,8 @@ class quizVideoScreen extends Component{
       isPromptDialog: false,
       horseAge: "",
       question_index: 0,
-      sortArr: randomArr
+      sortArr: randomArr,
+      zoomModal: false
     };   
     console.log("randomArr===", randomArr);
   }
@@ -94,8 +101,12 @@ class quizVideoScreen extends Component{
     Actions.videoPlayScreen({video_url: quizVideoURL});
   }
 
+  onZoomImage =(flag)=>{
+    this.setState({zoomModal: flag})
+  }
+
   render(){
-    const{isQuiz, isPromptDialog, horseAge, question_index, sortArr} = this.state;
+    const{isQuiz, isPromptDialog, horseAge, question_index, sortArr, zoomModal} = this.state;  
     const orderNum = sortArr[question_index];
     const rightAnswerAge = answerList[orderNum-1];
     const quizImgURL =quizImgList[orderNum-1];
@@ -116,17 +127,18 @@ class quizVideoScreen extends Component{
           isQuiz ? (
           <View>
             <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>How Old Do You Think this Horse is?</Text>
-            <Image 
-              style={styles.quizImg}
-              resizeMode="contain"
-              source={quizImgURL}
-            />            
+            <TouchableOpacity style={styles.quizImgWrap} onPress={()=>this.onZoomImage(true)}>
+              <Image 
+                style={styles.quizImg}
+                resizeMode="contain"
+                source={quizImgURL}
+              />   
+            </TouchableOpacity>                     
           </View>
           ) : (
-            <View style={styles.answerView}>
-              <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{"This Horse is " + rightAnswerAge+" Years Old."}</Text>  
+            <View style={styles.answerView}>              
               <Text style={[styles.watchMsg, fonts.montserrat_semibold]}>Watch Video</Text>            
-              <View style={styles.videoPlaywrap}>
+              <View style={styles.videoPlaywrap}>             
                 <Image 
                   style={styles.answerImg}
                   resizeMode="cover"
@@ -139,23 +151,35 @@ class quizVideoScreen extends Component{
                     source={require("../../../assets/icons/icon_videoplay.png")}
                   />  
                 </TouchableOpacity>
-              </View>              
+              </View>      
+              <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{"This Horse is " + rightAnswerAge+" Years Old."}</Text>          
             </View>
           )
         }
           <View style={styles.answerBtnWrap}>
-            <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
-              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
-            </TouchableOpacity>
+            {
+              question_index!==0 ? 
+              (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
+                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
+              </TouchableOpacity>) : (
+                <View style={{width: 40}}/>
+              )
+            }
             {
               isQuiz &&
               <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
                 <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Answer</Text>
               </TouchableOpacity>
-            }            
-            <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
-              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
-            </TouchableOpacity>
+            }    
+            {
+              question_index<(quizImgList.length-1) ?
+              (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
+                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
+              </TouchableOpacity>) : (
+                <View style={{width: 40}}/>
+              )
+            }        
+            
           </View>  
         </View>
 
@@ -172,6 +196,27 @@ class quizVideoScreen extends Component{
           />
           <Dialog.Button label="Ok" onPress={()=>this.onConfirm()}/>
         </Dialog.Container>
+
+        <Modal
+          animationType={'slide'}      
+          visible={zoomModal}
+          onRequestClose={()=>{}}>
+            <View style={styles.modal_container}>
+              <ImageZoom cropWidth={Dimensions.get('window').width}
+                        cropHeight={Dimensions.get('window').height}
+                        imageWidth={responsiveWidth(100)}
+                        imageHeight={responsiveHeight(100)}>
+                <Image 
+                  style={{width:responsiveWidth(100), height:responsiveHeight(100)}}
+                  source={quizImgURL}
+                  resizeMode="contain"
+                  />
+              </ImageZoom>
+              <TouchableOpacity style={styles.dismissWrap} onPress={()=>this.onZoomImage(false)}>
+                <Text style={[styles.dismiss, fonts.montserrat_bold]}>Close</Text>
+              </TouchableOpacity>
+            </View>
+        </Modal>
       </View>
     )
   }

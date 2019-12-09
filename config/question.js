@@ -21,7 +21,7 @@ export default {
       answer: "15 Years Old"
     },
     {
-      question: "When does a Horse shed their Upper #2 Caps (Babyteeth)?",
+      question: "When does a horse Shed their #2 Caps (Babyteeth)?",
       answer: "3 1⁄2 Years Old"
     },
     {
@@ -29,11 +29,11 @@ export default {
       answer: "17 Years Old"
     },
     {
-      question: "At what Age does the Galvayne’s Groove extend from the Halfway down the Tooth to all the way out the bottom?",
+      question: "At what age is the Galvayne’s Groove on the bottom half of the tooth?",
       answer: "25 Years Old"
     },
     {
-      question: "Why does the Cup disappear on the Uppers #3 years later than it disappears on the Lowers if they are the exact same age?",
+      question: "Why do the Upper Cups disappear 3 years later than the Lower Cups when they erupt at the exact same age?",
       answer: "The Upper Cup and Tooth are so much big than the Lower Cup and Tooth."
     },
     {
@@ -53,8 +53,8 @@ export default {
       answer: "Cementum"
     },
     {
-      question: "Do mares get Wolf Teeth?",
-      answer: "Yes"
+      question: "Do Mares get Wolf Teeth",
+      answer: "Yes, just as often as Male Horses"
     },
     {
       question: "What years do the “Vegas” or Upper #3 Hooks Appear?",

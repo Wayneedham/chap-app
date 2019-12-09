@@ -29,12 +29,18 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(1.8),    
   },
   subscribeWrap:{
+    marginTop: 5,
     alignItems: 'center',
     justifyContent: 'center',
     height: "80%"
   },
+  playThumbnailImg:{
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  },
   videoPlayImg:{
-    height: "90%"
+    height: "60%"
   },
   subscribeBtn:{
     width: responsiveWidth(70),

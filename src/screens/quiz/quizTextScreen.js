@@ -68,18 +68,29 @@ class quizTextScreen extends Component{
           <Text style={[styles.answerMsg, fonts.montserrat_semibold]}>{quizItem['answer']}</Text>
         }
         <View style={[styles.answerBtnWrap, styles.answerTextBtn]}>
-          <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
-            <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
-          </TouchableOpacity>
+          {
+            question_index!==0 ?
+            (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
+            </TouchableOpacity>) : (
+              <View style={{width: 40}}/>
+            )
+          }             
           {
             isQuiz &&
             <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
               <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Answer</Text>
             </TouchableOpacity>
+          }  
+          {
+            question_index<(questionArr.length-1) ?
+            (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
+            </TouchableOpacity>) : (
+              <View style={{width: 40}}/>
+            )
           }            
-          <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
-            <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
-          </TouchableOpacity>
+          
         </View> 
       </View>
     )

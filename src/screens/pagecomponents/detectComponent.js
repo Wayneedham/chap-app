@@ -77,6 +77,7 @@ class detectComponent extends Component{
   }
 
   onPostImg(){
+    console.log("window==", window.currentUser);
     const{txt_img_type, txt_img_desc, txt_img_name, imgURI} = this.state;
     
     if (imgURI === "") {

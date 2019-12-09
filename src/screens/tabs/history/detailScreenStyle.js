@@ -27,8 +27,9 @@ const styles = StyleSheet.create({
   },
   dismissWrap: {
     position: "absolute",
-    top: 5,
-    right: -5
+    padding: 3,
+    top: 15,
+    right: 5
   },
   dismiss:{
     textAlign: "center",

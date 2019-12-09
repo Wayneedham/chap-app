@@ -29,6 +29,7 @@ class detectScreen extends Component{
     super(props);
     this.state = {
       isShowModal: false,
+      isUpload: false,
       initData: false
     };
   }
@@ -47,20 +48,21 @@ class detectScreen extends Component{
               responseData["message"],
               [{ text: "OK", onPress: () => {
                 this.setState({isShowModal: false});     
-                // this.props.actions.initReduxData("");         
+                this.props.actions.initReduxData("");         
               } }],
               { cancelable: false }
             );
           }
-          else if(Object.keys(responseData).includes("id") && isUpgrade === true){   
+          else if(Object.keys(responseData).includes("email") && isUpgrade === true){   
             window.currentUser = responseData;
             userActions._storeData("userInfo", responseData);            
             Alert.alert(
               "",
               "The membership was upgraded successfully.",
               [{ text: "OK", onPress: () => {
+                isUpgrade = false;
                 this.setState({isShowModal: false});     
-                // this.props.actions.initReduxData("");     
+                this.props.actions.initReduxData("");     
               }}],
               { cancelable: false }
             );   
@@ -72,9 +74,13 @@ class detectScreen extends Component{
                 "",
                 "Cannot detect this image. Please try another image again.",
                 [{ text: "OK", onPress: () => {  
-                  this.setState({recentData: "", isShowModal: false, initData: true});    
+                  this.setState({
+                    recentData: "", 
+                    isShowModal: false, 
+                    initData: true, 
+                    isUpload: false});    
                   postDetectData = "";    
-                  // this.props.actions.initReduxData(""); 
+                  this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
               );  
@@ -87,21 +93,21 @@ class detectScreen extends Component{
                   recentData["file"] = serverurl.server_url + recentData["file"];                 
                   this.setState({
                     isShowModal: false,
+                    isUpload: false,
                     initData: true});  
                   postDetectData = ""; 
                   Actions.detectResultScreen({recentData});
+                  this.props.actions.initReduxData("");       
                 }}]
               )
             }          
-          }
-          this.props.actions.initReduxData(""); 
-        }        
+          } 
+        }           
       }
     }    
   }
 
-  onCreateDetect =(userData)=>{        
-    console.log("window.currentUser=", window.currentUser);   
+  onCreateDetect =(userData)=>{     
     postDetectData = userData;
     this.setState({initData: false});
     let isProUser = window.currentUser["is_premium"];
@@ -109,7 +115,6 @@ class detectScreen extends Component{
     if(!isProUser && window.currentUser["is_video"]===true){
       const video_purchase_date = moment(window.currentUser['video_created_at']);  
       const diff_days = moment().diff(video_purchase_date, "days");
-      console.log("diff ==", diff_days);
       if(diff_days < 31){
         isProUser = true;
       }
@@ -128,7 +133,7 @@ class detectScreen extends Component{
         { cancelable: false }
       );
     }else{
-      this.setState({isShowModal: true});
+      this.setState({isShowModal: true, isUpload: true});
       this.props.actions.postHorse(userData);
       postDetectData = "";
     }    
@@ -141,14 +146,15 @@ class detectScreen extends Component{
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
       this.props.actions.postNewRequest(userData, url);    // upgrade membership
+      this.setState({isShowModal: true, isUpload: false});
     }else{
       const userData = new FormData()
       userData.append('user', window.currentUser["id"]);
       userData.append('token', token);
       userData.append('type', "detection");
       this.props.actions.detectPurchase(userData);
-    }
-    this.setState({isShowModal: true});
+      this.setState({isShowModal: true, isUpload: true});
+    }    
   }
 
   onSubScribe =()=>{
@@ -178,7 +184,7 @@ class detectScreen extends Component{
   }
 
   render(){
-    const{isShowModal, initData} = this.state; 
+    const{isShowModal, initData, isUpload} = this.state; 
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
@@ -191,6 +197,7 @@ class detectScreen extends Component{
           />  
           <ProgressBar 
             isPending={isShowModal}
+            isTimer={isUpload ? true: false}
           />
         </ScrollView>
       </KeyboardAvoidingView>

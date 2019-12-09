@@ -21,13 +21,18 @@ class CourseItem extends Component{
           </TouchableOpacity>
         </View>        
         <View style={styles.subscribeWrap}>          
+          <Image 
+            style={styles.playThumbnailImg}
+            resizeMode="cover"
+            source={index===0?require("../../assets/image/course_1.jpeg"):require("../../assets/image/course_2.jpeg")}
+          />            
           <TouchableOpacity onPress={()=>this.props.onVideoPlay(URL)}>
             <Image 
               style={styles.videoPlayImg}
               resizeMode="contain"
               source={require("../../assets/icons/icon_videoplay.png")}
             />
-          </TouchableOpacity>     
+          </TouchableOpacity>          
         </View>        
       </View>
     )
