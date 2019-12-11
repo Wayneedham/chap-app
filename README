@@ -30,3 +30,7 @@
     lintOptions {
       abortOnError false
     }
+
+- build apk for android production mode.
+  cd android && ./gradlew clean && cd ..
+  cd android &&  ./gradlew assembleRelease && cd ..  
