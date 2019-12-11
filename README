@@ -2,3 +2,31 @@
   react-native run-iOS
 - Android install
   react-native run-android
+
+
+- node-modules/react-native-orientation/android/build.gradle
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+      minSdkVersion 16
+      targetSdkVersion 22
+      versionCode 1
+      versionName "1.0"
+      ndk {
+          abiFilters "armeabi-v7a", "x86"
+      }
+    }
+- node-modules/react-native-facebook-login/android/build.gradle
+    compileSdkVersion 28
+	  buildToolsVersion = "28.0.3"
+
+    defaultConfig {
+      minSdkVersion 16
+      targetSdkVersion 28
+      versionCode 1
+      versionName "1.0"
+    }
+    lintOptions {
+      abortOnError false
+    }
