@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Platform,
   Modal
 } from 'react-native';
 import * as Progress from "react-native-progress";
 import styles from "./progressBarStyle";
 
+const loadingSeconds = Platform.OS ==='ios' ? 30 : 45
+
 class progressBar extends Component{
   constructor(props){
     super(props);
     this.state = {
-      timer: 30
+      timer: loadingSeconds
     }
   }
   
@@ -19,7 +22,7 @@ class progressBar extends Component{
     if(nextProps.isPending !== this.props.isPending){
       if(this.interval)
         clearInterval(this.interval);
-      this.setState({timer: 30}, ()=>{
+      this.setState({timer: loadingSeconds}, ()=>{
         if(nextProps.isTimer === true && this.props.nextProps !== nextProps.isTimer){
           this.interval = setInterval(
             () => {

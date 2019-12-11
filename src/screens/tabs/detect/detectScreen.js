@@ -36,6 +36,7 @@ class detectScreen extends Component{
   
   componentWillReceiveProps(nextProps){ 
     const responseData = nextProps.data;
+    console.log("responseData===", responseData);
     if(nextProps.pending === false && responseData!==""){
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
@@ -142,6 +143,7 @@ class detectScreen extends Component{
       );
     }else{
       this.setState({isShowModal: true, isUpload: true});
+      console.log("userData===", userData);
       this.props.actions.postHorse(userData);
       postDetectData = "";
     }    

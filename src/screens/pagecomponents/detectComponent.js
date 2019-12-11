@@ -4,7 +4,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  Platform,
   Alert
 } from 'react-native';
 
@@ -101,15 +101,16 @@ class detectComponent extends Component{
     userData.append('user', window.currentUser["id"]);
     userData.append('image_type', txt_img_type);
     userData.append('name', txt_img_name);
-    userData.append('description', txt_img_desc);   
-    let uriParts = imgURI.split('.');
-    let fileType = uriParts[uriParts.length - 1];   
+    userData.append('description', txt_img_desc);  
+    const uploadUri = Platform.OS === "android" ? imgURI.uri : imgURI.uri.replace("file://", "")    
+    console.log("imgURI===", imgURI);
+    const fileName = "horse_" + new Date().getTime() + ".jpg";
     userData.append('file', {
-      uri: imgURI,
-      name: `photo.${fileType}`,
-      type: `image/${fileType}`,
+      uri: uploadUri,
+      name: imgURI.fileName === undefined ? fileName : imgURI.fileName,
+      type: imgURI.type === undefined ? "image/jpeg" : imgURI.type,
     });
-
+    console.log("userData===", userData);
     this.props.onPostHorse(userData);
   }
 
@@ -134,7 +135,7 @@ class detectComponent extends Component{
     ImagePicker.launchCamera(options, (response) => {    
         if (!response.didCancel) {
           let source = { uri: response.uri };
-          this.setState({imgSrc: source, imgURI: response.uri});
+          this.setState({imgSrc: source, imgURI: response});
         }
     });  
   }
@@ -149,7 +150,7 @@ class detectComponent extends Component{
       ImagePicker.launchImageLibrary(options, (response) => {    
           if (!response.didCancel) {
             let source = { uri: response.uri };
-            this.setState({imgSrc: source, imgURI: response.uri});
+            this.setState({imgSrc: source, imgURI: response});
             // Image.getSize( response.uri, ( width, height ) =>
             // {
             //     let imgScale = 1;

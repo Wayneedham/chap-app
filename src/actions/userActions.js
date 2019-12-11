@@ -132,6 +132,10 @@ export async function fbLogin(token, props) {
       dispatch(fetchDataPending());
       fetch(url , {
         method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
         body: postData
       })
       .then(res => res.json())
