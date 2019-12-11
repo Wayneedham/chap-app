@@ -31,11 +31,11 @@ class createScreen extends Component{
       initData: false
     };    
   }
-  
+
   componentDidMount(){
-    console.log("postDetectData==", this.props.data);
+    console.log("connect == ", this.props);
   }
-  
+    
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
@@ -112,7 +112,15 @@ class createScreen extends Component{
     }
   }
 
-  onCreateDetect =(userData)=>{    
+  onCreateDetect =(userData)=>{        
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     postDetectData = userData;
     this.setState({initData: false});
     const isFreeUser = window.currentUser["is_premium"];
@@ -154,6 +162,14 @@ class createScreen extends Component{
   }
 
   onSubScribe =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     isUpgrade = false;
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -167,6 +183,13 @@ class createScreen extends Component{
   }
 
   onUpgrade =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     isUpgrade = true;
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -202,11 +225,12 @@ class createScreen extends Component{
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => ({  
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),  
+  pending: getDataPending(state.fetchdata),
   isactive: state.fetchdata.isactive,
-  pending: getDataPending(state.fetchdata)
+  connection: state.connection.isConnected  
 })
 
 const mapDispatchToProps = dispatch => ({

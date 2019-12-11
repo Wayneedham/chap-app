@@ -93,7 +93,14 @@ class membershipScreen extends Component{
   }
 
   onSubScribe(){
-    // Alert.alert("", "The feature will come soon.")
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+    
     isUpgrade = false;
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -107,6 +114,14 @@ class membershipScreen extends Component{
   }
 
   onUpgrade(){
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     isUpgrade = true;
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -163,6 +178,7 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 

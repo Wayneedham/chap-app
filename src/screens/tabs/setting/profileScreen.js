@@ -73,6 +73,14 @@ class profileScreen extends Component{
       return;
     }
 
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+    
     this.setState({isPending: true});     
     const userData = new FormData();
     userData.append('user_id', window.currentUser["id"]);
@@ -179,6 +187,7 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 

@@ -1,5 +1,4 @@
 
-import { Actions } from 'react-native-router-flux';
 import { AsyncStorage , Platform, Alert} from "react-native"
 import serverurl from '../../config/const/serverurl'; 
 import {

@@ -9,10 +9,12 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Actions } from "react-native-router-flux";
+import NetInfo from "@react-native-community/netinfo";
 
 import * as userActions from "../actions/userActions";
 import {getDataError, getDataSuccess, getDataPending} from '../reducers/fetchdata';
 import { setReduxAddInfo } from "../reducers/fetchdata";
+import { setNetworkConnect } from "../reducers/connection";
 import CustomButton from "./customButton";
 
 import styles from "./loginStyle";
@@ -26,6 +28,25 @@ class LoginComponent extends React.Component {
     this.state = {
       isLoading: this.props.pending
     };
+  }
+
+  componentDidMount()
+  {
+    NetInfo.addEventListener(state => {
+      let isConnected = false;
+      if(state.isConnected){
+        if(state.isInternetReachable === null)
+          isConnected = false;
+        else{
+          if(state.type === 'unknown' || state.type==='none')
+            isConnected = false;
+          else
+            isConnected = true;
+        }
+      }else
+        isConnected = false;
+      this.props.actions.setNetworkConnect(isConnected);
+    });
   }
 
   componentWillReceiveProps(nextProps){
@@ -51,6 +72,14 @@ class LoginComponent extends React.Component {
   }
 
   onSignin(flag) {
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     if (flag) {
       this.onUserSignin();
     } else {
@@ -60,6 +89,13 @@ class LoginComponent extends React.Component {
 
   onFacebook() {
     console.log("facebook login");
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     this.props.actions.userSocialLogin();
   }
 
@@ -166,6 +202,7 @@ class LoginComponent extends React.Component {
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 
@@ -175,6 +212,7 @@ const mapDispatchToProps = dispatch => ({
       userLogin: userActions.userLogin,
       userSocialLogin: userActions.handleFacebookLogin,
       userSignup: userActions.userSignup,
+      setNetworkConnect: setNetworkConnect,
       initResponseData: setReduxAddInfo
     },
     dispatch

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
+    "@react-native-community/netinfo": "^5.0.0",
     "babel-polyfill": "^6.26.0",
     "firebase": "^5.5.4",
     "jsc-android": "^225067.0.0",

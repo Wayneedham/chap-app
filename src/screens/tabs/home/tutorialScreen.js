@@ -4,9 +4,11 @@ import {
   Text,
   Image,
   Modal,
+  Alert,
   TouchableOpacity,
   ScrollView
 } from 'react-native';
+import { connect } from 'react-redux';
 import VideoPlayer from 'react-native-video-controls';
 
 import CustomBar from "../../../components/customBar";
@@ -40,8 +42,13 @@ class tutorialScreen extends Component{
   }
   
   onVideoPlay =()=>{
-    // this.setState({isShowModal: true})
-    // Orientation.lockToLandscape();
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     Actions.videoPlayScreen({video_url: serverurl.tutorial_video});
   }
 
@@ -113,4 +120,12 @@ class tutorialScreen extends Component{
     )
   }
 }
-export default tutorialScreen;
+
+const mapStateToProps = state => ({
+  connection: state.connection.isConnected
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(tutorialScreen);

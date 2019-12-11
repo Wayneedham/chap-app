@@ -69,7 +69,13 @@ class changePasswordScreen extends Component{
       this.showAlert("Verify password does not match, try again.");
       return;
     }
-
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     const url = serverurl.basic_url + 'changepassword';
     const userData = new FormData();
     userData.append('email', window.currentUser["email"]);
@@ -144,6 +150,7 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 

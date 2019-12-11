@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_netinfo')
     implementation project(':react-native-orientation')
     implementation project(':tipsi-stripe')
     implementation project(':react-native-video')

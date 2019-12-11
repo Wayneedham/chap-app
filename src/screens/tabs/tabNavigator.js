@@ -6,6 +6,7 @@ import {
 } from "react-navigation";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import NetInfo from "@react-native-community/netinfo";
 
 import homeScreen from "./home/homeScreen";
 import createScreen from "./home/createScreen";
@@ -17,15 +18,13 @@ import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
 import membershipScreen from "./setting/membershipScreen";
 import changePwdScreen from "./setting/changePwdScreen";
-
 import courseScreen from "./videos/courseScreen";
-
 import historyScreen from "./history/historyScreen";
 import detailsScreen from "./history/detailScreen";
-
 import detectScreen from "./detect/detectScreen";
 
 import {setActiveHistoryScreen} from '../../reducers/fetchdata';
+import { setNetworkConnect } from "../../reducers/connection";
 import styles from "./tabNavigatorStyle";
 import colorStyle from "../../sharedStyles/colorStyle";
 import fonts from "../../sharedStyles/fontStyle";
@@ -101,7 +100,25 @@ export const SettingStack = StackNavigator(
 );
 
 class customTabNavigator extends React.Component {
-  
+  componentDidMount()
+  {
+    NetInfo.addEventListener(state => {
+      let isConnected = false;
+      if(state.isConnected){
+        if(state.isInternetReachable === null)
+          isConnected = false;
+        else{
+          if(state.type === 'unknown' || state.type==='none')
+            isConnected = false;
+          else
+            isConnected = true;
+        }
+      }else
+        isConnected = false;
+      this.props.actions.setNetworkConnect(isConnected);
+    });
+  }
+
   render() {
     return (
       <BaseNavigator screenProps={this.props}/>
@@ -298,7 +315,8 @@ export const BaseNavigator = createBottomTabNavigator(
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
-      setActive: setActiveHistoryScreen
+      setActive: setActiveHistoryScreen,
+      setNetworkConnect: setNetworkConnect
     },
     dispatch
   )

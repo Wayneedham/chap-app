@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
+  Alert,
   ScrollView,
   TouchableOpacity,
   Modal
@@ -72,6 +73,13 @@ class courseComponent extends Component{
   }
 
   onVideoPlay =(url)=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     Actions.videoPlayScreen({video_url: url});
     // this.setState({videoURL: url, isShowModal: true})
   }
@@ -155,6 +163,7 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 

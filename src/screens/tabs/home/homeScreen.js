@@ -18,6 +18,7 @@ class homeScreen extends Component{
 
   componentDidMount(){
     Orientation.lockToPortrait();
+    console.log("props====", this.props);
   }
 
   onDetect =()=>{

@@ -4,9 +4,11 @@ import {
   Image,
   Text,
   Modal,
+  Alert,
   Dimensions,
   TouchableOpacity
 } from 'react-native';
+import { connect } from 'react-redux';
 import Dialog from "react-native-dialog";
 import { Actions } from 'react-native-router-flux';
 import {
@@ -98,6 +100,14 @@ class quizVideoScreen extends Component{
     const{question_index, sortArr} = this.state;
     const orderNum = sortArr[question_index];
     const quizVideoURL = "https://ml-ref-data.s3.us-east-2.amazonaws.com/QA/" + orderNum + ".mp4";
+   
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
     Actions.videoPlayScreen({video_url: quizVideoURL});
   }
 
@@ -222,4 +232,11 @@ class quizVideoScreen extends Component{
   }
 }
 
-export default quizVideoScreen;
+const mapStateToProps = state => ({
+  connection: state.connection.isConnected
+})
+
+export default connect(
+  mapStateToProps,
+  null
+)(quizVideoScreen);

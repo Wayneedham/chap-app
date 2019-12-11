@@ -4,6 +4,7 @@ import {
   Text,
   Image,  
   FlatList,
+  Alert,
   TextInput
 } from 'react-native';
 
@@ -31,8 +32,16 @@ class historyScreen extends Component{
   }
 
   componentDidMount(){    
-    this.props.actions.fetchHorseList(window.currentUser["id"]);
-    this.setState({isShowModal: true});
+    console.log("test=", this.props.connection);
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+    }else{
+      this.props.actions.fetchHorseList(window.currentUser["id"]);
+      this.setState({isShowModal: true});
+    }    
   }
 
   componentWillReceiveProps(nextProps){ 
@@ -123,7 +132,8 @@ class historyScreen extends Component{
 const mapStateToProps = state => ({
   error: getListError(state.fetchhistory),
   data: getListSuccess(state.fetchhistory),
-  pending: getListPending(state.fetchhistory)
+  pending: getListPending(state.fetchhistory),
+  connection: state.connection.isConnected,
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -107,7 +107,15 @@ class detectScreen extends Component{
     }    
   }
 
-  onCreateDetect =(userData)=>{     
+  onCreateDetect =(userData)=>{    
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     postDetectData = userData;
     this.setState({initData: false});
     let isProUser = window.currentUser["is_premium"];
@@ -158,6 +166,14 @@ class detectScreen extends Component{
   }
 
   onSubScribe =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     isUpgrade = false;    
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -171,6 +187,14 @@ class detectScreen extends Component{
   }
 
   onUpgrade =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        "Please check network connection."
+      );
+      return;
+    }
+
     isUpgrade = true;  
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
@@ -209,6 +233,7 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
   pending: getDataPending(state.fetchdata)
 })
 

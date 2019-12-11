@@ -11,20 +11,26 @@ class progressBar extends Component{
   constructor(props){
     super(props);
     this.state = {
-      timer: 25
+      timer: 30
     }
   }
   
   componentWillReceiveProps(nextProps){
-    if(nextProps.isTimer === true && this.props.nextProps !== nextProps.isTimer){
-      this.interval = setInterval(
-        () => {
-          this.setState((prevState)=> ({ timer: prevState.timer - 1 }))
-        },
-        1000
-      );
-    }    
+    if(nextProps.isPending !== this.props.isPending){
+      if(this.interval)
+        clearInterval(this.interval);
+      this.setState({timer: 30}, ()=>{
+        if(nextProps.isTimer === true && this.props.nextProps !== nextProps.isTimer){
+          this.interval = setInterval(
+            () => {
+              this.setState((prevState)=> ({ timer: prevState.timer - 1 }))
+            },
+            1000
+          );
+      }});
+    }
   }
+
   
   componentDidUpdate(){
     if(this.state.timer === 0 && this.props.isTimer === true){ 
@@ -48,13 +54,13 @@ class progressBar extends Component{
         visible={isPending}
         onRequestClose={()=>{}}>
         <View style={styles.progressWrap}>
-          <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
           {
             isTimer && timer>=0 &&
-            <View style={{marginTop: 10}}>
-              <Text style={{color: 'red'}}>{"Your image will be ready in " + timer + " seconds."}</Text>
+            <View style={styles.loadingTxtWrap}>
+              <Text style={styles.loadingTxt}>{"Your image will be ready in " + timer + " seconds."}</Text>
             </View>
-          }   
+          }
+          <Progress.Circle size={60} indeterminate={true} color={"blue"}/>             
         </View>               
       </Modal>
     )

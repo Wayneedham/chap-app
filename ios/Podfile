@@ -4,5 +4,4 @@
 target 'chap' do
   pod 'Stripe', '~> 14.0.0'
   inherit! :search_paths
-
 end

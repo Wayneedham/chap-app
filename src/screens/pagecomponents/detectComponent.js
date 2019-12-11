@@ -42,6 +42,13 @@ class detectComponent extends Component{
 
   componentWillReceiveProps(nextProps){  
     if(nextProps.initData === true){
+      const{radioOptions} = this.state;
+      radioOptions.map(item=>{
+        item.selected = false;
+        if(item.key === "lower"){
+          item.selected = true;
+        }
+      })
       this.setState({
         txt_img_desc: "",
         txt_img_type: "lower",
