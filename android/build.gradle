@@ -45,3 +45,7 @@ subprojects {
      }
   }
 }
+
+project.ext {
+    excludeAppGlideModule = true
+}
