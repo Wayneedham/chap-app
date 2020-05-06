@@ -15,6 +15,7 @@ import Dialog from "react-native-dialog";
 import * as userActions from "../actions/userActions";
 import styles from "./detectModalStyle";
 import fonts from "../sharedStyles/fontStyle";
+import { connect } from "react-redux";
 
 class detectModal extends Component{
 
@@ -36,7 +37,7 @@ class detectModal extends Component{
   }
 
   render(){
-    const{recentData} = this.props;
+    const{recentData, intlData} = this.props;
     let age = "";
     if(recentData !== undefined && recentData !== ""){
       age = recentData.age === null ? 0 : recentData.age;    
@@ -47,7 +48,7 @@ class detectModal extends Component{
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>Detect Result</Text>
+          <Text style={[styles.title, fonts.montserrat_bold]}>{intlData.messages['detection']['detectResult']}</Text>
           <TouchableOpacity style={styles.back_wrap} onPress={this.props.onDone}>
             <Image
               source={require("../../assets/icons/icon_back_white.png")}
@@ -58,13 +59,13 @@ class detectModal extends Component{
         </View>
         <View style={styles.itemWrap}>
           <Text style={[styles.itemTitle, fonts.montserrat_bold]}>
-            {"Image Type:  "}
+            {intlData.messages['detection']['imageType']}
           </Text>
           <Text style={[styles.itemTitle, fonts.montserrat_medium]}>{recentData["image_type"]}</Text>
         </View>
         <View style={styles.itemWrap}>
           <Text style={[styles.itemTitle, fonts.montserrat_bold]}>
-            {"Detected Age:  "}
+            {intlData.messages['detection']['detectedAge']}
           </Text>
           <Text style={[styles.itemTitle, fonts.montserrat_medium]}>{age}</Text>
         </View>
@@ -81,12 +82,12 @@ class detectModal extends Component{
           />
         </View>
         <Dialog.Container visible={isPromptDialog}>
-           <Dialog.Title>Just Curious!!!</Dialog.Title>
+           <Dialog.Title>{intlData.messages['detection']['justCuriouse']}</Dialog.Title>
           <Dialog.Description>            
-            <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
+          <Text style={fonts.montserrat_bold}> {intlData.messages['detection']['horseAgeOld']}</Text>
           </Dialog.Description>
           <Dialog.Input 
-            placeholder={"Enter Horse's Age"}
+            placeholder={intlData.messages['detection']['enterHorseAge']}
             value={horseAge}
             keyboardType={'decimal-pad'}
             returnKeyType={'done'}
@@ -99,4 +100,7 @@ class detectModal extends Component{
   }
 }
 
-export default detectModal;
+const mapStateToProps = (state) => ({
+  intlData: state.IntlReducers
+})
+export default connect(mapStateToProps, null)(detectModal);

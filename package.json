@@ -32,6 +32,7 @@
     "react-native-elements": "^0.19.1",
     "react-native-facebook-login": "^1.6.1",
     "react-native-fast-image": "^5.1.2",
+    "react-native-i18n": "^2.0.15",
     "react-native-image-gallery": "^2.1.5",
     "react-native-image-pan-zoom": "^2.1.11",
     "react-native-image-picker": "^0.27.0",

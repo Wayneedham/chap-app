@@ -27,7 +27,7 @@ export default class App extends Component {
       reachabilityLongTimeout: 10 * 1000, // 10s
       reachabilityShortTimeout: 5 * 1000, // 5s
     });
-    SplashScreen.hide();    
+    SplashScreen.hide();
   }
 
   render() {
@@ -98,7 +98,7 @@ export default class App extends Component {
               initial={false}
               hideNavBar={true}
             />
-          </Scene>          
+          </Scene>
         </RouterWithRedux>
       </Provider>
     );

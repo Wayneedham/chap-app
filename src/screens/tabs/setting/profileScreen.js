@@ -34,28 +34,30 @@ class profileScreen extends Component{
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      console.log("responseData====", responseData);
+
       if(nextProps.isactive === 4){
-        if(Object.keys(responseData).includes("message")){       
-          this.showAlert(responseData["message"]);
+        if(Object.keys(responseData).includes("message")){  
+          let errorMsg = responseData["message"];
+          if(errorMsg.includes("returned more than one Custom"))
+            errorMsg = this.props.intlData.messages['alert']['foundIssueWithRequest']
           Alert.alert(
             "",
-            responseData["message"],
-            [{ text: "OK", onPress: () => {
-              this.setState({isPending: false});            
+            errorMsg,
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+              this.setState({isPending: false});
             }}],
             { cancelable: false }
           ); 
         }
-        else if(Object.keys(responseData).includes("id")){         
+        else if(Object.keys(responseData).includes("id")){
           window.currentUser = responseData;
           userActions._storeData("userInfo", responseData);
           Alert.alert(
             "",
-            "You updated account successfully.",
-            [{ text: "OK", onPress: () => {
-              this.setState({isPending: false});     
-              this.props.actions.initReduxData("");        
+            this.props.intlData.messages['alert']['youUpdatedAccount'],
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+              this.setState({isPending: false});
+              this.props.actions.initReduxData("");
             }}],
             { cancelable: false }
           );       
@@ -69,14 +71,14 @@ class profileScreen extends Component{
     const { userEmail, userFname, userLname } = this.state;
 
     if (userEmail === "") {
-      this.showAlert("Enter new email address please.");
+      this.showAlert(this.props.intlData.messages['alert']['enterNewEmailAddress']);
       return;
     }
 
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -102,14 +104,14 @@ class profileScreen extends Component{
     userData.append('email', window.currentUser["email"]);
     this.props.actions.userPostRequest(userData, url);
 
-    this.setState({isPending: true});     
+    this.setState({isPending: true});
   }
 
   showAlert(message) {
     Alert.alert(
       "",
       message,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => console.log("OK Pressed") }],
       { cancelable: false }
     );
   }
@@ -120,7 +122,9 @@ class profileScreen extends Component{
     return (
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
-          <Text style={[styles.barTitle, fonts.montserrat_bold]}>{"Account"}</Text>
+          <Text style={[styles.barTitle, fonts.montserrat_bold]}>
+          {this.props.intlData.messages['settings']['myAccount']['account']}
+          </Text>
           <TouchableOpacity style={styles.back_wrap} onPress={this.goBack}>
             <Image
               source={require("../../../../assets/icons/icon_back_white.png")}
@@ -131,7 +135,9 @@ class profileScreen extends Component{
           {
             is_premium &&
             <TouchableOpacity style={styles.unsubscribe_wrap} onPress={this.onCancelSubscribe}>
-              <Text style={styles.unsubscribe_txt}>Unsubscribe</Text>
+              <Text style={styles.unsubscribe_txt}>
+                {this.props.intlData.messages['settings']['myAccount']['unsubscribe']}
+              </Text>
             </TouchableOpacity>
           }          
         </View>
@@ -140,7 +146,7 @@ class profileScreen extends Component{
             ref={fname => {
               this.fnameInput = fname;
             }}
-            label={"First Name"}
+            label={this.props.intlData.messages['auth']['firstName']}
             value={userFname}
             onChangeText={fname => this.setState({ userFname: fname })}
             onSubmitEditing={() => this.lnameInput.focus()}
@@ -150,7 +156,7 @@ class profileScreen extends Component{
             ref={lname => {
               this.lnameInput = lname;
             }}
-            label={"Last Name"}
+            label={this.props.intlData.messages['auth']['lastName']}
             value={userLname}
             onChangeText={lname => this.setState({ userLname: lname })}
             onSubmitEditing={() => this.emailInput.focus()}
@@ -160,7 +166,7 @@ class profileScreen extends Component{
             ref={email => {
               this.emailInput = email;
             }}
-            label={"Email"}
+            label={this.props.intlData.messages['auth']['email']}
             value={userEmail}
             autoCapitalize={"none"}
             onChangeText={email => this.setState({ userEmail: email })}
@@ -170,7 +176,7 @@ class profileScreen extends Component{
         {
           is_social===false &&
           <CustomButton 
-            title={"UPDATE"}
+            title={this.props.intlData.messages['settings']['myAccount']['update']}
             onClick={this.onProfileUpdate}
             isPending={isPending}
           />            
@@ -188,7 +194,8 @@ const mapStateToProps = state => ({
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
   connection: state.connection.isConnected,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

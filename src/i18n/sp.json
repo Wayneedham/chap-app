@@ -1,0 +1,192 @@
+{
+    "alert": {
+        "uploadImageToDetect": "Upload an image to detect please.",
+        "enterName": "Ingrese nombre por favor.",
+        "ok": "Okay",
+        "cancel": "CANCELAR",
+        "upgradedMembership": "La membresía se actualizó con éxito.",
+        "cannotDetectImage": "No se puede detectar esta imagen. Por favor intente otra imagen nuevamente.",
+        "wasDetectedImage": "La imagen se detectó con éxito.",
+        "payAsYouGoPlan": "Plan Paga lo que consumas: este plan te permite verificar la edad de tu caballo sin tener una suscripción mensual. Por solo $ 10, recibirá una respuesta del programa CHAP en un minuto con la estimación de la edad de sus caballos. En las próximas 24 horas, recibirá una respuesta de nuestro equipo de expertos, ya sea confirmando o ajustando la estimación que proporcionó CHAP. Recorrerá un largo camino para encontrar a alguien con más experiencia y conocimientos que nuestro personal en CHAP. Gracias por su interés y esperamos servirle bien..",
+        "updatedPassword": "Has actualizado la contraseña correctamente.",
+        "enterOldPassword": "Ingrese la contraseña anterior por favor.",
+        "enterNewPassword": "Ingrese una nueva contraseña por favor.",
+        "enterVerifyPassword": "Ingrese verificar contraseña por favor.",
+        "doesNotMatchedVerifyPassword": "Verifique que la contraseña no coincida, intente nuevamente.",
+        "purchasedVideosForCourse": "Has comprado videos para el curso con éxito.",
+        "foundIssueWithRequest": "Encontramos un problema con su solicitud. Vuelva a intentarlo más tarde.",
+        "youUpdatedAccount": "Actualizaste la cuenta correctamente.",
+        "enterNewEmailAddress": "Ingrese una nueva dirección de correo electrónico, por favor."
+    },
+
+    "auth": {
+        "signin": "Registrarse",
+        "signup": "Regístrate",
+        "don'tHaveAccount?": "¿No tienes una cuenta?",
+        "creatAccount": "Crea una cuenta",
+        "haveAccount?":"¿Ya tienes una cuenta?",
+        "signinAccount": "registrarse",
+        "email": "Email",
+        "password": "Contraseña",
+        "firstName": "Nombre de pila",
+        "lastName": "Apellido",
+        "confirmPassword": "Confirmar contraseña",
+        "forgotPassword": "¿Se te olvidó tu contraseña?",
+        "resetPassword": "Restablecer la contraseña",
+        "connectSocial": "o conectarse con las redes sociales",
+        "facebook": "Facebook",
+        "inputEmailAddress": "Ingrese su dirección de correo electrónico por favor.",
+        "emailAddress": "Dirección de correo electrónico",
+        "alertForgotPassword": "Se te olvidó tu contraseña",
+        "checkNetwork": "Por favor verifique la conexión de red.",
+        "enterFullName": "Ingrese el nombre completo por favor.",
+        "enterEmailOrPassword": "Ingrese correo electrónico o contraseña por favor.",
+        "enterValidEmailAddress": "Ingrese una dirección de correo electrónico válida por favor."
+    },
+
+    "page":{
+        "courseComponent": [
+            "Si está viendo este mensaje, aún no ha decidido tomar nuestro curso de video. Déjame explicarte cómo funciona el video curso. Envejecer caballos es un arte y una ciencia. Es un proceso intrigante que todo dueño de caballos debería saber. Esta información no es nueva, sino más antigua que el Nuevo Testamento de la Biblia.",
+            "630 aC, los chinos enseñaron el envejecimiento con el propósito de vender o comerciar porque sabían que el valor de su caballo está directamente relacionado con su edad.",
+            "430 aC Simón de Atenas escribió sobre el envejecimiento en un libro llamado Veterinary Art.",
+            "El primer video, 'The Science Video', es un video de 27 minutos en profundidad y gráficamente rico que le brinda el conocimiento de la anatomía y las características cambiantes del diente a medida que se desgasta. Para comprender realmente cómo funciona el envejecimiento y la boca de su caballo, esto es algo que debe ver.",
+            "El segundo video, 'The Art Video', analiza imágenes de los dientes del caballo a cada edad, mostrando lo fácil que es envejecer a los caballos utilizando el reconocimiento y los patrones aprendidos en el 'Video de la Ciencia'. ¡Envejecer caballos es realmente fácil! Solo se necesita un poco de práctica y un poco de información para llegar a ser competente.",
+            "Puse a mis alumnos a través de este mismo programa en el aula y en 30-40 imágenes, se vuelven extremadamente competentes. Cuanto más veas el 'Video de arte', mejor serás. Tenemos resultados sorprendentes en el aula y estos profesionales se apasionan mucho porque tienen confianza. ¡Puede ganar esa misma confianza muy rápidamente con un mínimo esfuerzo al estudiar nuestros video cursos!"
+        ],
+        "buyNow": "Compra ahora",
+        "imageType": "Tipo de imagen",
+        "done": "Hecho"
+    },
+
+    "home": {
+        "home": "Casa",
+        "welcome": "Bienvenido",
+        "to": "",
+        "ageDetection": "Detección de edad",
+        "videoCourse": "Video curso",
+        "tutorial": "Tutorial",
+        "aboutChap": "Acerca de Chap",
+        "aboutLink": "Para mayor información por favor visite",
+        "about": "About",
+        "aboutDescription": [
+            "CHAP significa Programa de Envejecimiento Equino Computarizado. En CHAP, nuestro objetivo es educar a los dueños de caballos sobre los dientes de sus caballos. Cuanto más conocimiento y comprensión podamos adquirir, mejores dueños y compañeros podremos ser. La ciencia detrás del envejecimiento de los caballos y la funcionalidad de sus dientes es algo que todos los grandes jinetes deben aprender ",
+            "Nuestro video curso en profundidad no solo ha enseñado a cientos de aspirantes a dentistas y veterinarios equinos a envejecer caballos, sino que también usamos ese conocimiento junto con inteligencia artificial y visión por computadora para entrenar nuestro modelo de computadora para envejecer caballos. Para entrenar este modelo, nosotros hizo que la computadora analizara 18 características en los incisivos superiores y 18 características en los incisivos inferiores en más de 1000 imágenes, más de 36,000 puntos de datos ",
+            "Queremos ser su servicio de crianza de caballos. Con cada presentación, recibirá una estimación de nuestro modelo de computadora en un minuto, generalmente de 10 a 15 segundos. Debido a que somos una empresa orientada al servicio, también recibirá una estimación de nuestro personal experto dentro de las 24 horas posteriores a la presentación, verificando la estimación dada por CHAP. Esto significa que obtendrá 2 opiniones imparciales sobre la edad de su caballo.",
+            "Si no está convencido de nuestra habilidad, mire los videos del curso. Si puede ayudarnos a mejorar nuestra precisión o experiencia en envejecimiento, le reembolsaremos el dinero del curso y le daremos acceso ilimitado a nuestro modelo de envejecimiento de forma gratuita durante un año. , Valor de $ 339! ",
+            "Envejecer caballos por dentición es nuestra pasión; esperamos que compartas esa pasión",
+            "Este programa tiene sus límites, la mayoría de los cuales se deben a la anatomía del caballo. El sistema de copa, que estamos analizando, solo está presente hasta los 17 años en las bajadas y los 20 años en las superiores. La otra limitación El factor es que actualmente no podemos diferenciar entre dientes de leche y dientes permanentes ya que ambos tienen las mismas características.",
+            "Por lo tanto, un niño de 2 a 5 años leerá como un niño de 5 a 8 años. Actualmente estamos trabajando para resolver este problema, pero actualmente nuestro equipo revisará cada envío dentro de un período de 24 horas y comunicará ese resultado por correo electrónico para validar o ajustar cada caso. Estamos trabajando arduamente para resolver este problema, gracias por su paciencia y esperamos poder servirle bien.",
+            "Este programa está diseñado para ayudar en la práctica del envejecimiento de los caballos. El objetivo es ayudar a aproximar la edad de un nacimiento invalidado. Aunque si se usa según las indicaciones, la precisión de este programa puede ser increíblemente precisa, considere los factores de la genética, oral Lesiones, trabajo dental anterior o falta de, y raza. Nuestra sugerencia es mirar los videos de instrucción y comprender el envejecimiento, en lugar de confiar en la opinión de otras personas."
+        ],
+        "tutorialList1": [
+            "Claro, no borroso",
+            "Directamente, no en ángulo",
+            "Contiene todos los dientes inferiores, con un mínimo de otros objetos en la foto. (Si es necesario, recorte otros objetos)",
+            "Me gusta las siguientes imágenes"
+        ],
+        "tutorialList2": [
+            "El programa solo puede detectar hasta 17 años usando la imagen inferior",
+            "El programa solo puede detectar hasta 20 años usando la imagen superior",
+            "El usuario recibirá un rango de 3 años de CHAP en un minuto, y recibirá una estimación de 2 años y 1 año de nuestros expertos dentro de las 24 horas. Nuestros expertos podrán dar una estimación superior a 20 años",
+            "Para comprender este proceso y aprender por sí mismo, suscríbase a nuestro curso de video instructivo"
+        ],
+        "watchTutorial": "Mira el tutorial"
+    },
+
+    "videos": {
+        "videos": "Videos",
+        "course": "Curso",
+        "quiz&study": "Prueba y estudio",
+        "courseVideo1Title": "Video 1 - El video de ciencia",
+        "courseVideo2Title": "Video 2 - El video artístico"
+    },
+
+    "quiz": {
+        "prev": "Anterior",
+        "answer": "Responder",
+        "next": "Próximo",
+        "enterHorseAge": "Ingrese la edad del caballo",
+        "watchVideo": "Ver video"
+    },
+
+    "detection":{
+        "detection": "detección",
+        "new": "Nuevo",
+        "uploadImage": "Cargar imagen",
+        "horseName": "Nombre del caballo",
+        "imageDescription": "Descripción de la imagen (opcional)",
+        "selectImageType": "Seleccionar tipo de imagen",
+        "selectAge":{
+            "lowerAge": "Solo se puede detectar entre 6 y 17 años.",
+            "upperAge": "Solo puede detectar de 6 a 20 años."
+        },
+        "detectionButton":{
+            "is_premium": "Enviar",
+            "not_premium": "Enviar (PayAsYouGo)",
+            "checkout": "($10/Caballo)",
+            "subscription": "($20/Mes)"
+        },
+        "detectResult": "Detectar resultado",
+        "horseAgeOld": "¿Qué edad crees que tiene este caballo?",
+        "imageType": "Tipo de imagen:  ",
+        "detectedAge": "Edad detectada:  ",
+        "justCuriouse": "Sólo curioso!!!!!!",
+        "enterHorseAge": "Ingrese la edad del caballo"
+    },
+
+    "history": {
+        "history": "Historia",
+        "searchName": "Buscar nombre",
+        "horseName": "Nombre: ",
+        "horseAge": "Años: ",
+        "uploadedAt": "Subido a: ",
+        "imageType": "Tipo de imagen: ",
+        "description": "Descripción",
+        "close": "Cerca"
+    },
+
+    "settings": {
+        "settings": "Configuraciones",
+        "languageSettings": "Ajustes de idioma",
+        "languageEn": "Inglés",
+        "languageCn": "China",
+        "languageAr": "Arábica",
+        "languageGe": "Alemana",
+        "languagePo": "Portugués",
+        "languageRu": "Ruso",
+        "languageSp": "Española",
+        "languageJp": "Japonés",
+        "changePassword": "Cambia la contraseña",
+        "membership":{
+            "content1": [
+                "1. Paga lo que consumas - $ 10 / caballo",
+                " A. Disponible en cualquier momento con esta aplicación gratuita",
+                " B. Obtendrá una estimación de CHAP en 30 segundos y otra Estimación de edad de nuestro equipo de expertos en 24 horas",
+                "",
+                "",
+                "2. Uso ilimitado - $ 20 / mes",
+                " A. Envejece tantos caballos y tantas imágenes como quieras por solo $ 20 / mes",
+                " B. Recibirá una Estimación de CHAP en 30 segundos y otra Estimación de edad de nuestro equipo de expertos en 24 horas"
+            ],
+            "content2": [
+                "3. Video Curso - $99",
+                " A. Aprenda a envejecer caballos en videos de 2 a 30 minutos. Estos videos son suyos para que los vea siempre. Hemos enseñado a cientos de estudiantes de odontología equina y veterinarios a envejecer caballos usando estas técnicas comprobadas. Puede aprender fácilmente el arte del envejecimiento Caballos desde la comodidad de la hora Easy Chair. Le garantizamos que estará satisfecho con su experiencia, o le devolveremos su dinero. La única pregunta que se hará será cómo podemos mejorar su experiencia. Gracias por su interés en Horses, y Gracias por su interés en el envejecimiento."
+            ],
+            "upgradeToUnlimited": "Actualizar a ilimitado"
+        },
+        "myAccount":{
+            "myAccount": "Mi cuenta",
+            "pro": "Pro",
+            "free": "Gratis",
+            "account": "Cuenta",
+            "update": "Actualizar",
+            "unsubscribe": "Darse de baja",
+            "subscribe": "Suscribir"
+        },
+        "paymentOptions": "Opciones de pago",
+        "languages": "Idiomas",
+        "contactSupport": "Soporte de contacto",
+        "logOut": "Cerrar sesión"
+    },
+    "version": "Versión 1.0"
+}

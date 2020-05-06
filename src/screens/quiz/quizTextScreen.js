@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-
+import { connect } from 'react-redux';
 import {shuffle} from "../../actions/userActions";
 import Questions from "../../../config/question"
 import styles from "./quizVideoScreenStyle";
@@ -23,7 +23,6 @@ class quizTextScreen extends Component{
       question_index: 0,
       questionArr: randomArr
     };   
-    console.log("randomArr===", randomArr);
   }
 
   goBack =()=>{
@@ -50,6 +49,7 @@ class quizTextScreen extends Component{
 
   render(){
     const{question_index, questionArr, isQuiz, isAnswer} = this.state;
+    const { intlData } = this.props;
     const quizItem = questionArr[question_index];
     return(
       <View style={styles.container}>
@@ -71,7 +71,7 @@ class quizTextScreen extends Component{
           {
             question_index!==0 ?
             (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
-              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['prev']}</Text>
             </TouchableOpacity>) : (
               <View style={{width: 40}}/>
             )
@@ -79,13 +79,13 @@ class quizTextScreen extends Component{
           {
             isQuiz &&
             <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
-              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Answer</Text>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['answer']}</Text>
             </TouchableOpacity>
           }  
           {
             question_index<(questionArr.length-1) ?
             (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
-              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['next']}</Text>
             </TouchableOpacity>) : (
               <View style={{width: 40}}/>
             )
@@ -97,4 +97,8 @@ class quizTextScreen extends Component{
   }
 }
 
-export default quizTextScreen;
+const mapPropsToState = (state) => ({
+  intlData: state.IntlReducers
+})
+
+export default connect(mapPropsToState, null)(quizTextScreen);

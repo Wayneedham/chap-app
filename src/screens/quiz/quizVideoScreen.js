@@ -67,7 +67,6 @@ class quizVideoScreen extends Component{
       sortArr: randomArr,
       zoomModal: false
     };   
-    console.log("randomArr===", randomArr);
   }
 
   goBack =()=>{
@@ -104,7 +103,7 @@ class quizVideoScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -119,8 +118,8 @@ class quizVideoScreen extends Component{
     const{isQuiz, isPromptDialog, horseAge, question_index, sortArr, zoomModal} = this.state;  
     const orderNum = sortArr[question_index];
     const rightAnswerAge = answerList[orderNum-1];
-    const quizImgURL =quizImgList[orderNum-1];
-    
+    const quizImgURL = quizImgList[orderNum-1];
+    const { intlData } = this.props;
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
@@ -136,7 +135,7 @@ class quizVideoScreen extends Component{
         {
           isQuiz ? (
           <View>
-            <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>How Old Do You Think this Horse is?</Text>
+            <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{intlData.messages['detection']['horseAgeOld']}</Text>
             <TouchableOpacity style={styles.quizImgWrap} onPress={()=>this.onZoomImage(true)}>
               <Image 
                 style={styles.quizImg}
@@ -147,7 +146,9 @@ class quizVideoScreen extends Component{
           </View>
           ) : (
             <View style={styles.answerView}>              
-              <Text style={[styles.watchMsg, fonts.montserrat_semibold]}>Watch Video</Text>            
+              <Text style={[styles.watchMsg, fonts.montserrat_semibold]}>
+                {intlData.messages['quiz']['watchVideo']}
+              </Text>            
               <View style={styles.videoPlaywrap}>             
                 <Image 
                   style={styles.answerImg}
@@ -170,7 +171,7 @@ class quizVideoScreen extends Component{
             {
               question_index!==0 ? 
               (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onPrev()}>
-                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Prev</Text>
+              <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['prev']}</Text>
               </TouchableOpacity>) : (
                 <View style={{width: 40}}/>
               )
@@ -178,13 +179,13 @@ class quizVideoScreen extends Component{
             {
               isQuiz &&
               <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
-                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Answer</Text>
+                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['answer']}</Text>
               </TouchableOpacity>
             }    
             {
               question_index<(quizImgList.length-1) ?
               (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
-                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>Next</Text>
+                <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['next']}</Text>
               </TouchableOpacity>) : (
                 <View style={{width: 40}}/>
               )
@@ -195,10 +196,10 @@ class quizVideoScreen extends Component{
 
         <Dialog.Container visible={isPromptDialog}>          
           <Dialog.Description>            
-            <Text style={fonts.montserrat_bold}> How Old Do You Think This Horse is ? </Text>
+            <Text style={fonts.montserrat_bold}> {intlData.messages['detection']['horseAgeOld']} </Text>
           </Dialog.Description>
           <Dialog.Input 
-            placeholder={"Enter Horse's Age"}
+            placeholder={intlData.messages['quiz']['enterHorseAge']}
             value={horseAge}
             keyboardType={'decimal-pad'}
             returnKeyType={'done'}
@@ -233,7 +234,8 @@ class quizVideoScreen extends Component{
 }
 
 const mapStateToProps = state => ({
-  connection: state.connection.isConnected
+  connection: state.connection.isConnected,
+  intlData: state.IntlReducers
 })
 
 export default connect(

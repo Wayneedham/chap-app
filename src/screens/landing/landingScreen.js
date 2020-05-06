@@ -6,6 +6,9 @@ import {
 import { Actions } from "react-native-router-flux";
 import * as userActions from "../../actions/userActions";
 import styles from "./landingScreenStyle";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import IntlAction from "../../actions/intlActions";
 
 class landingScreen extends Component{
 
@@ -17,6 +20,10 @@ class landingScreen extends Component{
             const userInfo = JSON.parse(data);
             window.currentUser = userInfo;
             Actions.reset("customTabNavigator");
+            // userActions._retrieveData('lang').then((lang)=>{
+            //   console.log(lang)
+            //   updateLanguage(lang);
+            // });
           })
         }else{
           Actions.reset("loginScreen");
@@ -26,6 +33,7 @@ class landingScreen extends Component{
   }
 
   render(){
+    const { intlData } = this.props;
     return(
       <View style={styles.container}>
         <Image 
@@ -37,5 +45,15 @@ class landingScreen extends Component{
     )
   }
 }
-
-export default landingScreen;
+const mapStateToProps = (state) => {
+  return {
+      intlData: state.IntlReducers
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(IntlAction, dispatch);
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(landingScreen);

@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import * as Progress from "react-native-progress";
 import styles from "./progressBarStyle";
+import { connect } from 'react-redux';
 
 const loadingSeconds = Platform.OS ==='ios' ? 30 : 45
 
@@ -44,14 +45,14 @@ class progressBar extends Component{
   componentWillUnmount(){
     if(this.props.isTimer === true){
       clearInterval(this.interval);
-    }    
+    }
   }
 
   render(){
     const{isPending, isTimer} = this.props;
     const {timer} = this.state;
     return(
-      <Modal          
+      <Modal
         animationType={'none'}
         transparent={true}
         visible={isPending}
@@ -63,11 +64,15 @@ class progressBar extends Component{
               <Text style={styles.loadingTxt}>{"Your image will be ready in " + timer + " seconds."}</Text>
             </View>
           }
-          <Progress.Circle size={60} indeterminate={true} color={"blue"}/>             
-        </View>               
+          <Progress.Circle size={60} indeterminate={true} color={"blue"}/>
+        </View>
       </Modal>
     )
   }
 }
 
-export default progressBar;
+const mapStateToProps = (state) => ({
+  intlData: state.IntlReducers
+})
+
+export default connect(mapStateToProps, null)(progressBar);

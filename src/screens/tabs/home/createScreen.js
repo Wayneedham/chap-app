@@ -33,13 +33,11 @@ class createScreen extends Component{
   }
 
   componentDidMount(){
-    console.log("connect == ", this.props);
   }
     
   componentWillReceiveProps(nextProps){    
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      console.log("responseData create==", responseData);
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
         postDetectData = "";
@@ -49,9 +47,9 @@ class createScreen extends Component{
             Alert.alert(
               "",
               responseData["message"],
-              [{ text: "OK", onPress: () => {
-                this.setState({isShowModal: false});     
-                this.props.actions.initReduxData("");         
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                this.setState({isShowModal: false});
+                this.props.actions.initReduxData("");
               } }],
               { cancelable: false }
             );
@@ -61,8 +59,8 @@ class createScreen extends Component{
             userActions._storeData("userInfo", responseData);
             Alert.alert(
               "",
-              "The membership was upgraded successfully.",
-              [{ text: "OK", onPress: () => {
+              this.props.intlData.messages['alert']['upgradedMembership'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
                 this.setState({isShowModal: false});      
                 this.props.actions.initReduxData("");    
               }}],
@@ -74,8 +72,8 @@ class createScreen extends Component{
             if(recentData["detect_file"]===''){
               Alert.alert(
                 "",
-                "Cannot detect this image. Please try another image again.",
-                [{ text: "OK", onPress: () => {  
+                this.props.intlData.messages['alert']['cannotDetectImage'],
+                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
                   this.setState({
                     recentData: "", 
                     isShowModal: false, 
@@ -92,8 +90,8 @@ class createScreen extends Component{
               setTimeout(() => {
                 Alert.alert(
                   "",
-                  "The image was detected successfully.",
-                  [{ text: "OK", onPress: () => {              
+                  this.props.intlData.messages['alert']['wasDetectedImage'],
+                  [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {              
                     this.setState({
                       isShowModal: false,
                       isUpload: false,
@@ -116,7 +114,7 @@ class createScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -127,10 +125,10 @@ class createScreen extends Component{
     if(!isFreeUser){
       Alert.alert(
         "",
-        "Pay As You Go Plan - This plan allows you to check the age of your horse without being on a monthly subscription. For just $10, you will get a response from the CHAP program within the minute with the estimation of your horses age. Within the next 24 hours, you will get a response from our expert team either confirming or adjusting the estimation that CHAP provided. You will drive a long ways to find someone with more experience and expertise than our staff at CHAP. Thank you for your interest and we hope to serve you well..",
+        this.props.intlData.messages['alert']['payAsYouGoPlan']
         [
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-          { text: "OK", onPress: () => {
+          {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
+          { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
             this.onSubScribe();       
           }}        
         ],
@@ -165,7 +163,7 @@ class createScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -186,7 +184,7 @@ class createScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -205,22 +203,23 @@ class createScreen extends Component{
     const{isShowModal, initData, isUpload} = this.state;
     const behavior = Platform.OS === 'ios' ? 'padding' : null
     return(
-      <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
-        <ScrollView style={styles.container}>
-          <CustomBar 
-            title={"New"}
-            navigate={this.props.navigation}
-          />
-          <DetectComponent 
-            onPostHorse={this.onCreateDetect}
-            onUpgrade={this.onUpgrade}
-            initData={initData}
-          />        
-          <ProgressBar 
-            isPending={isShowModal} 
-            isTimer={isUpload ? true: false}/>       
-        </ScrollView>
-      </KeyboardAvoidingView>
+      
+        <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
+            <ScrollView style={styles.container}>
+              <CustomBar 
+                title={this.props.intlData.messages['detection']['new']}
+                navigate={this.props.navigation}
+              />
+              <DetectComponent 
+                onPostHorse={this.onCreateDetect}
+                onUpgrade={this.onUpgrade}
+                initData={initData}
+              />        
+              <ProgressBar 
+                isPending={isShowModal} 
+                isTimer={isUpload ? true: false}/>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
   }
 }
@@ -230,7 +229,8 @@ const mapStateToProps = state => ({
   data: getDataSuccess(state.fetchdata),  
   pending: getDataPending(state.fetchdata),
   isactive: state.fetchdata.isactive,
-  connection: state.connection.isConnected  
+  connection: state.connection.isConnected,
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

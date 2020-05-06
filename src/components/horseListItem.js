@@ -7,10 +7,11 @@ import FastImage from 'react-native-fast-image';
 
 import * as userActions from "../actions/userActions";
 import styles from "./horseListItemStyle";
+import { connect } from "react-redux";
 
 class horseListItem extends React.Component{
   render(){
-    const {horseItem} = this.props;
+    const {horseItem, intlData} = this.props;
     let age = horseItem.age === null ? 0 : horseItem.age;
     age = userActions.calcuateHorseAge(age);
     // if(horseItem.image_type.toLowerCase() === "lower"){
@@ -26,14 +27,18 @@ class horseListItem extends React.Component{
           source={{ uri: horseItem.detect_file }}
         />
         <Text>
-          {"Name: " + horseItem.name}
+          {intlData.messages['history']['horseName'] + horseItem.name}
         </Text>
         <Text>
-          {"Age: " + age}
+          {intlData.messages['history']['horseName'] + age}
         </Text>
       </TouchableOpacity>
     )
   }
 }
 
-export default horseListItem;
+const mapStateToProps = (state) => ({
+  intlData: state.IntlReducers
+})
+
+export default connect(mapStateToProps, null)(horseListItem);

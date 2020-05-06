@@ -32,11 +32,10 @@ class historyScreen extends Component{
   }
 
   componentDidMount(){    
-    console.log("test=", this.props.connection);
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
     }else{
       this.props.actions.fetchHorseList(window.currentUser["id"]);
@@ -56,7 +55,6 @@ class historyScreen extends Component{
           item["file"] = serverurl.server_url + item["file"];
           list.push(item);
         })
-        console.log("load success  ss=====", list);    
         this.setState({horseList: list});
       }
     }
@@ -79,6 +77,7 @@ class historyScreen extends Component{
 
   render(){
     const{horseList, isShowModal, searchName} = this.state;
+    const {intlData} = this.props
     let filterList = [];
     if(searchName !== "" && horseList.length > 0){      
       horseList.map(item=>{
@@ -93,7 +92,9 @@ class historyScreen extends Component{
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>HISTORY</Text>        
+          <Text style={[styles.title, fonts.montserrat_bold]}>
+            {intlData.messages['history']['history']}
+          </Text>
         </View>
         <View style={styles.search_wrap}>          
           <Image 
@@ -102,7 +103,7 @@ class historyScreen extends Component{
             resizeMode="contain"
           />
           <TextInput 
-            placeholder="Search Name"            
+            placeholder={intlData.messages['history']['searchName']}            
             inlineImageLeft="search_icon"
             returnKeyType="done"
             onChangeText={text => {this.setState({searchName: text})}}
@@ -134,6 +135,7 @@ const mapStateToProps = state => ({
   data: getListSuccess(state.fetchhistory),
   pending: getListPending(state.fetchhistory),
   connection: state.connection.isConnected,
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

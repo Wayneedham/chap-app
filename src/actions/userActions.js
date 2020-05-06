@@ -35,14 +35,13 @@ export function handleFacebookLogin () {
           );
           var fbUser = await response.json();
           var names  = fbUser.name.split(" ");
-    
+
           const userData = new FormData()
           userData.append('email', fbUser.email);
           userData.append('last_name', names[0]);
           userData.append('first_name', names[1]);
           userData.append('is_social', true);
-          
-          console.log("social ==", userData);
+
           const url = serverurl.basic_url + 'sociallogin';
           fetch(url , {
             method: "post",
@@ -206,8 +205,8 @@ export async function fbLogin(token, props) {
 
   export async function _storeData(key,value){
     try {
-      await AsyncStorage.setItem(key, JSON.stringify(value));
-    //   console.warn("done done")
+      if(key=='lang')await AsyncStorage.setItem(key, value);
+      else await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       // Error saving data
     }

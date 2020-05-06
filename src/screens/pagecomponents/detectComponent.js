@@ -12,6 +12,7 @@ import ActionSheet from 'react-native-actionsheet';
 import { TextField } from "react-native-material-textfield";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
+import { connect } from 'react-redux';
 
 import RadioButton from "../../components/radioButton"; 
 import HelpComopnent from "../pagecomponents/helpComponent";
@@ -84,16 +85,15 @@ class detectComponent extends Component{
   }
 
   onPostImg(){
-    console.log("window==", window.currentUser);
     const{txt_img_type, txt_img_desc, txt_img_name, imgURI} = this.state;
     
     if (imgURI === "") {
-      this.showAlert("Upload an image to detect please.");
+      this.showAlert(this.props.intlData.messages['alert']['uploadImageToDetect']);
       return;
     }
 
     if (txt_img_name === "") {
-      this.showAlert("Enter name please.");
+      this.showAlert(this.props.intlData.messages['alert']['enterName']);
       return;
     }
 
@@ -103,14 +103,12 @@ class detectComponent extends Component{
     userData.append('name', txt_img_name);
     userData.append('description', txt_img_desc);  
     const uploadUri = Platform.OS === "android" ? imgURI.uri : imgURI.uri.replace("file://", "")    
-    console.log("imgURI===", imgURI);
     const fileName = "horse_" + new Date().getTime() + ".jpg";
     userData.append('file', {
       uri: uploadUri,
       name: imgURI.fileName === undefined ? fileName : imgURI.fileName,
       type: imgURI.type === undefined ? "image/jpeg" : imgURI.type,
     });
-    console.log("userData===", userData);
     this.props.onPostHorse(userData);
   }
 
@@ -180,7 +178,7 @@ class detectComponent extends Component{
   render(){
     const{txt_img_desc, txt_img_name, radioOptions, imgSrc, isHelpModal, txt_img_type} = this.state;
     const is_premium = window.currentUser["is_premium"];
-  
+    const { intlData } = this.props
     return(
       <View>
         <View style={styles.img_container}>
@@ -190,19 +188,23 @@ class detectComponent extends Component{
             resizeMode="cover"
           />
           <TouchableOpacity style={styles.uploadTxt_wrap} onPress={this.showActionSheet}>
-            <Text style={[styles.uploadTxt, fonts.montserrat_semibold]}>Upload Image</Text>
+            <Text style={[styles.uploadTxt, fonts.montserrat_semibold]}>
+              {intlData.messages['detection']['uploadImage']}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.details_container}>
           <TextField 
             style={styles.detailsTxtWrap}
-            label={"Horse's Name"}  
+            label={intlData.messages['detection']['horseName']}
             value={txt_img_name}
             onChangeText={text => this.setState({ txt_img_name: text })}
           />
           <View>
             <View style={styles.rowWrap}>
-              <Text style={[styles.imgTypeTxt, fonts.montserrat_regular]}>Select Image Type</Text>
+              <Text style={[styles.imgTypeTxt, fonts.montserrat_regular]}>
+                {intlData.messages['detection']['selectImageType']}
+              </Text>
               {/* <TouchableOpacity style={styles.helpWrap} onPress={()=>this.onShowHelp(true)}>
                 <Image 
                   source={require("../../../assets/icons/icon_help.png")}
@@ -215,7 +217,10 @@ class detectComponent extends Component{
               onSelectImgType={this.onSelectImgType}
             />
             <Text style={[styles.helpTxt, fonts.montserrat_bold]}>
-              {txt_img_type==="lower" ? "Can Only detect up to 17 Years Old." : "Can Only detect up to 20 Years Old."}
+              {txt_img_type==="lower" 
+                ? intlData.messages['detection']['selectAge']['lowerAge'] 
+                : intlData.messages['detection']['selectAge']['upperAge']
+              }
             </Text>
           </View>
           <TextField 
@@ -231,11 +236,16 @@ class detectComponent extends Component{
           style={[styles.update_container, is_premium?{marginBottom: 70}:{}]}
         >
           <Text style={[styles.update_txt, fonts.montserrat_bold]}>
-            {is_premium ? "Post" : "Post (PayAsYouGo)"}
+            {is_premium 
+              ? intlData.messages['detection']['detectionButton']['is_premium'] 
+              : intlData.messages['detection']['detectionButton']['not_premium']
+            }
           </Text>   
           {
             is_premium === false &&
-            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>($10/Horse)</Text>    
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+              {intlData.messages['detection']['detectionButton']['checkout']}
+            </Text>
           }   
         </TouchableOpacity>    
         {
@@ -247,7 +257,9 @@ class detectComponent extends Component{
             <Text style={[styles.update_txt, fonts.montserrat_bold]}>
               {"Upgrade To Unlimited"}
             </Text>          
-            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>($20/Month)</Text>    
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+              {intlData.messages['detection']['detectionButton']['subscription']}
+            </Text>
           </TouchableOpacity>
         }        
         <ActionSheet
@@ -266,5 +278,13 @@ class detectComponent extends Component{
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+      intlData: state.IntlReducers
+  };
+};
 
-export default detectComponent;
+export default connect(
+  mapStateToProps, 
+  null
+)(detectComponent);

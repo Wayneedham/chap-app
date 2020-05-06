@@ -17,21 +17,6 @@ import styles from "./tutorialScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import { Actions } from 'react-native-router-flux';
 
-const tutorialList1 = [
-  "Clear, not Blurry",
-  "Straight on, not at an angle.",
-  "Contain all Lower Teeth, with minimal other objects in the photo. (If necessary please crop out other objects)",
-  "Like the following Images"
-]
-
-const tutorialList2 = [
-  "Program can only detect up to 17 Yesrs Old by using the Lower Image.",
-  "Program can only detect up to 20 Yesrs Old by using the Upper Image.",
-  "User will receive a 3 Year Range from CHAP Within the minute, and will receive a 2 Year and 1 Year estimation from our Experts within 24 hours. Our experts will be able to give an Estimation higher than 20 Years Old.",
-  "To understand this Process and Learn for yourself, Please subscribe to our Instructional Video Course."
-]
-
-
 class tutorialScreen extends Component{
 
   constructor(props) {
@@ -45,7 +30,7 @@ class tutorialScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -62,10 +47,10 @@ class tutorialScreen extends Component{
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
-          title={"Tutorial"}
+          title={this.props.intlData.messages['home']['tutorial']}
           navigate={this.props.navigation}
         />
-        <Text style={[styles.detailTxt, fonts.montserrat_regular]}>Watch the Tutorial</Text>
+        <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{this.props.intlData.messages['home']['watchTutorial']}</Text>
         <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
           <Image 
             style={styles.videoPlayImg}
@@ -75,13 +60,13 @@ class tutorialScreen extends Component{
         </TouchableOpacity> 
         <View style={styles.txtContainer}>
           {
-            tutorialList1.map((title,index)=>(
-              <View style={styles.rowWrap}>
+            this.props.intlData.messages['home'].tutorialList1.map((title,index)=>(
+              <View style={styles.rowWrap} key={index}>
                 <Text style={[styles.detailTxt, fonts.montserrat_semibold]}>{(index+1) + ". "}</Text>
                 <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{title}</Text>
               </View>
             ))
-          }           
+          }
         </View>
         <View>
           <Image 
@@ -97,8 +82,8 @@ class tutorialScreen extends Component{
         </View>
         <View style={styles.txtContainer}>
           {
-            tutorialList2.map((title,index)=>(
-              <View style={styles.rowWrap}>
+            this.props.intlData.messages['home'].tutorialList2.map((title,index)=>(
+              <View style={styles.rowWrap} key={index}>
                 <Text style={[styles.detailTxt, fonts.montserrat_semibold]}>{(index+5) + ". "}</Text>
                 <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{title}</Text>
               </View>
@@ -111,7 +96,7 @@ class tutorialScreen extends Component{
           visible={isShowModal}
           onRequestClose={()=>{}}>
           <VideoPlayer
-            source={{ uri: serverurl.tutorial_video }}            
+            source={{ uri: serverurl.tutorial_video }}
             onBack={()=>this.onDismiss()}
           />
         </Modal>
@@ -122,7 +107,8 @@ class tutorialScreen extends Component{
 }
 
 const mapStateToProps = state => ({
-  connection: state.connection.isConnected
+  connection: state.connection.isConnected,
+  intlData: state.IntlReducers
 })
 
 export default connect(

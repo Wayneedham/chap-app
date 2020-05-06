@@ -39,8 +39,8 @@ class changePasswordScreen extends Component{
         else if(Object.keys(responseData).includes("id")){       
           Alert.alert(
             "",
-            "You updated password successfully.",
-            [{ text: "OK", onPress: () => {
+            this.props.intlData.messages['alert']['updatedPassword'],
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
               this.props.navigation.goBack();         
             }}],
             { cancelable: false }
@@ -53,26 +53,26 @@ class changePasswordScreen extends Component{
   onChangePwd =()=>{
     const{cPwd, nPwd, vPwd} = this.state;
     if (cPwd === "") {
-      this.showAlert("Enter old password please.");
+      this.showAlert(this.props.intlData.messages['alert']['enterOldPassword']);
       return;
     }
     if (nPwd === "") {
-      this.showAlert("Enter new password please.");
+      this.showAlert(this.props.intlData.messages['alert']['enterOldPassword']);
       return;
     }
     if (vPwd === "") {
-      this.showAlert("Enter verify password please.");
+      this.showAlert(this.props.intlData.messages['alert']['enterVerifyPassword']);
       return;
     }
 
     if (nPwd !== vPwd) {
-      this.showAlert("Verify password does not match, try again.");
+      this.showAlert(this.props.intlData.messages['alert']['doesNotMatchedVerifyPassword']);
       return;
     }
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -88,7 +88,7 @@ class changePasswordScreen extends Component{
     Alert.alert(
       "",
       message,
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => console.log("OK Pressed") }],
       { cancelable: false }
     );
   }
@@ -98,7 +98,7 @@ class changePasswordScreen extends Component{
     return(
       <View style={styles.container}>
         <CustomBar 
-          title={"Change Password"}
+          title={this.props.intlData.messages['settings']['changePassword']}
           navigate={this.props.navigation}
         />
         <View style={{ paddingVertical: 5 }}>
@@ -151,7 +151,8 @@ const mapStateToProps = state => ({
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
   connection: state.connection.isConnected,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

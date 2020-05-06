@@ -12,6 +12,7 @@ import { TextField } from "react-native-material-textfield";
 import LoginComponent from "../../../components/login";
 import styles from "../authScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
+import { connect } from "react-redux";
 
 class signupScreen extends Component{
   constructor(props) {
@@ -33,11 +34,12 @@ class signupScreen extends Component{
   render(){
     const { userEmail, userPwd, userConfirmPwd, hidePassword, userFname, userLname } = this.state;
     const behavior = Platform.OS === 'ios' ? 'padding' : null
+    const {intlData} = this.props
     return (
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
         <ScrollView style={styles.register_container}>
           <Text style={[styles.txt_title, fonts.montserrat_bold]}>
-            Sign Up
+            {intlData.messages['auth']['signup']}
           </Text>
           <LoginComponent
             isLogin={false}
@@ -51,7 +53,7 @@ class signupScreen extends Component{
               ref={fname => {
                 this.fnameInput = fname;
               }}
-              label={"First Name"}
+              label={intlData.messages['auth']['firstName']}
               value={userFname}
               onChangeText={fname => this.setState({ userFname: fname })}
               onSubmitEditing={() => this.lnameInput.focus()}
@@ -61,7 +63,7 @@ class signupScreen extends Component{
               ref={lname => {
                 this.lnameInput = lname;
               }}
-              label={"Last Name"}
+              label={intlData.messages['auth']['lastName']}
               value={userLname}
               onChangeText={lname => this.setState({ userLname: lname })}
               onSubmitEditing={() => this.emailInput.focus()}
@@ -71,7 +73,7 @@ class signupScreen extends Component{
               ref={email => {
                 this.emailInput = email;
               }}
-              label={"Email"}
+              label={intlData.messages['auth']['email']}
               value={userEmail}
               autoCapitalize={"none"}
               onChangeText={email => this.setState({ userEmail: email })}
@@ -82,7 +84,7 @@ class signupScreen extends Component{
               ref={password => {
                 this.passwordInput = password;
               }}
-              label={"Password"}
+              label={intlData.messages['auth']['password']}
               value={userPwd}
               autoCapitalize={"none"}
               secureTextEntry={hidePassword}
@@ -94,7 +96,7 @@ class signupScreen extends Component{
               ref={password => {
                 this.confirmInput = password;
               }}
-              label={"Confirm Password"}
+              label={intlData.messages['auth']['confirmPassword']}
               value={userConfirmPwd}
               autoCapitalize={"none"}
               secureTextEntry={hidePassword}
@@ -104,7 +106,7 @@ class signupScreen extends Component{
           
           <View style={styles.already_txt_register_container}>
             <Text style={[styles.already_txt, fonts.montserrat_regular]}>
-              Already have an account ?
+              {intlData.messages['auth']['haveAccount?']}
             </Text>
             <TouchableOpacity onPress={() => this.onSignin()}>
               <Text
@@ -114,7 +116,7 @@ class signupScreen extends Component{
                   { textDecorationLine: "underline" }
                 ]}
               >
-                Sign in
+                {intlData.messages['auth']['signin']}
               </Text>
             </TouchableOpacity>
           </View>
@@ -124,4 +126,7 @@ class signupScreen extends Component{
   }
 }
 
-export default signupScreen;
+const mapStateToProps = (state) => ({
+  intlData: state.IntlReducers
+})
+export default connect(mapStateToProps, null)(signupScreen);

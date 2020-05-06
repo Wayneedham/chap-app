@@ -5,13 +5,13 @@ const initialState = {
     isConnected: true
 }
 
-export default function reducer(state = initialState, action) {   
+export default function reducer(state = initialState, action) {
     switch(action.type) {
         case NETWORK_CONNECT:
             return {
                 ...state,
                 isConnected: action.payload
-            }      
+            }
         default: 
             return state;
     }
@@ -26,7 +26,6 @@ function getReduxInfo(payload, TYPE){
   }
 
 export const setNetworkConnect = (payload) => {
-    console.log("connect==", payload);
     return (dispatch, getState) => {
         return dispatch(getReduxInfo(payload, NETWORK_CONNECT));
     }

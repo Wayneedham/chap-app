@@ -18,6 +18,7 @@ import settingScreen from "./setting/settingScreen";
 import profileScreen from "./setting/profileScreen";
 import membershipScreen from "./setting/membershipScreen";
 import changePwdScreen from "./setting/changePwdScreen";
+import languagesScreen from "./setting/languagesScreen"
 import courseScreen from "./videos/courseScreen";
 import historyScreen from "./history/historyScreen";
 import detailsScreen from "./history/detailScreen";
@@ -86,6 +87,9 @@ export const SettingStack = StackNavigator(
     changepwd:{
       screen: changePwdScreen
     },
+    languages:{
+      screen: languagesScreen
+    },
     membership:{
       screen: membershipScreen
     }
@@ -120,6 +124,7 @@ class customTabNavigator extends React.Component {
   }
 
   render() {
+    console.warn(this.props)
     return (
       <BaseNavigator screenProps={this.props}/>
     );
@@ -152,7 +157,7 @@ export const BaseNavigator = createBottomTabNavigator(
               ]}
             >
               {" "}
-              Home{" "}
+              {screenProps.intlData.messages['home']['home']}{" "}
             </Text>
           </View>
          ),
@@ -187,7 +192,7 @@ export const BaseNavigator = createBottomTabNavigator(
                 ]}
               >
                 {" "}
-                Videos{" "}
+                {screenProps.intlData.messages['videos']['videos']}{" "}
               </Text>
             </View>
           ),
@@ -221,7 +226,7 @@ export const BaseNavigator = createBottomTabNavigator(
                 ]}
               >
                 {" "}
-                Detection{" "}
+                {screenProps.intlData.messages['detection']['detection']}{" "}
               </Text>
             </View>
           ),
@@ -255,7 +260,7 @@ export const BaseNavigator = createBottomTabNavigator(
                 ]}
               >
                 {" "}
-                History{" "}
+                {screenProps.intlData.messages['history']['history']}{" "}
               </Text>
             </View>
           ),
@@ -288,7 +293,7 @@ export const BaseNavigator = createBottomTabNavigator(
               ]}
             >
               {" "}
-              Settings{" "}
+              {screenProps.intlData.messages['settings']['settings']}{" "}
             </Text>
           </View>
         ),
@@ -311,6 +316,9 @@ export const BaseNavigator = createBottomTabNavigator(
   }
 );
 
+const mapStateToProps = (state) => ({
+  intlData: state.IntlReducers
+})
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
@@ -323,7 +331,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(customTabNavigator);
 

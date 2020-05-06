@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,6 +46,7 @@
 		D9DBEB673C924B7FBC32466D /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BD11EE6AB094E418F08A7E9 /* libSplashScreen.a */; };
 		E097BB6ADF144991B6872510 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F697E33118472CA2B90F3B /* libRCTFBLogin.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		EFBB8D6F9A6742B5823E2949 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 177EE5259CA445E1876EA9B1 /* libRNI18n.a */; };
 		FBCD791F88A747D7926BAC35 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 61CC42BA827A4FD899FBA7EF /* Montserrat-Bold.otf */; };
 /* End PBXBuildFile section */
 
@@ -428,6 +429,20 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		B61E96E123A3452B0080F7C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3642DF61E60B41C5B5F8AA21 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNI18n;
+		};
+		B61E96E323A3452B0080F7C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3642DF61E60B41C5B5F8AA21 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6476C4051EEAA69700B10F51;
+			remoteInfo = "RNI18n-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -455,11 +470,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = chap/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = chap/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		177EE5259CA445E1876EA9B1 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		1C14942DD84A4B34A52A9D27 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
 		25F697E33118472CA2B90F3B /* libRCTFBLogin.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBLogin.a; sourceTree = "<group>"; };
 		2C58652210FC4709A132BDFC /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9FE358D4394C28BC51160A /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.otf"; path = "../assets/fonts/Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
+		3642DF61E60B41C5B5F8AA21 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		398287B9154240A1835CFE9C /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		61CC42BA827A4FD899FBA7EF /* Montserrat-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.otf"; path = "../assets/fonts/Montserrat-Bold.otf"; sourceTree = "<group>"; };
@@ -526,6 +543,7 @@
 				0AAEBA5C2ED443A497C6B684 /* libTPSStripe.a in Frameworks */,
 				B58C219EBB4819C3BBD328F9 /* libPods-chap.a in Frameworks */,
 				C4E38205A8F04FEE9D854C38 /* libRNCNetInfo.a in Frameworks */,
+				EFBB8D6F9A6742B5823E2949 /* libRNI18n.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +739,7 @@
 				08D3382E9DE541DAB437E3B1 /* RCTVideo.xcodeproj */,
 				99A7C97DA6A5405E8542B384 /* TPSStripe.xcodeproj */,
 				1C14942DD84A4B34A52A9D27 /* RNCNetInfo.xcodeproj */,
+				3642DF61E60B41C5B5F8AA21 /* RNI18n.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -790,6 +809,7 @@
 				987EF5D8D5534C5C84AD4E89 /* libRCTVideo.a */,
 				0716CC0A67F34363ABCE1538 /* libTPSStripe.a */,
 				8EF9DF958E84434D954B3DAF /* libRNCNetInfo.a */,
+				177EE5259CA445E1876EA9B1 /* libRNI18n.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -894,6 +914,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B61E96DD23A3452B0080F7C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B61E96E223A3452B0080F7C7 /* libRNI18n.a */,
+				B61E96E423A3452B0080F7C7 /* libRNI18n-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C96644BAF452984EB0CADC94 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -942,10 +971,11 @@
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "chap" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1036,6 +1066,10 @@
 				{
 					ProductGroup = 847A8A2623A03CA30067797D /* Products */;
 					ProjectRef = 1C14942DD84A4B34A52A9D27 /* RNCNetInfo.xcodeproj */;
+				},
+				{
+					ProductGroup = B61E96DD23A3452B0080F7C7 /* Products */;
+					ProjectRef = 3642DF61E60B41C5B5F8AA21 /* RNI18n.xcodeproj */;
 				},
 				{
 					ProductGroup = 846C0268234D87D700F4BF0E /* Products */;
@@ -1440,6 +1474,20 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B61E96E223A3452B0080F7C7 /* libRNI18n.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNI18n.a;
+			remoteRef = B61E96E123A3452B0080F7C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B61E96E423A3452B0080F7C7 /* libRNI18n-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNI18n-tvOS.a";
+			remoteRef = B61E96E323A3452B0080F7C7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1556,8 +1604,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Wayne Needham (2CSAMJ7Z99)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = NO;
+				CURRENT_PROJECT_VERSION = 3.0;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
@@ -1575,6 +1623,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
+					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 				);
 				INFOPLIST_FILE = chap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1582,7 +1631,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/chap\"",
 					"\"$(SRCROOT)/chap\"",
+					"\"$(SRCROOT)/chap\"",
 				);
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1590,7 +1641,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
+				PROVISIONING_PROFILE_SPECIFIER = device_chap_apple_provision;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1602,7 +1653,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Wayne Needham (2CSAMJ7Z99)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3.0;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK";
@@ -1620,6 +1672,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios/**",
 					"$(SRCROOT)/../node_modules/tipsi-stripe/ios/TPSStripe",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
+					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 				);
 				INFOPLIST_FILE = chap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1627,7 +1680,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/chap\"",
 					"\"$(SRCROOT)/chap\"",
+					"\"$(SRCROOT)/chap\"",
 				);
+				MARKETING_VERSION = 2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1635,7 +1690,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = chap;
-				PROVISIONING_PROFILE_SPECIFIER = chap_apple;
+				PROVISIONING_PROFILE_SPECIFIER = device_chap_apple_provision;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1688,7 +1743,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1734,6 +1789,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

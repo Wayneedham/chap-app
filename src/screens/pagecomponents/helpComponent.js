@@ -10,52 +10,43 @@ import {
 
 import styles from "./helpComponentStyle";
 import fonts from "../../sharedStyles/fontStyle";
-
-const tutorialList1 = [
-  "Clear, not Blurry",
-  "Straight on, not at an angle.",
-  "Contain all Lower Teeth, with minimal other objects in the photo. (If necessary please crop out other objects)",
-  "Like the following Images"
-]
-
-const tutorialList2 = [
-  "Program can only detect up to 17 Yesrs Old by using the Lower Image.",
-  "Program can only detect up to 20 Yesrs Old by using the Upper Image.",
-  "User will receive a 3 Year Range from CHAP Within the minute, and will receive a 2 Year and 1 Year estimation from our Experts within 24 hours. Our experts will be able to give an Estimation higher than 20 Years Old.",
-  "To understand this Process and Learn for yourself, Please subscribe to our Instructional Video Course."
-]
+import { connect } from 'react-redux';
 
 class helpComponent extends Component{
   render(){
-    const{isShow} = this.props;
+    const { isShow, intlData } = this.props;
     return(
       <Modal
-        animationType={'slide'}      
+        animationType={'slide'}
         visible={isShow}
         onRequestClose={()=>{}}>
         <ScrollView style={styles.container}>
           <View style={styles.topbar_wrap}>
-            <Text style={[styles.title, fonts.montserrat_bold]}>Image Type</Text>
+            <Text style={[styles.title, fonts.montserrat_bold]}>
+              {intlData.messages['page']['imageType']}
+            </Text>
             <TouchableOpacity style={styles.dismissWrap} onPress={this.props.onDone}>
-              <Text style={[styles.dismiss, fonts.montserrat_bold]}>Done</Text>
+              <Text style={[styles.dismiss, fonts.montserrat_bold]}>
+                {intlData.messages['page']['done']}
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.txtContainer}>
             {
-              tutorialList1.map((title,index)=>(
-                <View style={styles.rowWrap}>
+              intlData.messages['home'].tutorialList1.map((title,index)=>(
+                <View style={styles.rowWrap} key={index}>
                   <Text style={[styles.detailTxt, fonts.montserrat_semibold]}>{(index+1) + ". "}</Text>
                   <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{title}</Text>
                 </View>
               ))
-            }           
+            }
           </View>
           <View>
             <Image 
               source={require("../../../assets/image/horse_1.jpg")}
               resizeMode={"contain"}
               style={[styles.horseImg, {marginTop: 20}]}
-            />         
+            />
             <Image 
               source={require("../../../assets/image/horse_2.jpg")}
               resizeMode={"contain"}
@@ -64,19 +55,26 @@ class helpComponent extends Component{
           </View>
           <View style={styles.txtContainer}>
             {
-              tutorialList2.map((title,index)=>(
-                <View style={styles.rowWrap}>
+              intlData.messages['home'].tutorialList2.map((title,index)=>(
+                <View style={styles.rowWrap} key={index}>
                   <Text style={[styles.detailTxt, fonts.montserrat_semibold]}>{(index+5) + ". "}</Text>
                   <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{title}</Text>
                 </View>
               ))
-            }           
+            }
           </View>
           <View style={{height: 100}}/>
-        </ScrollView>        
+        </ScrollView>
       </Modal>
     )
   }
 }
-
-export default helpComponent;
+const mapStateToProps = (state) => {
+  return {
+      intlData: state.IntlReducers
+  };
+};
+export default connect(
+  mapStateToProps,
+  null
+)(helpComponent);

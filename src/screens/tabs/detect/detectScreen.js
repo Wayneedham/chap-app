@@ -36,7 +36,6 @@ class detectScreen extends Component{
   
   componentWillReceiveProps(nextProps){ 
     const responseData = nextProps.data;
-    console.log("responseData===", responseData);
     if(nextProps.pending === false && responseData!==""){
       if(postDetectData !== ""){
         this.props.actions.postHorse(postDetectData);
@@ -47,20 +46,20 @@ class detectScreen extends Component{
             Alert.alert(
               "",
               responseData["message"],
-              [{ text: "OK", onPress: () => {
-                this.setState({isShowModal: false});     
-                this.props.actions.initReduxData("");         
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                this.setState({isShowModal: false});
+                this.props.actions.initReduxData("");
               } }],
               { cancelable: false }
             );
           }
           else if(Object.keys(responseData).includes("email") && isUpgrade === true){   
             window.currentUser = responseData;
-            userActions._storeData("userInfo", responseData);            
+            userActions._storeData("userInfo", responseData);
             Alert.alert(
               "",
-              "The membership was upgraded successfully.",
-              [{ text: "OK", onPress: () => {
+              this.props.intlData.messages['alert']['upgradedMembership'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
                 isUpgrade = false;
                 this.setState({isShowModal: false});     
                 this.props.actions.initReduxData("");     
@@ -73,8 +72,8 @@ class detectScreen extends Component{
             if(recentData["detect_file"]===''){
               Alert.alert(
                 "",
-                "Cannot detect this image. Please try another image again.",
-                [{ text: "OK", onPress: () => {  
+                this.props.intlData.messages['alert']['cannotDetectImage'],
+                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
                   this.setState({
                     recentData: "", 
                     isShowModal: false, 
@@ -88,8 +87,8 @@ class detectScreen extends Component{
             }else{              
               Alert.alert(
                 "",
-                "The image was detected successfully",
-                [{text: "OK", onPress: ()=>{
+                this.props.intlData.messages['alert']['wasDetectedImage'],
+                [{text: this.props.intlData.messages['alert']['ok'], onPress: ()=>{
                   recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];
                   recentData["file"] = serverurl.server_url + recentData["file"];                 
                   this.setState({
@@ -112,7 +111,7 @@ class detectScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -132,10 +131,10 @@ class detectScreen extends Component{
     if(!isProUser){
       Alert.alert(
         "",
-        "Pay As You Go Plan - This plan allows you to check the age of your horse without being on a monthly subscription. For just $10, you will get a response from the CHAP program within the minute with the estimation of your horses age. Within the next 24 hours, you will get a response from our expert team either confirming or adjusting the estimation that CHAP provided. You will drive a long ways to find someone with more experience and expertise than our staff at CHAP. Thank you for your interest and we hope to serve you well..",
+        this.props.intlData.messages['alert']['payAsYouGoPlan'],
         [
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
-          { text: "OK", onPress: () => {
+          {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
+          { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
             this.onSubScribe();       
           }}        
         ],
@@ -143,7 +142,6 @@ class detectScreen extends Component{
       );
     }else{
       this.setState({isShowModal: true, isUpload: true});
-      console.log("userData===", userData);
       this.props.actions.postHorse(userData);
       postDetectData = "";
     }    
@@ -171,7 +169,7 @@ class detectScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -192,7 +190,7 @@ class detectScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -215,7 +213,9 @@ class detectScreen extends Component{
     return(
       <KeyboardAvoidingView behavior={behavior} keyboardVerticalOffset={20} style={{flexGrow: 1}}>
         <ScrollView style={styles.container}>
-          <Text style={[styles.title, fonts.montserrat_bold]}>New</Text>
+          <Text style={[styles.title, fonts.montserrat_bold]}>
+            {this.props.intlData.messages['detection']['new']}
+          </Text>
           <DetectComponent 
             onPostHorse={this.onCreateDetect}
             onUpgrade={this.onUpgrade}
@@ -236,7 +236,8 @@ const mapStateToProps = state => ({
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
   connection: state.connection.isConnected,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

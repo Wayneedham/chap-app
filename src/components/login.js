@@ -62,7 +62,6 @@ class LoginComponent extends React.Component {
         );
       }
       else if(Object.keys(responseData).includes("id")){
-        console.log("login success");
         window.currentUser = responseData;
         userActions._storeData("logged", true);
         userActions._storeData("userInfo", responseData);
@@ -75,7 +74,7 @@ class LoginComponent extends React.Component {
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -88,11 +87,10 @@ class LoginComponent extends React.Component {
   }
 
   onFacebook() {
-    console.log("facebook login");
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -110,12 +108,12 @@ class LoginComponent extends React.Component {
   onUserSignup() {
     const { userEmail, userPwd, userFname, userLname } = this.props;
     if (userFname === "" || userLname === "") {
-      this.showAlert("Enter full name please.");
+      this.showAlert(this.props.intlData.messages['auth']['enterFullName']);
       return;
     }
 
     if (userEmail === "" || userPwd === "") {
-      this.showAlert("Enter email or password please.");
+      this.showAlert(this.props.intlData.messages['auth']['enterEmailOrPassword']);
       return;
     }
    
@@ -127,10 +125,8 @@ class LoginComponent extends React.Component {
       userData.append('password', userPwd);
       this.props.actions.userSignup(userData);
     }else{
-      if (userEmail === "" || userPwd === "") {
-        this.showAlert("Enter valid email address please.");
+        this.showAlert(this.props.intlData.messages['auth']['enterValidEmailAddress']);
         return;
-      }
     }
   }
 
@@ -142,16 +138,14 @@ class LoginComponent extends React.Component {
       return;
     }
     
-    if (userActions.verficationEmail(userEmail)) {      
+    if (userActions.verficationEmail(userEmail)) {
       const userData = new FormData()
       userData.append('email', userEmail);
       userData.append('password', userPwd);
       this.props.actions.userLogin(userData);
     }else{
-      if (userEmail === "" || userPwd === "") {
-        this.showAlert("Enter valid email address please.");
+        this.showAlert(this.props.intlData.messages['auth']['enterValidEmailAddress']);
         return;
-      }
     }
     // Actions.reset("customTabNavigator", { tabIndex: 0 });
   }
@@ -167,16 +161,17 @@ class LoginComponent extends React.Component {
 
   render() {
     const{isLoading} = this.state;
+    const { intlData } = this.props;
     return (
       <View style={styles.input_container}>
         <CustomButton 
-          title={this.props.isLogin ? "Sign In" : "Sign Up"}
+          title={this.props.isLogin ? intlData.messages['auth']['signin'] : intlData.messages['auth']['signup']}
           onClick={() => this.onSignin(this.props.isLogin)}
           isPending={isLoading}
         />  
         <View>
           <Text style={[styles.input_container_ortxt, fonts.montserrat_medium]}>
-            {"or connect with social"}
+            {intlData.messages['auth']['connectSocial']}
           </Text>
 
           <TouchableOpacity
@@ -189,7 +184,7 @@ class LoginComponent extends React.Component {
                 resizeMode="contain"
               />
               <Text style={[styles.social_txt, fonts.montserrat_regular]}>
-                {"Facebook"}
+                {intlData.messages['auth']['facebook']}
               </Text>
             </TouchableOpacity>
         </View>
@@ -203,7 +198,8 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   connection: state.connection.isConnected,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

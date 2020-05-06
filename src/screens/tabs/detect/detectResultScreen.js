@@ -45,7 +45,7 @@ class detectResultScreen extends Component{
     this.props.actions.postNewRequest(userData, url);   // send horse's age via email. 
     setTimeout(()=>{
       this.setState({isShowModal: true})
-    }, 300);   
+    }, 300);
   }
 
   render(){
@@ -67,7 +67,8 @@ const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

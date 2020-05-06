@@ -39,7 +39,7 @@ class membershipScreen extends Component{
           Alert.alert(
             "",
             responseData["message"],
-            [{ text: "OK", onPress: () => {this.setState({isPending: false});} }],
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {this.setState({isPending: false});} }],
             { cancelable: false }
           );
         }
@@ -49,22 +49,22 @@ class membershipScreen extends Component{
           if(isUpgrade){
             Alert.alert(
               "",
-              "The membership was upgraded successfully.",
-              [{ text: "OK", onPress: () => {
-                this.setState({isPending: false});  
-                this.props.actions.initReduxData("");  
-                this.props.navigation.goBack();         
+              this.props.intlData.messages['alert']['upgradedMembership'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                this.setState({isPending: false});
+                this.props.actions.initReduxData("");
+                this.props.navigation.goBack();
               }}],
               { cancelable: false }
             );
           }else{
             Alert.alert(
               "",
-              "You purchased videos for course successfully.",
-              [{ text: "OK", onPress: () => {
-                this.setState({isPending: false});   
-                this.props.actions.initReduxData(""); 
-                this.props.navigation.goBack();         
+              this.props.intlData.messages['alert']['purchasedVideosForCourse'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                this.setState({isPending: false});
+                this.props.actions.initReduxData("");
+                this.props.navigation.goBack();
               }}],
               { cancelable: false }
             );
@@ -96,7 +96,7 @@ class membershipScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -117,7 +117,7 @@ class membershipScreen extends Component{
     if(!this.props.connection){
       Alert.alert(
         "",
-        "Please check network connection."
+        this.props.intlData.messages['auth']['checkNetwork']
       );
       return;
     }
@@ -143,26 +143,32 @@ class membershipScreen extends Component{
           navigate={this.props.navigation}
         />
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
-        1. Pay as you Go - $10/Horse
+        {/* 1. Pay as you Go - $10/Horse
         {"\n"}{" "}A. Available at anytime with this free App
         {"\n"}{" "}B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours.
 
         {"\n"}{"\n"}2. Unlimited Use - $20/Month
         {"\n"}{" "}A. Age as many Horses and as many Pictures as you’d like for just $20/Month
-        {"\n"}{" "}B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours.
+        {"\n"}{" "}B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours. */}
+          {this.props.intlData.messages['settings']['membership'].content1.join('\n')}
         </Text>
         <View style={styles.subscribeWrap}>
           <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onUpgrade()}>
-            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Upgrade To Unlimited</Text>
+            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
+              {this.props.intlData.messages['settings']['membership']['upgradeToUnlimited']}
+            </Text>
           </TouchableOpacity>
         </View>  
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
-        {"\n"}3. Video Course - $99
-        {"\n"}{" "}A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging.
+        {/* {"\n"}3. Video Course - $99
+        {"\n"}{" "}A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging. */}
+          {this.props.intlData.messages['settings']['membership'].content2.join('\n')}
         </Text>
         <View style={[styles.subscribeWrap, {marginBottom: 50}]}>
           <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onSubScribe()}>
-            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>Buy Now</Text>
+            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
+              {this.props.intlData.messages['page']['buyNow']}
+            </Text>
           </TouchableOpacity>
         </View>       
         <ProgressBar 
@@ -179,7 +185,8 @@ const mapStateToProps = state => ({
   data: getDataSuccess(state.fetchdata),
   isactive: state.fetchdata.isactive,
   connection: state.connection.isConnected,
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({

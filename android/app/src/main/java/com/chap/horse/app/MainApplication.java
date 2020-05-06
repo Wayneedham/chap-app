@@ -3,6 +3,7 @@ package com.chap.horse.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.gettipsi.stripe.StripeReactPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNI18nPackage(),
             new NetInfoPackage(),
             new OrientationPackage(),
             new StripeReactPackage(),

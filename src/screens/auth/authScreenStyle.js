@@ -26,25 +26,29 @@ const styles = StyleSheet.create({
   txt_title: {
     fontSize: responsiveFontSize(3.5),
     color: "#232E40",
-    marginTop: responsiveHeight(12),
+    marginTop: responsiveHeight(15),
     marginBottom: responsiveHeight(3)
   },
   already_txt_register_container: {
     flexDirection: "row",
-    marginTop: responsiveHeight(10),
-    marginBottom: responsiveHeight(5),
+    position: 'absolute',
+    top: responsiveHeight(8),
     alignSelf: "center"
   },
   already_txt_container: {
     flexDirection: "row",
     position: 'absolute',
-    bottom: responsiveHeight(5),
+    top: responsiveHeight(8),
     alignSelf: "center"
   },
   already_txt: {
     color: "#585F6F",
     fontSize: responsiveFontSize(1.8)
   },
+  already_txt_underline:{
+    color: "#585F6F",
+    fontSize: responsiveFontSize(2)
+  }
 })
 
 module.exports = styles;

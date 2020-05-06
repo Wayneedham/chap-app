@@ -42,7 +42,6 @@ class loginScreen extends Component {
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
       ])
-      console.log("permissions status: " +JSON.stringify(granted));
     } catch (err) {
       console.log(err)
     }
@@ -56,9 +55,9 @@ class loginScreen extends Component {
   }
 
   togglePassword() {
-    if (this.state.hidePassword == true) {     
+    if (this.state.hidePassword == true) {
       this.setState({ hidePassword: false });
-    } else {      
+    } else {
       this.setState({ hidePassword: true });
     }
   }
@@ -88,6 +87,7 @@ class loginScreen extends Component {
 
   render() {
     const { userEmail, userPwd, hidePassword, isDialogVisible, isShowModal } = this.state;
+    const { intlData } = this.props
     return (
       <View style={styles.container}>
         <Text style={[styles.txt_title, fonts.montserrat_bold]}>
@@ -98,7 +98,7 @@ class loginScreen extends Component {
             ref={login => {
               this.loginInput = login;
             }}
-            label={"Email"}
+            label={intlData.messages['auth']['email']}
             value={userEmail}
             autoCapitalize={"none"}
             onChangeText={email => this.setState({ userEmail: email })}
@@ -109,7 +109,7 @@ class loginScreen extends Component {
             ref={password => {
               this.passwordInput = password;
             }}
-            label={"Password"}
+            label={intlData.messages['auth']['password']}
             value={userPwd}
             autoCapitalize={"none"}
             secureTextEntry={hidePassword}
@@ -133,7 +133,7 @@ class loginScreen extends Component {
           onPress={() => this.onForgotPassword()}
         >
           <Text style={[styles.already_txt, fonts.montserrat_regular]}>
-            Forgot password ? 
+            {intlData.messages['auth']['forgotPassword']}
           </Text>
           <Text
             style={[
@@ -142,7 +142,7 @@ class loginScreen extends Component {
               { textDecorationLine: "underline" }
             ]}
           >
-            Reset password
+            {intlData.messages['auth']['resetPassword']}
           </Text>
         </TouchableOpacity>
 
@@ -154,26 +154,26 @@ class loginScreen extends Component {
 
         <View style={styles.already_txt_container}>
           <Text style={[styles.already_txt, fonts.montserrat_regular]}>
-            Don’t have an Account ?
+            {intlData.messages['auth']['dontHaveAccount?']}
           </Text>
           <TouchableOpacity onPress={() => this.onSignup()}>
             <Text
               style={[
-                styles.already_txt,
+                styles.already_txt_underline,
                 fonts.montserrat_semibold,
                 { textDecorationLine: "underline" }
               ]}
             >
-              Create an account
+              {intlData.messages['auth']['creatAccount']}
             </Text>
           </TouchableOpacity>
         </View>
 
         <DialogInput 
           isDialogVisible={isDialogVisible}
-          title={"Forgot Password"}
-          message={"Enter your email address please."}
-          hintInput ={"Email address"}
+          title={intlData.messages['auth']['alertForgotPassword']}
+          message={intlData.messages['auth']['inputEmailAddress']}
+          hintInput ={intlData.messages['auth']['emailAddress']}
           submitInput={ (inputText) => {this.onSendPassword(inputText)} }
           closeDialog={ () => {this.setState({isDialogVisible: false})}}>
         </DialogInput>
@@ -189,7 +189,8 @@ class loginScreen extends Component {
 const mapStateToProps = state => ({
   error: getDataError(state.fetchdata),
   data: getDataSuccess(state.fetchdata),
-  pending: getDataPending(state.fetchdata)
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
 })
 
 const mapDispatchToProps = dispatch => ({
