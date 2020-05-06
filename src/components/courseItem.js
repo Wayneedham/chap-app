@@ -12,11 +12,11 @@ import { connect } from "react-redux";
 
 class CourseItem extends Component{
   render(){
-    const{URL, title, index, intlData} = this.props;
+    const{URL, title, index, intlData, quizButton} = this.props;
     return(
       <View style={styles.courseWrap}>
         <View style={styles.courseTitleWrap}>
-          <Text style={[styles.courseDetailTxt, fonts.montserrat_semibold]}>{title}</Text>  
+          <Text style={[styles.courseDetailTxt, fonts.montserrat_semibold]}>{title}</Text>
           <TouchableOpacity style={styles.quizBtn} onPress={()=>this.props.onQuiz(index)}>
             <Text style={[styles.quizTxt, fonts.montserrat_semibold]}>{intlData.messages['videos']['quiz&study']}</Text>
           </TouchableOpacity>

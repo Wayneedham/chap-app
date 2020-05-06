@@ -15,7 +15,12 @@ const styles = StyleSheet.create({
   },
   aboutTxt:{   
     fontSize: 17,
+    marginTop: 20,
     color: colorStyle.colorMainGray
+  },
+  update_small_txt:{
+    fontSize: 14,
+    marginTop: 3
   },
   subscribeWrap:{
     alignItems: "center",

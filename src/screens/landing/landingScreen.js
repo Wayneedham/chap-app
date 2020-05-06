@@ -8,22 +8,21 @@ import * as userActions from "../../actions/userActions";
 import styles from "./landingScreenStyle";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import IntlAction from "../../actions/intlActions";
+import * as IntlAction from "../../actions/intlActions";
 
 class landingScreen extends Component{
 
   componentDidMount(){
     setTimeout(()=>{
       userActions._retrieveData("logged").then(value => {
+        userActions._retrieveData('lang').then((lang)=>{
+          this.props.actions.intlAction(lang);
+        });
         if(value=="true"){
           userActions._retrieveData('userInfo').then((data) => {
             const userInfo = JSON.parse(data);
             window.currentUser = userInfo;
             Actions.reset("customTabNavigator");
-            // userActions._retrieveData('lang').then((lang)=>{
-            //   console.log(lang)
-            //   updateLanguage(lang);
-            // });
           })
         }else{
           Actions.reset("loginScreen");
@@ -50,9 +49,16 @@ const mapStateToProps = (state) => {
       intlData: state.IntlReducers
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(IntlAction, dispatch);
-};
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(
+      {
+        intlAction: IntlAction.updateLanguage,
+      },
+      dispatch
+    )
+});
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 4
   },
   quizTxt:{
-    fontSize: responsiveFontSize(1.8),    
+    fontSize: responsiveFontSize(1.8)
   },
   subscribeWrap:{
     marginTop: 5,

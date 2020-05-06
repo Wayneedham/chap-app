@@ -58,6 +58,7 @@ class settingScreen extends Component{
   render(){
     const isPremium = window.currentUser["is_premium"];
     const isSocial = window.currentUser["is_social"];
+    console.log('settings.js', window.currentUser)
     return(
       <View style={styles.container}>
         <Text style={[styles.title, fonts.montserrat_bold]}>
@@ -71,7 +72,7 @@ class settingScreen extends Component{
           </Text>
           <View style={styles.pro}>
             <Text style={[styles.proText, fonts.montserrat_semibold]}>
-              {isPremium 
+              {isPremium !== 'trial'
                 ? this.props.intlData.messages['settings']['myAccount']['pro'] 
                 : this.props.intlData.messages['settings']['myAccount']['free']
               }
@@ -96,7 +97,7 @@ class settingScreen extends Component{
           )
         }
         {
-          isPremium === false && (
+          isPremium !== 'annually' && (
             <TouchableOpacity style={styles.item_wrap} onPress={()=>this.onMembership()}>
               <Text style={[styles.item_wrap_txt, fonts.montserrat_regular]}>
                 {this.props.intlData.messages['settings']['paymentOptions']}

@@ -1,4 +1,4 @@
-const updateLanguage = language => {
+export function updateLanguage(language) {
     return dispatch => {
         dispatch({
             type: 'UPDATE_LANGUAGE',
@@ -6,8 +6,3 @@ const updateLanguage = language => {
         });
     };
 };
-
-export default {
-    updateLanguage,
-};
-  

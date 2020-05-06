@@ -77,6 +77,14 @@ const styles = StyleSheet.create({
   upgrade_container: {
     height: responsiveHeight(8),
     marginTop: 20,
+    borderRadius: 7,
+    backgroundColor: colorStyle.colorYellow,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  annyally_upgrade_container: {
+    height: responsiveHeight(8),
+    marginTop: 20,
     marginBottom: 80,
     borderRadius: 7,
     backgroundColor: colorStyle.colorYellow,

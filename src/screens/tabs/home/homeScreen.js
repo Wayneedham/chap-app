@@ -9,7 +9,7 @@ import {
 import Orientation from 'react-native-orientation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import IntlAction from "../../../actions/intlActions";
+import * as IntlAction from "../../../actions/intlActions";
 
 import styles from "./homeScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
@@ -94,9 +94,14 @@ const mapStateToProps = (state) => {
       intlData: state.IntlReducers
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(IntlAction, dispatch);
-};
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      intlAction: IntlAction.updateLanguage,
+    },
+    dispatch
+  )
+});
 export default connect(
   mapStateToProps,
   mapDispatchToProps

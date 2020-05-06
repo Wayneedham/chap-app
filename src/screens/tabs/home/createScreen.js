@@ -35,7 +35,7 @@ class createScreen extends Component{
   componentDidMount(){
   }
     
-  componentWillReceiveProps(nextProps){    
+  componentWillReceiveProps(nextProps){
     if(nextProps.pending === false){
       const responseData = nextProps.data;
       if(postDetectData !== ""){

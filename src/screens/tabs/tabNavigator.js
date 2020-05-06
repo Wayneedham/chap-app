@@ -124,7 +124,6 @@ class customTabNavigator extends React.Component {
   }
 
   render() {
-    console.warn(this.props)
     return (
       <BaseNavigator screenProps={this.props}/>
     );

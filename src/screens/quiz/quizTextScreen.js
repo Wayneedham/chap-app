@@ -22,7 +22,7 @@ class quizTextScreen extends Component{
       isAnswer: false,
       question_index: 0,
       questionArr: randomArr
-    };   
+    };
   }
 
   goBack =()=>{
@@ -75,7 +75,7 @@ class quizTextScreen extends Component{
             </TouchableOpacity>) : (
               <View style={{width: 40}}/>
             )
-          }             
+          }
           {
             isQuiz &&
             <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
@@ -89,9 +89,8 @@ class quizTextScreen extends Component{
             </TouchableOpacity>) : (
               <View style={{width: 40}}/>
             )
-          }            
-          
-        </View> 
+          }
+        </View>
       </View>
     )
   }

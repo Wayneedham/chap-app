@@ -1,9 +1,10 @@
-import * as userActions from "../actions/userActions";
+// import * as userActions from "../actions/userActions";
 
-const initLanguage = async () => {
-    const lang = await userActions._retrieveData('lang');
-    return lang ? lang : 'en';
-};
+// async function initLanguage(){
+//     const lang = await userActions._retrieveData('lang');
+//     console.log({lang})
+//     return {lang} ? {lang} : {lang: 'en'};
+// };
 
 const setLanguage = (language) => {
     let messages = {};
@@ -37,15 +38,12 @@ const setLanguage = (language) => {
     return messages;
 };
 
-initLanguage().then(res=>{
-    console.log(res)
-})
 var initialState = {
     locale: 'en',
     messages: setLanguage('en')
 };
 
-const intlData = (state = initialState, action) => {
+export default function reducer(state = initialState, action){
     if (action === undefined) return state;
     switch (action.type) {
         case 'UPDATE_LANGUAGE':
@@ -57,4 +55,3 @@ const intlData = (state = initialState, action) => {
             return state;
     }
 };
-export default intlData;

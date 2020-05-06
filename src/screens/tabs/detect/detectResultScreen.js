@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Actions } from 'react-native-router-flux';
 
 import * as userActions from "../../../actions/userActions";
@@ -17,46 +16,53 @@ class detectResultScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
-      isShowModal: false
+      isShowModal: false,
+      isPromptDialog: true
     }
   }
 
   componentWillReceiveProps(nextProps){ 
     const responseData = nextProps.data;
-    if(nextProps.pending === false && responseData!==""){      
-      if(Object.keys(responseData).includes("detect_file")){
-        this.setState({isShowModal: false}); 
+    if(nextProps.isactive==2){
+      if(nextProps.pending === false && responseData!==""){
+        if(Object.keys(responseData).includes("detect_file")){
+          this.props.initReduxData("");
+        }
       }
-      this.props.actions.initReduxData("");
-    }    
+    }
   }
 
-  onDismissRecent=()=>{    
+  onDismissRecent=()=>{
     Actions.pop();
   }
 
-  handleConfirm =(horseAge)=>{
+  handleConfirm = async (horseAge)=>{
+    this.setState({isShowModal: true, isPromptDialog: false})
     const{recentData} = this.props;
     const url = serverurl.basic_url + 'answer';
     const userData = new FormData()
     userData.append('user', window.currentUser["id"]);
     userData.append('detection', recentData["id"]);
     userData.append('age', horseAge);
-    this.props.actions.postNewRequest(userData, url);   // send horse's age via email. 
-    setTimeout(()=>{
-      this.setState({isShowModal: true})
-    }, 300);
+    await this.props.postNewRequest(userData, url);   // send horse's age via email. 
+    this.setState({isShowModal: false})
+    // setTimeout(() => {
+    //   Actions.detectResultScreen({type : ActionConst.BACK})
+    // }, 300);
   }
 
   render(){
     const{recentData} = this.props;
+    const {isShowModal, isPromptDialog} = this.state;
     return(
       <ScrollView>
         <DetectModal 
           recentData={recentData}
           onDone={this.onDismissRecent}
           handleConfirm={this.handleConfirm}
-        />  
+          isShowModal={isShowModal}
+          isPromptDialog={isPromptDialog}
+        />
       </ScrollView>
     )
   }
@@ -71,15 +77,12 @@ const mapStateToProps = state => ({
   intlData: state.IntlReducers
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      postNewRequest: userActions.postRequest,
-      initReduxData: setReduxAddInfo
-    },
-    dispatch
-  )
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    postNewRequest: (postData, url) => dispatch(userActions.postRequest(postData, url)),
+    initReduxData: (initial) => dispatch(setReduxAddInfo(initial))
+  }
+};
 
 export default connect(
   mapStateToProps,

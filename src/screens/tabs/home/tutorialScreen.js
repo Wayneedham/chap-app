@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
-import VideoPlayer from 'react-native-video-controls';
+// import VideoPlayer from 'react-native-video-controls';
 
 import CustomBar from "../../../components/customBar";
 import serverurl from '../../../../config/const/serverurl';
@@ -21,9 +21,9 @@ class tutorialScreen extends Component{
 
   constructor(props) {
     super(props);
-    this.state = {
-      isShowModal: false
-    };   
+    // this.state = {
+    //   isShowModal: false
+    // };   
   }
   
   onVideoPlay =()=>{
@@ -38,12 +38,12 @@ class tutorialScreen extends Component{
   }
 
   onDismiss(){
-    this.setState({isShowModal: false});
+    // this.setState({isShowModal: false});
     Orientation.lockToPortrait();
   }
 
   render(){
-    const{isShowModal} = this.state;
+    // const{isShowModal} = this.state;
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
@@ -51,13 +51,20 @@ class tutorialScreen extends Component{
           navigate={this.props.navigation}
         />
         <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{this.props.intlData.messages['home']['watchTutorial']}</Text>
-        <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
+        <View style={styles.subscribeWrap}>
           <Image 
-            style={styles.videoPlayImg}
-            resizeMode="contain"
-            source={require("../../../../assets/icons/icon_videoplay.png")}
+            style={styles.playThumbnailImg}
+            resizeMode="cover"
+            source={require("../../../../assets/image/course_1.jpeg")}
           />
-        </TouchableOpacity> 
+          <TouchableOpacity style={styles.videoPlayWrap} onPress={()=>this.onVideoPlay()}>
+            <Image 
+              style={styles.videoPlayImg}
+              resizeMode="contain"
+              source={require("../../../../assets/icons/icon_videoplay.png")}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.txtContainer}>
           {
             this.props.intlData.messages['home'].tutorialList1.map((title,index)=>(
@@ -73,7 +80,7 @@ class tutorialScreen extends Component{
             source={require("../../../../assets/image/horse_1.jpg")}
             resizeMode={"contain"}
             style={[styles.horseImg, {marginTop: 20}]}
-          />         
+          />
           <Image 
             source={require("../../../../assets/image/horse_2.jpg")}
             resizeMode={"contain"}
@@ -88,9 +95,9 @@ class tutorialScreen extends Component{
                 <Text style={[styles.detailTxt, fonts.montserrat_regular]}>{title}</Text>
               </View>
             ))
-          }           
-        </View>        
-        <Modal
+          }
+        </View>
+        {/* <Modal
           animationType="slide"
           transparent={false}
           visible={isShowModal}
@@ -99,7 +106,7 @@ class tutorialScreen extends Component{
             source={{ uri: serverurl.tutorial_video }}
             onBack={()=>this.onDismiss()}
           />
-        </Modal>
+        </Modal> */}
         <View style={{height: 100}}/>
       </ScrollView>
     )

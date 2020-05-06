@@ -11,12 +11,18 @@ const styles = StyleSheet.create({
   },
   aboutTxt:{   
     fontSize: 17,
-    color: colorStyle.colorMainGray
+    color: colorStyle.colorMainGray,
+    fontWeight: "bold"
   },
   subscribeWrap:{
     alignItems: "center",
     justifyContent: "center",
     marginVertical: 30
+  },
+  playThumbnailImg:{
+    position: 'absolute',
+    height: "100%",
+    width: "100%",
   },
   subscribeBtn:{
     width: responsiveWidth(70),
@@ -33,6 +39,13 @@ const styles = StyleSheet.create({
   videoWrap:{
     alignItems: "center",
     justifyContent: "center",
+    height: "100%"
+  },
+  videoPlayWrap:{
+    height: 200, 
+    alignItems: 'center'
+  },
+  videoPlayImg:{
     height: "100%"
   },
   comeTxt:{

@@ -4,8 +4,7 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
-  Alert,
-  Modal
+  Alert
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -20,7 +19,7 @@ import styles from "./membershipScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import stripe, {optionsCardForm} from '../../../../config/stripe';
 
-let isUpgrade = false;
+let upgrade = 'trial'; 
 
 class membershipScreen extends Component{
 
@@ -46,7 +45,7 @@ class membershipScreen extends Component{
         else if(Object.keys(responseData).includes("id")){   
           window.currentUser = responseData;
           userActions._storeData("userInfo", responseData);
-          if(isUpgrade){
+          if(upgrade !== 'trial'){
             Alert.alert(
               "",
               this.props.intlData.messages['alert']['upgradedMembership'],
@@ -75,11 +74,12 @@ class membershipScreen extends Component{
   }
 
   onProcessPayment (token){
-    if(isUpgrade){
+    if(upgrade !== 'trial'){
       const url = serverurl.basic_url + 'upgrade';
       const userData = new FormData()
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
+      userData.append('subscription', upgrade)
       this.props.actions.upgradeMembership(userData, url);
     }else{
       const url = serverurl.basic_url + 'charge';
@@ -101,7 +101,7 @@ class membershipScreen extends Component{
       return;
     }
     
-    isUpgrade = false;
+    upgrade = 'trial';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -122,7 +122,28 @@ class membershipScreen extends Component{
       return;
     }
 
-    isUpgrade = true;
+    upgrade = 'monthly';
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error });    
+    });
+  }
+
+  onAnnuallyUpgrade(){
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        this.props.intlData.messages['auth']['checkNetwork']
+      );
+      return;
+    }
+
+    upgrade = 'annually';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -136,6 +157,8 @@ class membershipScreen extends Component{
 
   render(){
     const{isPending} = this.state;
+    const isVideo = window.currentUser["is_video"];
+    const isPremium = window.currentUser["is_premium"];
     return(
       <ScrollView style={styles.container}>
         <CustomBar 
@@ -143,34 +166,54 @@ class membershipScreen extends Component{
           navigate={this.props.navigation}
         />
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
-        {/* 1. Pay as you Go - $10/Horse
-        {"\n"}{" "}A. Available at anytime with this free App
-        {"\n"}{" "}B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours.
-
-        {"\n"}{"\n"}2. Unlimited Use - $20/Month
-        {"\n"}{" "}A. Age as many Horses and as many Pictures as you’d like for just $20/Month
-        {"\n"}{" "}B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours. */}
           {this.props.intlData.messages['settings']['membership'].content1.join('\n')}
         </Text>
+        {
+          isPremium !== 'monthly' && (
+            <View>
+              <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
+                {this.props.intlData.messages['settings']['membership'].content2.join('\n')}
+              </Text>
+              <View style={styles.subscribeWrap}>
+                <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onUpgrade()}>
+                  <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
+                    {this.props.intlData.messages['settings']['membership']['upgradeToUnlimited']}
+                  </Text>
+                  <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+                    {this.props.intlData.messages['detection']['detectionButton']['subscription']}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        }
+        <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
+          {this.props.intlData.messages['settings']['membership'].content3.join('\n')}
+        </Text>
         <View style={styles.subscribeWrap}>
-          <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onUpgrade()}>
+          <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onAnnuallyUpgrade()}>
             <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
               {this.props.intlData.messages['settings']['membership']['upgradeToUnlimited']}
+            </Text>
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+              {this.props.intlData.messages['detection']['detectionButton']['annuallySubscription']}
             </Text>
           </TouchableOpacity>
         </View>  
         <Text style={[styles.aboutTxt, fonts.montserrat_regular]}>
-        {/* {"\n"}3. Video Course - $99
-        {"\n"}{" "}A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging. */}
-          {this.props.intlData.messages['settings']['membership'].content2.join('\n')}
+          {this.props.intlData.messages['settings']['membership'].content4.join('\n')}
         </Text>
-        <View style={[styles.subscribeWrap, {marginBottom: 50}]}>
-          <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onSubScribe()}>
-            <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
-              {this.props.intlData.messages['page']['buyNow']}
-            </Text>
-          </TouchableOpacity>
-        </View>       
+        {
+          isVideo === false && (
+            <View style={[styles.subscribeWrap, {marginBottom: 50}]}>
+              <TouchableOpacity style={styles.subscribeBtn} onPress={()=>this.onSubScribe()}>
+                <Text style={[styles.subscribeText, fonts.montserrat_semibold]}>
+                  {this.props.intlData.messages['page']['buyNow']}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )
+        }
         <ProgressBar 
           isPending={isPending}
         /> 

@@ -7,7 +7,7 @@
         "upgradedMembership": "The membership was upgraded successfully.",
         "cannotDetectImage": "Cannot detect this image. Please try another image again.",
         "wasDetectedImage": "The image was detected successfully",
-        "payAsYouGoPlan": "Pay As You Go Plan - This plan allows you to check the age of your horse without being on a monthly subscription. For just $10, you will get a response from the CHAP program within the minute with the estimation of your horses age. Within the next 24 hours, you will get a response from our expert team either confirming or adjusting the estimation that CHAP provided. You will drive a long ways to find someone with more experience and expertise than our staff at CHAP. Thank you for your interest and we hope to serve you well..",
+        "payAsYouGoPlan": "Pay As You Go Plan - This plan allows you to check the age of your horse without being on a monthly subscription. For just $5, you will get a response from the CHAP program within the minute with the estimation of your horses age. Within the next 24 hours, you will get a response from our expert team either confirming or adjusting the estimation that CHAP provided. You will drive a long ways to find someone with more experience and expertise than our staff at CHAP. Thank you for your interest and we hope to serve you well..",
         "updatedPassword": "You updated password successfully.",
         "enterOldPassword": "Enter old password please.",
         "enterNewPassword": "Enter new password please.",
@@ -46,11 +46,20 @@
 
     "page":{
         "courseComponent": [
+            "Watch a 2 minute sample of our Science Video",
+            " ",
+            "1 Month Free of Age Detection when you purchase our Video Course for $49.99...",
+            " ",
             "If you are seeing this message, then you haven’t yet decided to take our video course. Let me explain how the video course works. Aging horses is an art and a science. It is an intriguing process that every horse owner should know. This information is not new, but older than the New Testament of the Bible.",
+            " ",
             "630 BC, the Chinese taught aging for the purpose of sale or trade because they knew the value of their horse is directly related to its age.",
+            " ",
             "430 BC Simon of Athens wrote about aging in a book called the Veterinary Art.",
+            " ",
             "The first video, “The Science Video,” is an in-depth, graphically rich 27-minute video that gives you the knowledge of anatomy and the changing characteristics of the tooth as it wears. To truly understand how aging works and your horse’s mouth, this is a must-watch.",
+            " ",
             "The second video, “The Art Video,” analyzes pictures of the horse’s teeth at every age, showing how easy it is to age horses using recognition and the patterns learned in the “Science Video.” Aging horses is really easy! It just takes a little practice and a little information to become proficient.",
+            " ",
             "I put my students through this exact same program in the classroom and within 30-40 images, they become extremely proficient. The more you watch the “Art Video” the better you will become. We have amazing results in the classroom and these practitioners become very passionate because they have confidence. You can gain that same confidence very quickly with minimal effort by studying our video courses!"
         ],
         "buyNow": "Buy Now",
@@ -70,12 +79,19 @@
         "about": "About",
         "aboutDescription": [
             "CHAP stands for Computerized Horse Aging Program. At CHAP, our goal is to educate horse owners about their horses’ teeth. The more knowledge and understanding we can acquire, the better owners and companions we can be. The science behind aging horses and the functionality of their teeth is a must-learn for every great horseman.",
+            " ",
             "Our in-depth video course has not only taught hundreds of aspiring equine dentists and veterinarians to age horses, but we also use that knowledge along with artificial intelligence and computer vision to train our computer model to age horses. To train this model, we had the computer analyze 18 features on the upper incisors and 18 features on the lower incisors on more than 1000 images, over 36,000 points of data.",
+            " ",
             "We want to be your horse aging service. With each submission, you will receive an estimation from our computer model within the minute, usually 10-15 seconds. Because we are a service-oriented company, you will also receive an estimation from our expert staff within 24 hours of submission, verifying the estimation given by CHAP. This means you will get 2 unbiased opinions of your horse’s age.",
+            " ",
             "If you are not convinced of our adeptness, watch the course videos. If you can help us improve our aging accuracy or aging expertise, we will refund your course money as well as give you unlimited access to our aging model for free for a year, $339 value!",
+            " ",
             "Aging horses by dentition is our passion; we hope you will share in that passion.",
+            " ",
             "This Program has its limits, most of which are due to the Anatomy of Horse.  The Cup System, which we are analyzing, is only present up to 17 Years Old on the Lowers, and 20 Years Old on the Uppers.  The other limiting Factor is currently we are unable to differentiate between baby teeth and permanent teeth as both have the same Features.",
+            " ",
             "Therefore a 2-5 Year old will read as 5-8 Year Old.  We are currently working to resolve this issue, but currently our Team will review every submission within a 24 Hour period and communicate that result via email to validate or adjust each case.  We are working hard to resolve this issue, Thank you for your Patience and we Hope to serve you well.",
+            " ",
             "This Program is designed to help in the Practice of Aging Horses.  The Goal is to help Approximate the Age of an invalidated Birth.  Although if used as directed, the accuracy of this Program can be amazingly accurate, consider the Factors of Genetics, Oral Injuries, prior Dental Work or lack of, and Breed.  Our suggestion is to watch the Instructional Videos and understand Aging, rather than Trust other People’s Opinion."
         ],
         "tutorialList1": [
@@ -97,8 +113,8 @@
         "videos": "Videos",
         "course": "Course",
         "quiz&study": "Quiz & Study",
-        "courseVideo1Title": "Video 1 - The Science Video",
-        "courseVideo2Title": "Video 2 - The Art Video"
+        "courseVideo1Title": "Lesson 1 - The Science Video",
+        "courseVideo2Title": "Lesson 2 - The Art Video"
     },
 
     "quiz": {
@@ -123,8 +139,9 @@
         "detectionButton":{
             "is_premium": "Post",
             "not_premium": "Post (PayAsYouGo)",
-            "checkout": "($10/Horse)",
-            "subscription": "($20/Month)"
+            "checkout": "($4.99/Horse)",
+            "subscription": "($19.99/Month)",
+            "annuallySubscription": "($99.99/Year)"
         },
         "detectResult": "Detect Result",
         "horseAgeOld": "How Old Do You Think This Horse is ?",
@@ -159,17 +176,22 @@
         "changePassword": "Change Password",
         "membership":{
             "content1": [
-                "1. Pay as you Go - $10/Horse",
+                "Pay as you Go - $4.99/Horse",
                 " A. Available at anytime with this free App",
-                " B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours.",
-                "",
-                "",
-                "2. Unlimited Use - $20/Month",
-                " A. Age as many Horses and as many Pictures as you’d like for just $20/Month",
-                " B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours."
+                " B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours."
             ],
             "content2": [
-                "3. Video Course - $99",
+                "Unlimited Use - $19.99/Month",
+                " A. Age as many Horses and as many Pictures as you’d like for just $19.99/Month",
+                " B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours."
+            ],
+            "content3": [
+                "Unlimited Use - $99.99/Year",
+                " A. Age as many Horses and as many Pictures as you’d like for just $99.99/Year",
+                " B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours."
+            ],
+            "content4": [
+                "Video Course - $49.99",
                 " A. Learn how to Age Horses in 2 - 30 Minute Videos. These Videos are yours to View forever. We have taught 100’s of Equine Dental Students and. Veterinarians to Age Horses using these proven techniques. You can easily learn the Art of Aging Horses from the comfort of hour Easy Chair. We guarantee you’ll be satisfied with your experience, or we will give your money back. The only question asked will be how can we improve your experience. Thank you for your interest in Horses, and Thank You for your interest in aging."
             ],
             "upgradeToUnlimited": "Upgrade To Unlimited"

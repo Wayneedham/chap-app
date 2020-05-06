@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   txtContainer:{
+    marginTop: 10,
     width: responsiveWidth(85)
   },
   title: {
@@ -43,6 +44,16 @@ const styles = StyleSheet.create({
   detailTxt:{   
     fontSize: 18,
     color: colorStyle.colorMainGray
+  },
+  subscribeWrap:{
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  playThumbnailImg:{
+    position: 'absolute',
+    height: "100%",
+    width: "100%",
   },
   horseImg:{
     width: "100%",

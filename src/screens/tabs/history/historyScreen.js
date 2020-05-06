@@ -31,7 +31,7 @@ class historyScreen extends Component{
     this.reloadHorseList = this.reloadHorseList.bind(this);
   }
 
-  componentDidMount(){    
+  componentDidMount(){
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -40,17 +40,17 @@ class historyScreen extends Component{
     }else{
       this.props.actions.fetchHorseList(window.currentUser["id"]);
       this.setState({isShowModal: true});
-    }    
+    }
   }
 
   componentWillReceiveProps(nextProps){ 
     if(nextProps.pending === false){
       this.setState({isShowModal: false});
       const responseData = nextProps.data;
-      if(responseData.length > 0){   
+      if(responseData.length > 0){
          
         let list = [];
-        responseData.map(item=>{          
+        responseData.map(item=>{
           item["detect_file"] = serverurl.server_url + (item["detect_file"] ===''? item["file"] : item["detect_file"]);  
           item["file"] = serverurl.server_url + item["file"];
           list.push(item);
@@ -79,7 +79,7 @@ class historyScreen extends Component{
     const{horseList, isShowModal, searchName} = this.state;
     const {intlData} = this.props
     let filterList = [];
-    if(searchName !== "" && horseList.length > 0){      
+    if(searchName !== "" && horseList.length > 0){
       horseList.map(item=>{
         if(item.name.toLowerCase().includes(searchName.toLowerCase())){
           filterList.push(item);
@@ -96,14 +96,14 @@ class historyScreen extends Component{
             {intlData.messages['history']['history']}
           </Text>
         </View>
-        <View style={styles.search_wrap}>          
+        <View style={styles.search_wrap}>
           <Image 
             style={styles.searchIcon}
             source={require("../../../../assets/icons/icon_search.png")}
             resizeMode="contain"
           />
           <TextInput 
-            placeholder={intlData.messages['history']['searchName']}            
+            placeholder={intlData.messages['history']['searchName']}
             inlineImageLeft="search_icon"
             returnKeyType="done"
             onChangeText={text => {this.setState({searchName: text})}}

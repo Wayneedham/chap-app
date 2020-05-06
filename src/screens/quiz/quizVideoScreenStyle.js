@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   back_wrap:{
-    position: "absolute",    
+    position: "absolute",
     left: 0,
     bottom: 20,
     width: 20,
     height: 20
   },
   back:{
-    width: "100%",    
+    width: "100%",
     height: "100%",
     tintColor: 'white',
   },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.7),
     paddingHorizontal: responsiveWidth(3),
     textAlign: 'center',
-    color: 'white'
+    color: 'green'
   },
   answerMsg:{
     fontSize: responsiveFontSize(3.7),
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     color: 'green',
     marginTop: 30
   },
-  watchMsg:{   
+  watchMsg:{
     fontSize: responsiveFontSize(2),
     textAlign: 'center',
     marginBottom: 5,

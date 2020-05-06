@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from "../../../actions/userActions";
-import IntlAction from "../../../actions/intlActions";
+import * as IntlAction from "../../../actions/intlActions";
 import styles from "./languagesScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 
@@ -19,9 +19,8 @@ class languagesScreen extends Component{
         super(props);
     }
     _updateLanguage = (lang) => {
-        const { updateLanguage } = this.props;
         userActions._storeData('lang', lang);
-        updateLanguage(lang);
+        this.props.actions.intlAction(lang);
         this.props.navigation.goBack();
     };
     render(){
@@ -66,9 +65,14 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(IntlAction, dispatch);
-};
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(
+      {
+        intlAction: IntlAction.updateLanguage,
+      },
+      dispatch
+    )
+});
 export default connect(
     mapStateToProps,
     mapDispatchToProps

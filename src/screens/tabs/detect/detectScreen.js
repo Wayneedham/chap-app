@@ -22,7 +22,7 @@ import stripe, {optionsCardForm} from '../../../../config/stripe';
 import moment from "moment";
 
 let postDetectData = "";
-let isUpgrade = false;
+let upgrade = 'trial';
 
 class detectScreen extends Component{
   constructor(props) {
@@ -34,7 +34,7 @@ class detectScreen extends Component{
     };
   }
   
-  componentWillReceiveProps(nextProps){ 
+  componentWillReceiveProps = (nextProps) => { 
     const responseData = nextProps.data;
     if(nextProps.pending === false && responseData!==""){
       if(postDetectData !== ""){
@@ -53,21 +53,21 @@ class detectScreen extends Component{
               { cancelable: false }
             );
           }
-          else if(Object.keys(responseData).includes("email") && isUpgrade === true){   
+          else if(Object.keys(responseData).includes("email") && upgrade !== 'trial'){   
             window.currentUser = responseData;
             userActions._storeData("userInfo", responseData);
             Alert.alert(
               "",
               this.props.intlData.messages['alert']['upgradedMembership'],
               [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-                isUpgrade = false;
-                this.setState({isShowModal: false});     
-                this.props.actions.initReduxData("");     
+                upgrade = 'trial';
+                this.setState({isShowModal: false});
+                this.props.actions.initReduxData("");
               }}],
               { cancelable: false }
             );   
           }
-          else if(Object.keys(responseData).includes("recent")){           
+          else if(Object.keys(responseData).includes("recent")){
             const recentData = responseData["recent"];
             if(recentData["detect_file"]===''){
               Alert.alert(
@@ -78,36 +78,38 @@ class detectScreen extends Component{
                     recentData: "", 
                     isShowModal: false, 
                     initData: true, 
-                    isUpload: false});    
-                  postDetectData = "";    
+                    isUpload: false
+                  });
+                  postDetectData = "";
                   this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
               );  
-            }else{              
+            }else{
               Alert.alert(
                 "",
                 this.props.intlData.messages['alert']['wasDetectedImage'],
                 [{text: this.props.intlData.messages['alert']['ok'], onPress: ()=>{
                   recentData["detect_file"] = serverurl.server_url + recentData["detect_file"];
-                  recentData["file"] = serverurl.server_url + recentData["file"];                 
+                  recentData["file"] = serverurl.server_url + recentData["file"];
                   this.setState({
                     isShowModal: false,
                     isUpload: false,
-                    initData: true});  
-                  postDetectData = ""; 
+                    initData: true
+                  });
+                  postDetectData = "";
                   Actions.detectResultScreen({recentData});
-                  this.props.actions.initReduxData("");       
+                  this.props.actions.initReduxData("");
                 }}]
               )
-            }          
+            }
           } 
-        }           
+        }
       }
-    }    
+    }
   }
 
-  onCreateDetect =(userData)=>{    
+  onCreateDetect = (userData) => {
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -120,23 +122,23 @@ class detectScreen extends Component{
     this.setState({initData: false});
     let isProUser = window.currentUser["is_premium"];
     
-    if(!isProUser && window.currentUser["is_video"]===true){
-      const video_purchase_date = moment(window.currentUser['video_created_at']);  
+    if(isProUser === 'trial' && window.currentUser["is_video"]===true){
+      const video_purchase_date = moment(window.currentUser['video_created_at']);
       const diff_days = moment().diff(video_purchase_date, "days");
       if(diff_days < 31){
-        isProUser = true;
+        isProUser = 'monthly';
       }
     }
     
-    if(!isProUser){
+    if(isProUser === 'trial'){
       Alert.alert(
         "",
         this.props.intlData.messages['alert']['payAsYouGoPlan'],
         [
           {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
           { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-            this.onSubScribe();       
-          }}        
+            this.onSubScribe();
+          }}
         ],
         { cancelable: false }
       );
@@ -144,15 +146,16 @@ class detectScreen extends Component{
       this.setState({isShowModal: true, isUpload: true});
       this.props.actions.postHorse(userData);
       postDetectData = "";
-    }    
+    }
   }
 
-  onProcessPayment (token){    
-    if(isUpgrade){
+  onProcessPayment (token){
+    if(upgrade !== 'trial'){
       const url = serverurl.basic_url + 'upgrade';
       const userData = new FormData()
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
+      userData.append('subscription', upgrade);
       this.props.actions.postNewRequest(userData, url);    // upgrade membership
       this.setState({isShowModal: true, isUpload: false});
     }else{
@@ -162,7 +165,7 @@ class detectScreen extends Component{
       userData.append('type', "detection");
       this.props.actions.detectPurchase(userData);
       this.setState({isShowModal: true, isUpload: true});
-    }    
+    }
   }
 
   onSubScribe =()=>{
@@ -174,7 +177,7 @@ class detectScreen extends Component{
       return;
     }
 
-    isUpgrade = false;    
+    upgrade = 'trial';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -195,7 +198,28 @@ class detectScreen extends Component{
       return;
     }
 
-    isUpgrade = true;  
+    upgrade = 'monthly';
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error }); 
+    });
+  }
+
+  onAnnuallyUpgrade =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        this.props.intlData.messages['auth']['checkNetwork']
+      );
+      return;
+    }
+
+    upgrade = 'annually';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -219,6 +243,7 @@ class detectScreen extends Component{
           <DetectComponent 
             onPostHorse={this.onCreateDetect}
             onUpgrade={this.onUpgrade}
+            onAnnuallyUpgrade={this.onAnnuallyUpgrade}
             initData={initData}
           />  
           <ProgressBar 

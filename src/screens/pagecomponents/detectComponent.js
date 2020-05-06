@@ -13,6 +13,9 @@ import { TextField } from "react-native-material-textfield";
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import { connect } from 'react-redux';
+import {getDataError, getDataSuccess, getDataPending, setReduxAddInfo} from '../../reducers/fetchdata';
+import { bindActionCreators } from 'redux';
+import * as userActions from "../../actions/userActions";
 
 import RadioButton from "../../components/radioButton"; 
 import HelpComopnent from "../pagecomponents/helpComponent";
@@ -41,7 +44,7 @@ class detectComponent extends Component{
     this.onSelectImgType = this.onSelectImgType.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){  
+  componentWillReceiveProps(nextProps){
     if(nextProps.initData === true){
       const{radioOptions} = this.state;
       radioOptions.map(item=>{
@@ -59,7 +62,7 @@ class detectComponent extends Component{
       })
     }
   }
-  
+
   showAlert(message) {
     Alert.alert(
       "",
@@ -83,10 +86,12 @@ class detectComponent extends Component{
   onUpgrade(){
     this.props.onUpgrade();
   }
-
+  onAnnuallyUpgrade(){
+    this.props.onAnnuallyUpgrade();
+  };
   onPostImg(){
     const{txt_img_type, txt_img_desc, txt_img_name, imgURI} = this.state;
-    
+
     if (imgURI === "") {
       this.showAlert(this.props.intlData.messages['alert']['uploadImageToDetect']);
       return;
@@ -101,8 +106,8 @@ class detectComponent extends Component{
     userData.append('user', window.currentUser["id"]);
     userData.append('image_type', txt_img_type);
     userData.append('name', txt_img_name);
-    userData.append('description', txt_img_desc);  
-    const uploadUri = Platform.OS === "android" ? imgURI.uri : imgURI.uri.replace("file://", "")    
+    userData.append('description', txt_img_desc);
+    const uploadUri = Platform.OS === "android" ? imgURI.uri : imgURI.uri.replace("file://", "")
     const fileName = "horse_" + new Date().getTime() + ".jpg";
     userData.append('file', {
       uri: uploadUri,
@@ -130,7 +135,7 @@ class detectComponent extends Component{
             allowsEditing: true,
             aspect: [4, 3],
         }
-    ImagePicker.launchCamera(options, (response) => {    
+    ImagePicker.launchCamera(options, (response) => {
         if (!response.didCancel) {
           let source = { uri: response.uri };
           this.setState({imgSrc: source, imgURI: response});
@@ -145,7 +150,7 @@ class detectComponent extends Component{
               allowsEditing: true,
               aspect: [4, 3],
           }
-      ImagePicker.launchImageLibrary(options, (response) => {    
+      ImagePicker.launchImageLibrary(options, (response) => {
           if (!response.didCancel) {
             let source = { uri: response.uri };
             this.setState({imgSrc: source, imgURI: response});
@@ -233,35 +238,50 @@ class detectComponent extends Component{
         </View>
         <TouchableOpacity
           onPress={() => this.onPostImg()}
-          style={[styles.update_container, is_premium?{marginBottom: 70}:{}]}
+          style={[styles.update_container, is_premium ==='annually'?{marginBottom: 70}:{}]}
         >
           <Text style={[styles.update_txt, fonts.montserrat_bold]}>
-            {is_premium 
+            {is_premium !=='trial'
               ? intlData.messages['detection']['detectionButton']['is_premium'] 
               : intlData.messages['detection']['detectionButton']['not_premium']
             }
-          </Text>   
+          </Text>
           {
-            is_premium === false &&
-            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
-              {intlData.messages['detection']['detectionButton']['checkout']}
-            </Text>
-          }   
-        </TouchableOpacity>    
+            is_premium === 'trial' && (
+              <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+                {intlData.messages['detection']['detectionButton']['checkout']}
+              </Text>
+            )
+          }
+        </TouchableOpacity>
         {
-          is_premium === false && 
+          is_premium === 'trial' && 
           <TouchableOpacity
             onPress={() => this.onUpgrade()}
             style={styles.upgrade_container}
           >
             <Text style={[styles.update_txt, fonts.montserrat_bold]}>
               {"Upgrade To Unlimited"}
-            </Text>          
+            </Text>
             <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
               {intlData.messages['detection']['detectionButton']['subscription']}
             </Text>
           </TouchableOpacity>
-        }        
+        }
+        {
+          ( is_premium === 'trial' || is_premium === 'monthly' ) && 
+          <TouchableOpacity
+            onPress={() => this.onAnnuallyUpgrade()}
+            style={is_premium === 'monthly'? [styles.upgrade_container, {marginBottom: 70}]: styles.annyally_upgrade_container}
+          >
+            <Text style={[styles.update_txt, fonts.montserrat_bold]}>
+              {"Upgrade To Unlimited"}
+            </Text>
+            <Text style={[styles.update_small_txt, fonts.montserrat_semibold]}>
+              {intlData.messages['detection']['detectionButton']['annuallySubscription']}
+            </Text>
+          </TouchableOpacity>
+        }
         <ActionSheet
           ref={o => this.ActionSheet = o}
           options={actionOptions}
@@ -278,13 +298,28 @@ class detectComponent extends Component{
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-      intlData: state.IntlReducers
-  };
-};
+const mapStateToProps = state => ({
+  error: getDataError(state.fetchdata),
+  data: getDataSuccess(state.fetchdata),
+  isactive: state.fetchdata.isactive,
+  connection: state.connection.isConnected,
+  pending: getDataPending(state.fetchdata),
+  intlData: state.IntlReducers
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      postHorse: userActions.postNewHorse,
+      postNewRequest: userActions.postRequest,
+      detectPurchase: userActions.videoPurchase,
+      initReduxData: setReduxAddInfo
+    },
+    dispatch
+  )
+});
 
 export default connect(
-  mapStateToProps, 
-  null
+  mapStateToProps,
+  mapDispatchToProps
 )(detectComponent);

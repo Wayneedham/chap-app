@@ -5,7 +5,8 @@ import {
   Modal,
   TouchableOpacity,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Platform
 } from 'react-native';
 import {
   responsiveWidth, responsiveHeight
@@ -50,54 +51,110 @@ class detailScreen extends Component{
 
     const{calcImgHeight, zoomModal} = this.state;
     return(
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <CustomBar 
             title={detailItem["name"]}
             navigate={this.props.navigation}
           />
           <View style={styles.detail_wrap}>
-            <TouchableOpacity onPress={()=>this.onZoomImage(true)}>
-              <FastImage 
-                resizeMode="contain"
-                style={{ width: responsiveWidth(94), height: calcImgHeight }}
-                source={{ uri: detailItem.detect_file }}
-                onLoad={evt =>
-                  this.setState({
-                    calcImgHeight:
-                      evt.nativeEvent.height / evt.nativeEvent.width * responsiveWidth(94), // By this, you keep the image ratio
-                  })}
-              />
-            </TouchableOpacity>
-            
-            <View style={styles.detail_txt_wrap}>
-              <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-                {intlData.messages['history']['uploadedAt']}
-                <Text style={[fonts.montserrat_regular]}>
-                  {moment(detailItem.uploaded_at).format('MM-DD-YYYY')}
-                </Text>
-              </Text>
-              <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-                {intlData.messages['history']['imageType']}
-                <Text style={[fonts.montserrat_regular]}>
-                  {detailItem.image_type}
-                </Text>
-              </Text>
-              <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-                {intlData.messages['history']['horseAge']}
-                <Text style={[fonts.montserrat_regular]}>
-                  {age}
-                </Text>
-              </Text>
-              <View>
-                <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
-                  {intlData.messages['history']['description']}
-                </Text>
-                <Text style={[fonts.montserrat_regular]}>
-                  {detailItem.description}
-                </Text>
-              </View>
-            </View>
+            { Platform.OS === 'ios' ? 
+              ( 
+                <ScrollView 
+                  maximumZoomScale={5} 
+                  scrollEnabled={true} 
+                  minimumZoomScale={1} 
+                  showsHorizontalScrollIndicator={false} 
+                  showsVerticalScrollIndicator={false} 
+                > 
+                  <FastImage 
+                    resizeMode="stretch"
+                    style={{ width: responsiveWidth(94), height: calcImgHeight }}
+                    source={{ uri: detailItem.detect_file }}
+                    onLoad={evt =>
+                      this.setState({
+                        calcImgHeight:
+                          evt.nativeEvent.height / evt.nativeEvent.width * responsiveWidth(94), // By this, you keep the image ratio
+                      })}
+                  />
+                </ScrollView>
+              ) : (
+                <TouchableOpacity onPress={()=>this.onZoomImage(true)}>
+                  <FastImage 
+                    resizeMode="stretch"
+                    style={{ width: responsiveWidth(94), height: calcImgHeight }}
+                    source={{ uri: detailItem.detect_file }}
+                    onLoad={evt =>
+                      this.setState({
+                        calcImgHeight:
+                          evt.nativeEvent.height / evt.nativeEvent.width * responsiveWidth(94), // By this, you keep the image ratio
+                      })}
+                  />
+                </TouchableOpacity>
+              )
+            }
+            { Platform.OS === 'ios' ? 
+              (
+                <View style={styles.detail_txt_wrap} onStartShouldSetResponder={()=>this.onZoomImage(true)}>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['uploadedAt']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {moment(detailItem.uploaded_at).format('MM-DD-YYYY')}
+                    </Text>
+                  </Text>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['imageType']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {detailItem.image_type}
+                    </Text>
+                  </Text>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['horseAge']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {age}
+                    </Text>
+                  </Text>
+                  <View>
+                    <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                      {intlData.messages['history']['description']}
+                    </Text>
+                    <Text style={[fonts.montserrat_regular]}>
+                      {detailItem.description}
+                    </Text>
+                  </View>
+                </View>
+              ) : (
+                <View style={styles.detail_txt_wrap}>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['uploadedAt']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {moment(detailItem.uploaded_at).format('MM-DD-YYYY')}
+                    </Text>
+                  </Text>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['imageType']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {detailItem.image_type}
+                    </Text>
+                  </Text>
+                  <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                    {intlData.messages['history']['horseAge']}
+                    <Text style={[fonts.montserrat_regular]}>
+                      {age}
+                    </Text>
+                  </Text>
+                  <View>
+                    <Text style={[styles.detail_bold_txt, fonts.montserrat_semibold]}>
+                      {intlData.messages['history']['description']}
+                    </Text>
+                    <Text style={[fonts.montserrat_regular]}>
+                      {detailItem.description}
+                    </Text>
+                  </View>
+                </View>
+              )
+            }
           </View>
+
           <Modal
             animationType={'slide'}
             visible={zoomModal}
@@ -120,7 +177,7 @@ class detailScreen extends Component{
                 </TouchableOpacity>
               </View>
           </Modal>
-        </ScrollView>
+        </View>
     )
   }
 }

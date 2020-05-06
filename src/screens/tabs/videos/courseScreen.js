@@ -3,7 +3,7 @@ import {
   View,
   Text
 } from 'react-native';
-import CourseItem from "../../pagecomponents/courseComponent";
+import CourseComponent from "../../pagecomponents/courseComponent";
 import styles from "./courseScreenStyle";
 import fonts from "../../../sharedStyles/fontStyle";
 import { connect } from 'react-redux';
@@ -19,7 +19,7 @@ class courseScreen extends Component{
           </Text>
         </View>
         <View style={styles.course_container}>
-          <CourseItem />
+          <CourseComponent />
         </View>
       </View>
     )

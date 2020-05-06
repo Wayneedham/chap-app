@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity
 } from 'react-native';
+
 import { connect } from 'react-redux';
 import Dialog from "react-native-dialog";
 import { Actions } from 'react-native-router-flux';
@@ -25,6 +26,16 @@ const answerList = [
   "4", "15", "25", "6", "16", "2", "13", "9", "17", "5",
   "11~14", "32", "10", "11"
 ]
+
+const vimeoVideoIDs = [
+  379617660, 379617750, 379617810, 379617906,
+  379632723, 379632883, 379633155, 379632960,
+  379633202, 379633291, 379633365, 379633432,
+  379633499, 379633549, 379633663, 379634015,
+  379634169, 379634202, 379634319, 379634374,
+  379634434, 379634477
+];
+
 const quizImgList = [
   require("../../../assets/image/quiz/Horse_1.jpg"),
   require("../../../assets/image/quiz/Horse_2.jpg"),
@@ -66,7 +77,7 @@ class quizVideoScreen extends Component{
       question_index: 0,
       sortArr: randomArr,
       zoomModal: false
-    };   
+    };
   }
 
   goBack =()=>{
@@ -75,14 +86,14 @@ class quizVideoScreen extends Component{
 
   onPrev(){
     const{question_index} = this.state;
-    if(question_index>0){
+    if(question_index > 0){
       this.setState({question_index:(question_index - 1), isQuiz: true, horseAge: ""})
     }
   }
 
   onNext(){
     const{question_index} = this.state;
-    if((question_index + 1)<answerList.length){
+    if((question_index + 1) < answerList.length){
       this.setState({question_index:(question_index + 1), isQuiz: true, horseAge: ""})
     }
   }
@@ -98,8 +109,7 @@ class quizVideoScreen extends Component{
   onVideoPlay(){
     const{question_index, sortArr} = this.state;
     const orderNum = sortArr[question_index];
-    const quizVideoURL = "https://ml-ref-data.s3.us-east-2.amazonaws.com/QA/" + orderNum + ".mp4";
-   
+    const quizVimeoVideoID = vimeoVideoIDs[orderNum-1]; //"https://ml-ref-data.s3.us-east-2.amazonaws.com/QA/" + orderNum + ".mp4";
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -107,7 +117,7 @@ class quizVideoScreen extends Component{
       );
       return;
     }
-    Actions.videoPlayScreen({video_url: quizVideoURL});
+    Actions.videoPlayScreen({video_url: quizVimeoVideoID});
   }
 
   onZoomImage =(flag)=>{
@@ -120,6 +130,7 @@ class quizVideoScreen extends Component{
     const rightAnswerAge = answerList[orderNum-1];
     const quizImgURL = quizImgList[orderNum-1];
     const { intlData } = this.props;
+
     return(
       <View style={styles.container}>
         <View style={styles.topbar_wrap}>
@@ -137,19 +148,19 @@ class quizVideoScreen extends Component{
           <View>
             <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{intlData.messages['detection']['horseAgeOld']}</Text>
             <TouchableOpacity style={styles.quizImgWrap} onPress={()=>this.onZoomImage(true)}>
-              <Image 
+              <Image
                 style={styles.quizImg}
                 resizeMode="contain"
                 source={quizImgURL}
-              />   
-            </TouchableOpacity>                     
+              />
+            </TouchableOpacity>
           </View>
           ) : (
-            <View style={styles.answerView}>              
+            <View style={styles.answerView}>
               <Text style={[styles.watchMsg, fonts.montserrat_semibold]}>
                 {intlData.messages['quiz']['watchVideo']}
-              </Text>            
-              <View style={styles.videoPlaywrap}>             
+              </Text>
+              <View style={styles.videoPlaywrap}>
                 <Image 
                   style={styles.answerImg}
                   resizeMode="cover"
@@ -160,9 +171,9 @@ class quizVideoScreen extends Component{
                     style={styles.videoplayImg}
                     resizeMode="contain"
                     source={require("../../../assets/icons/icon_videoplay.png")}
-                  />  
+                  />
                 </TouchableOpacity>
-              </View>      
+              </View>
               <Text style={[styles.quizMsg, fonts.montserrat_semibold]}>{"This Horse is " + rightAnswerAge+" Years Old."}</Text>          
             </View>
           )
@@ -181,7 +192,7 @@ class quizVideoScreen extends Component{
               <TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onAnswer()}>
                 <Text style={[styles.nextBtnTxt, fonts.montserrat_semibold]}>{intlData.messages['quiz']['answer']}</Text>
               </TouchableOpacity>
-            }    
+            }
             {
               question_index<(quizImgList.length-1) ?
               (<TouchableOpacity style={styles.nextBtnView} onPress={()=>this.onNext()}>
@@ -189,16 +200,16 @@ class quizVideoScreen extends Component{
               </TouchableOpacity>) : (
                 <View style={{width: 40}}/>
               )
-            }        
+            }
             
-          </View>  
+          </View>
         </View>
 
-        <Dialog.Container visible={isPromptDialog}>          
-          <Dialog.Description>            
+        <Dialog.Container visible={isPromptDialog}>
+          <Dialog.Description>
             <Text style={fonts.montserrat_bold}> {intlData.messages['detection']['horseAgeOld']} </Text>
           </Dialog.Description>
-          <Dialog.Input 
+          <Dialog.Input
             placeholder={intlData.messages['quiz']['enterHorseAge']}
             value={horseAge}
             keyboardType={'decimal-pad'}
@@ -209,7 +220,7 @@ class quizVideoScreen extends Component{
         </Dialog.Container>
 
         <Modal
-          animationType={'slide'}      
+          animationType={'slide'}
           visible={zoomModal}
           onRequestClose={()=>{}}>
             <View style={styles.modal_container}>
@@ -217,7 +228,7 @@ class quizVideoScreen extends Component{
                         cropHeight={Dimensions.get('window').height}
                         imageWidth={responsiveWidth(100)}
                         imageHeight={responsiveHeight(100)}>
-                <Image 
+                <Image
                   style={{width:responsiveWidth(100), height:responsiveHeight(100)}}
                   source={quizImgURL}
                   resizeMode="contain"

@@ -60,9 +60,9 @@ class profileScreen extends Component{
               this.props.actions.initReduxData("");
             }}],
             { cancelable: false }
-          );       
+          );
         }
-      }      
+      }
     }
   }
 
@@ -83,10 +83,10 @@ class profileScreen extends Component{
       return;
     }
     
-    this.setState({isPending: true});     
+    this.setState({isPending: true});
     const userData = new FormData();
     userData.append('user_id', window.currentUser["id"]);
-    userData.append('email', userEmail);      
+    userData.append('email', userEmail);
     if(userFname !== "")
       userData.append('first_name', userFname);
     if(userLname !== "")
