@@ -118,7 +118,6 @@ class detectScreen extends Component{
       return;
     }
 
-    postDetectData = userData;
     this.setState({initData: false});
     let isProUser = window.currentUser["is_premium"];
     

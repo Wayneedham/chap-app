@@ -111,7 +111,7 @@ class detectComponent extends Component{
     const fileName = "horse_" + new Date().getTime() + ".jpg";
     userData.append('file', {
       uri: uploadUri,
-      name: imgURI.fileName === undefined ? fileName : imgURI.fileName,
+      name: fileName,
       type: imgURI.type === undefined ? "image/jpeg" : imgURI.type,
     });
     this.props.onPostHorse(userData);

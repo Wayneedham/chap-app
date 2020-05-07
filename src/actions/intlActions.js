@@ -6,3 +6,5 @@ export function updateLanguage(language) {
         });
     };
 };
+
+  

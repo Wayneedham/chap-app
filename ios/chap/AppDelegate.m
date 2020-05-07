@@ -10,11 +10,6 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <AVFoundation/AVFoundation.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "RNSplashScreen.h"
-#import "Orientation.h"
 
 @implementation AppDelegate
 
@@ -26,30 +21,13 @@
                                             initialProperties:nil];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];  // allow
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
-  [RNSplashScreen show];
-  return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                  didFinishLaunchingWithOptions:launchOptions];
-}
-
-// Facebook SDK
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-  [FBSDKAppEvents activateApp];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
-{
-  return [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-}
-
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-  return [Orientation getOrientation];
+  return YES;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

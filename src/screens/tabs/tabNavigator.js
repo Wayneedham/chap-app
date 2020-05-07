@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
+import { createAppContainer } from 'react-navigation'
 import {
-  createBottomTabNavigator,
-  StackNavigator
-} from "react-navigation";
+  createBottomTabNavigator
+} from "react-navigation-tabs";
+import {
+  createStackNavigator
+} from "react-navigation-stack";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NetInfo from "@react-native-community/netinfo";
@@ -31,7 +34,7 @@ import colorStyle from "../../sharedStyles/colorStyle";
 import fonts from "../../sharedStyles/fontStyle";
 
 
-export const HomeStack = StackNavigator(
+export const HomeStack = createStackNavigator(
   {
     home: {
       screen: homeScreen
@@ -58,7 +61,7 @@ export const HomeStack = StackNavigator(
   }
 );
 
-export const HistoryStack = StackNavigator(
+export const HistoryStack = createStackNavigator(
   {
     history: {
       screen: historyScreen
@@ -76,7 +79,7 @@ export const HistoryStack = StackNavigator(
   }
 );
 
-export const SettingStack = StackNavigator(
+export const SettingStack = createStackNavigator(
   {
     setting: {
       screen: settingScreen
@@ -124,13 +127,16 @@ class customTabNavigator extends React.Component {
   }
 
   render() {
+    console.warn(this.props)
     return (
       <BaseNavigator screenProps={this.props}/>
     );
   }
 }
 
-export const BaseNavigator = createBottomTabNavigator(
+
+
+export const BaseNavigator = createAppContainer(createBottomTabNavigator(
   {
     HOME: {
       screen: HomeStack,
@@ -313,7 +319,7 @@ export const BaseNavigator = createBottomTabNavigator(
     },
     initialRouteName: "HOME"
   }
-);
+));
 
 const mapStateToProps = (state) => ({
   intlData: state.IntlReducers

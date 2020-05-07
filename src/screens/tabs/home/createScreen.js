@@ -19,8 +19,8 @@ import styles from "./createScreenStyle";
 import serverurl from '../../../../config/const/serverurl';
 import stripe, {optionsCardForm} from '../../../../config/stripe';
 
-let postDetectData = "";
-let isUpgrade = false;
+let detectData = "";
+let upgraded_plan = 'trial';
 
 class createScreen extends Component{
   constructor(props) {
@@ -38,79 +38,78 @@ class createScreen extends Component{
   componentWillReceiveProps(nextProps){
     if(nextProps.pending === false){
       const responseData = nextProps.data;
-      if(postDetectData !== ""){
-        this.props.actions.postHorse(postDetectData);
-        postDetectData = "";
+      if(detectData !== ""){
+        this.props.actions.postHorse(detectData);
+        detectData = "";
       }else{
-        if(nextProps.isactive === 0){
-          if(Object.keys(responseData).includes("message")){
+        if(Object.keys(responseData).includes("message")){
+          Alert.alert(
+            "",
+            responseData["message"],
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+              this.setState({isShowModal: false});
+              this.props.actions.initReduxData("");
+            } }],
+            { cancelable: false }
+          );
+        }
+        else if(Object.keys(responseData).includes("email") && upgraded_plan !== 'trial'){   
+          window.currentUser = responseData;
+          userActions._storeData("userInfo", responseData);
+          Alert.alert(
+            "",
+            this.props.intlData.messages['alert']['upgradedMembership'],
+            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+              upgraded_plan = 'trial';
+              this.setState({isShowModal: false});
+              this.props.actions.initReduxData("");
+            }}],
+            { cancelable: false }
+          );   
+        }
+        else if(Object.keys(responseData).includes("recent")){ 
+          const recentData = responseData["recent"]; 
+          if(recentData["detect_file"]===''){
             Alert.alert(
               "",
-              responseData["message"],
-              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-                this.setState({isShowModal: false});
-                this.props.actions.initReduxData("");
-              } }],
-              { cancelable: false }
-            );
-          }
-          else if(Object.keys(responseData).includes("email") && isUpgrade === true){   
-            window.currentUser = responseData;
-            userActions._storeData("userInfo", responseData);
-            Alert.alert(
-              "",
-              this.props.intlData.messages['alert']['upgradedMembership'],
-              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-                this.setState({isShowModal: false});      
-                this.props.actions.initReduxData("");    
+              this.props.intlData.messages['alert']['cannotDetectImage'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
+                this.setState({
+                  recentData: "", 
+                  isShowModal: false, 
+                  initData: true, 
+                  isUpload: false});    
+                detectData = "";    
+                this.props.actions.initReduxData(""); 
               }}],
               { cancelable: false }
-            );
-          }
-          else if(Object.keys(responseData).includes("recent")){ 
-            const recentData = responseData["recent"]; 
-            if(recentData["detect_file"]===''){
+            );  
+          }else{
+            recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
+            recentData["file"] = serverurl.server_url + recentData["file"];            
+            setTimeout(() => {
               Alert.alert(
                 "",
-                this.props.intlData.messages['alert']['cannotDetectImage'],
-                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
+                this.props.intlData.messages['alert']['wasDetectedImage'],
+                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {              
                   this.setState({
-                    recentData: "", 
-                    isShowModal: false, 
-                    initData: true, 
-                    isUpload: false});    
-                  postDetectData = "";    
+                    isShowModal: false,
+                    isUpload: false,
+                    initData: true});  
+                  detectData = ""; 
+                  Actions.detectResultScreen({recentData});
                   this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
-              );  
-            }else{
-              recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
-              recentData["file"] = serverurl.server_url + recentData["file"];            
-              setTimeout(() => {
-                Alert.alert(
-                  "",
-                  this.props.intlData.messages['alert']['wasDetectedImage'],
-                  [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {              
-                    this.setState({
-                      isShowModal: false,
-                      isUpload: false,
-                      initData: true});  
-                    postDetectData = ""; 
-                    Actions.detectResultScreen({recentData});
-                    this.props.actions.initReduxData(""); 
-                  }}],
-                  { cancelable: false }
-                );
-              }, 300);
-            }            
-          }
-        }        
+              );
+            }, 300);
+          }            
+        }      
       }
     }
   }
 
-  onCreateDetect =(userData)=>{        
+  onCreateDetect = (userData) => {
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -119,35 +118,44 @@ class createScreen extends Component{
       return;
     }
 
-    postDetectData = userData;
     this.setState({initData: false});
-    const isFreeUser = window.currentUser["is_premium"];
-    if(!isFreeUser){
+    let isProUser = window.currentUser["is_premium"];
+    
+    if(isProUser === 'trial' && window.currentUser["is_video"]===true){
+      const video_purchase_date = moment(window.currentUser['video_created_at']);
+      const diff_days = moment().diff(video_purchase_date, "days");
+      if(diff_days < 31){
+        isProUser = 'monthly';
+      }
+    }
+    
+    if(isProUser === 'trial'){
       Alert.alert(
         "",
-        this.props.intlData.messages['alert']['payAsYouGoPlan']
+        this.props.intlData.messages['alert']['payAsYouGoPlan'],
         [
           {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
           { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-            this.onSubScribe();       
-          }}        
+            this.onSubScribe();
+          }}
         ],
         { cancelable: false }
       );
     }else{
       this.setState({isShowModal: true, isUpload: true});
       this.props.actions.postHorse(userData);
-      postDetectData = "";
-    }    
+      detectData = "";
+    }
   }
 
   onProcessPayment (token){
-    if(isUpgrade){
+    if(upgraded_plan !== 'trial'){
       const url = serverurl.basic_url + 'upgrade';
       const userData = new FormData()
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
-      this.props.actions.upgradeMembership(userData, url);
+      userData.append('subscription', upgraded_plan);
+      this.props.actions.postNewRequest(userData, url);    // upgrade membership
       this.setState({isShowModal: true, isUpload: false});
     }else{
       const userData = new FormData()
@@ -156,7 +164,7 @@ class createScreen extends Component{
       userData.append('type', "detection");
       this.props.actions.detectPurchase(userData);
       this.setState({isShowModal: true, isUpload: true});
-    }    
+    }
   }
 
   onSubScribe =()=>{
@@ -168,7 +176,7 @@ class createScreen extends Component{
       return;
     }
 
-    isUpgrade = false;
+    upgraded_plan = 'trial';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -188,7 +196,7 @@ class createScreen extends Component{
       );
       return;
     }
-    isUpgrade = true;
+    upgraded_plan = 'monthly';
     stripe
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
@@ -199,6 +207,28 @@ class createScreen extends Component{
       console.warn("Payment failed", { error }); 
     });
   }
+
+  onAnnuallyUpgrade =()=>{
+    if(!this.props.connection){
+      Alert.alert(
+        "",
+        this.props.intlData.messages['auth']['checkNetwork']
+      );
+      return;
+    }
+
+    upgraded_plan = 'annually';
+    stripe
+    .paymentRequestWithCardForm(optionsCardForm)
+    .then(token => {
+      if(token)
+        this.onProcessPayment(token.tokenId);
+    })
+    .catch(error => {
+      console.warn("Payment failed", { error }); 
+    });
+  }
+
   render(){
     const{isShowModal, initData, isUpload} = this.state;
     const behavior = Platform.OS === 'ios' ? 'padding' : null
@@ -213,8 +243,9 @@ class createScreen extends Component{
               <DetectComponent 
                 onPostHorse={this.onCreateDetect}
                 onUpgrade={this.onUpgrade}
+                onAnnuallyUpgrade={this.onAnnuallyUpgrade}
                 initData={initData}
-              />        
+              />      
               <ProgressBar 
                 isPending={isShowModal} 
                 isTimer={isUpload ? true: false}/>
