@@ -22,7 +22,8 @@
 		4E7731770808461091F3F631 /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 065C2AFB84B348089EC4FA98 /* Montserrat-Bold.otf */; };
 		5F1BE23D3E544CF59C1A9228 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 630A98AD343A4CBABFD91CC6 /* OpenSans-Bold.ttf */; };
 		72AEA6C35B374757B40281C2 /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = EAE34EA2BD1A46C6A9A701D7 /* Montserrat-Regular.otf */; };
-		79F8BE712460D87F004C82CC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F8BE6F2460D87F004C82CC /* LaunchScreen.xib */; };
+		79230B8B24670C3F004EE5E7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79230B8924670C3F004EE5E7 /* LaunchScreen.xib */; };
+		79230B8D24670CE9004EE5E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79230B8C24670CE9004EE5E7 /* LaunchScreen.storyboard */; };
 		989DFC948BB247D9A6E8B9A1 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B88BBB7134D4C18B6DC84E8 /* OpenSans-ExtraBold.ttf */; };
 		A6F5B79DA7357A695BD17392 /* libPods-chapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EEA615C84F02C95C21869B /* libPods-chapTests.a */; };
 		C60B44F2472242279D76C530 /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B9EBF5DA400459390F925F3 /* Montserrat-SemiBold.otf */; };
@@ -73,7 +74,8 @@
 		5B9EBF5DA400459390F925F3 /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.otf"; path = "../assets/fonts/Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
 		630A98AD343A4CBABFD91CC6 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		6C1FD80E617EDADE0097D41B /* libPods-chap-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-chap-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		79F8BE702460D87F004C82CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = chap/Base.lproj/bg_splash.png; sourceTree = "<group>"; };
+		79230B8A24670C3F004EE5E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = chap/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		79230B8C24670CE9004EE5E7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B41836F90CD9DE52F33AE2A /* Pods-chapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chapTests.debug.xcconfig"; path = "Target Support Files/Pods-chapTests/Pods-chapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A4D666B9D807E7737CC7E52C /* Pods-chap-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chap-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-chap-tvOSTests/Pods-chap-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AAE7C73974C64C258829783D /* Montserrat-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Black.otf"; path = "../assets/fonts/Montserrat-Black.otf"; sourceTree = "<group>"; };
@@ -143,7 +145,8 @@
 		13B07FAE1A68108700A75B9A /* chap */ = {
 			isa = PBXGroup;
 			children = (
-				79F8BE6F2460D87F004C82CC /* LaunchScreen.xib */,
+				79230B8924670C3F004EE5E7 /* LaunchScreen.xib */,
+				79230B8C24670CE9004EE5E7 /* LaunchScreen.storyboard */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -325,20 +328,20 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 2LTSCCX98C;
+						DevelopmentTeam = 2CSAMJ7Z99;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 2LTSCCX98C;
+						DevelopmentTeam = 2CSAMJ7Z99;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2LTSCCX98C;
+						DevelopmentTeam = 2CSAMJ7Z99;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2LTSCCX98C;
+						DevelopmentTeam = 2CSAMJ7Z99;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -382,12 +385,13 @@
 				28672EE390514DF1AA2D7673 /* Montserrat-Black.otf in Resources */,
 				4E7731770808461091F3F631 /* Montserrat-Bold.otf in Resources */,
 				1741204EFDAC43E4912F5F39 /* Montserrat-Medium.otf in Resources */,
+				79230B8B24670C3F004EE5E7 /* LaunchScreen.xib in Resources */,
 				72AEA6C35B374757B40281C2 /* Montserrat-Regular.otf in Resources */,
 				C60B44F2472242279D76C530 /* Montserrat-SemiBold.otf in Resources */,
 				5F1BE23D3E544CF59C1A9228 /* OpenSans-Bold.ttf in Resources */,
 				989DFC948BB247D9A6E8B9A1 /* OpenSans-ExtraBold.ttf in Resources */,
+				79230B8D24670CE9004EE5E7 /* LaunchScreen.storyboard in Resources */,
 				F20CE8096918453BA53EF06E /* OpenSans-Regular.ttf in Resources */,
-				79F8BE712460D87F004C82CC /* LaunchScreen.xib in Resources */,
 				14C764DCE51B47EAA3B1F8A1 /* OpenSans-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,10 +641,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		79F8BE6F2460D87F004C82CC /* LaunchScreen.xib */ = {
+		79230B8924670C3F004EE5E7 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				79F8BE702460D87F004C82CC /* Base */,
+				79230B8A24670C3F004EE5E7 /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -653,7 +657,7 @@
 			baseConfigurationReference = 8B41836F90CD9DE52F33AE2A /* Pods-chapTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -678,7 +682,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				INFOPLIST_FILE = chapTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -698,17 +702,18 @@
 			baseConfigurationReference = 502C99CD78D1E8E3C11E4DFC /* Pods-chap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				INFOPLIST_FILE = chap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.horse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = CHAP;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -719,16 +724,17 @@
 			baseConfigurationReference = F71E1D0697D2E7AC07C2F638 /* Pods-chap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				INFOPLIST_FILE = chap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.horse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chap.app;
 				PRODUCT_NAME = CHAP;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -745,7 +751,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "chap-tvOS/Info.plist";
@@ -775,7 +781,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "chap-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -802,7 +808,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "chap-tvOSTests/Info.plist";
@@ -831,7 +837,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 2LTSCCX98C;
+				DEVELOPMENT_TEAM = 2CSAMJ7Z99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "chap-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

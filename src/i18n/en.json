@@ -139,8 +139,8 @@
         "detectionButton":{
             "is_premium": "Post",
             "not_premium": "Post (PayAsYouGo)",
-            "checkout": "($4.99/Horse)",
-            "subscription": "($19.99/Month)",
+            "checkout": "($7.99/Horse)",
+            "subscription": "($9.99/Month)",
             "annuallySubscription": "($99.99/Year)"
         },
         "detectResult": "Detect Result",
@@ -176,13 +176,13 @@
         "changePassword": "Change Password",
         "membership":{
             "content1": [
-                "Pay as you Go - $4.99/Horse",
+                "Pay as you Go - $7.99/Horse",
                 " A. Available at anytime with this free App",
                 " B. You will get an estimation from CHAP within 30 seconds and another Age Estimation from our Expert Team within 24 hours."
             ],
             "content2": [
-                "Unlimited Use - $19.99/Month",
-                " A. Age as many Horses and as many Pictures as you’d like for just $19.99/Month",
+                "Unlimited Use - $9.99/Month",
+                " A. Age as many Horses and as many Pictures as you’d like for just $9.99/Month",
                 " B. You will get an Estimation from CHAP within 30 seconds and another Age Estimation from our expert team within 24 hours."
             ],
             "content3": [
