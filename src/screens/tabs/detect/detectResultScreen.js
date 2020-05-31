@@ -47,7 +47,7 @@ class detectResultScreen extends Component{
     await this.props.postNewRequest(userData, url);   // send horse's age via email. 
     this.setState({isShowModal: false})
     // setTimeout(() => {
-    //   Actions.detectResultScreen({type : ActionConst.BACK})
+    //   this.props.navigation.goBack(null)
     // }, 300);
   }
 

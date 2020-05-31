@@ -107,18 +107,24 @@ export function userSignup(userData){
 
 export function userLogin(userData){  
   const url = serverurl.basic_url + 'login';
+  console.log(url)
   return dispatch => {
     dispatch(fetchDataPending());
     fetch(url , {
       method: "post",
       body: userData
     })
-    .then(res => res.json())
     .then(res => {
+      console.log('22222222222', res)
+      return res.json()
+    })
+    .then(res => {
+      console.log('44444444444',res)
       dispatch(fetchDataSuccess(res));
       return res;
     })
     .catch(error => {
+      console.log('5555555555', error)
       Alert.alert('', error.message)
       dispatch(fetchDataError(error));
     })
@@ -168,6 +174,7 @@ export function fetchHorseList(userID){
 
 export function videoPurchase(postData){ 
   const url = serverurl.basic_url + 'charge';
+  console.log('3333333', postData)
   return dispatch => {
     dispatch(fetchDataPending());
     fetch(url , {
@@ -176,6 +183,7 @@ export function videoPurchase(postData){
     })
     .then(res => res.json())
     .then(res => {
+      console.log(res)
       dispatch(fetchDataSuccess(res));
       return res;
     })

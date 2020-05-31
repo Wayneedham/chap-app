@@ -136,25 +136,27 @@ class detectScreen extends Component{
         [
           {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
           { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-            this.onSubScribe();
+            this.onSubScribe(userData);
           }}
         ],
         { cancelable: false }
       );
     }else{
       this.setState({isShowModal: true, isUpload: true});
-      this.props.actions.postHorse(userData);
       postDetectData = "";
+      this.props.actions.postHorse(userData);
+      
     }
   }
 
-  onProcessPayment (token){
+  onProcessPayment (token, horseData){
     if(upgrade !== 'trial'){
       const url = serverurl.basic_url + 'upgrade';
       const userData = new FormData()
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
       userData.append('subscription', upgrade);
+      console.log(userData, url)
       this.props.actions.postNewRequest(userData, url);    // upgrade membership
       this.setState({isShowModal: true, isUpload: false});
     }else{
@@ -162,12 +164,14 @@ class detectScreen extends Component{
       userData.append('user', window.currentUser["id"]);
       userData.append('token', token);
       userData.append('type', "detection");
-      this.props.actions.detectPurchase(userData);
       this.setState({isShowModal: true, isUpload: true});
+      postDetectData = horseData;
+      this.props.actions.detectPurchase(userData);
+      // this.props.actions.postHorse(horseData);
     }
   }
 
-  onSubScribe =()=>{
+  onSubScribe =(horseData)=>{
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -181,7 +185,7 @@ class detectScreen extends Component{
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
       if(token)
-        this.onProcessPayment(token.tokenId);
+        this.onProcessPayment(token.tokenId, horseData);
     })
     .catch(error => {
       console.warn("Payment failed", { error });

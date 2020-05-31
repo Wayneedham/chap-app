@@ -124,6 +124,8 @@ class customTabNavigator extends React.Component {
         isConnected = false;
       this.props.actions.setNetworkConnect(isConnected);
     });
+
+    this.props.actions.setActive(0)
   }
 
   render() {

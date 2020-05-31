@@ -42,69 +42,71 @@ class createScreen extends Component{
         this.props.actions.postHorse(detectData);
         detectData = "";
       }else{
-        if(Object.keys(responseData).includes("message")){
-          Alert.alert(
-            "",
-            responseData["message"],
-            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-              this.setState({isShowModal: false});
-              this.props.actions.initReduxData("");
-            } }],
-            { cancelable: false }
-          );
-        }
-        else if(Object.keys(responseData).includes("email") && upgraded_plan !== 'trial'){   
-          window.currentUser = responseData;
-          userActions._storeData("userInfo", responseData);
-          Alert.alert(
-            "",
-            this.props.intlData.messages['alert']['upgradedMembership'],
-            [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-              upgraded_plan = 'trial';
-              this.setState({isShowModal: false});
-              this.props.actions.initReduxData("");
-            }}],
-            { cancelable: false }
-          );   
-        }
-        else if(Object.keys(responseData).includes("recent")){ 
-          const recentData = responseData["recent"]; 
-          if(recentData["detect_file"]===''){
+        if(nextProps.isactive === 0) {
+          if(Object.keys(responseData).includes("message")){
             Alert.alert(
               "",
-              this.props.intlData.messages['alert']['cannotDetectImage'],
-              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
-                this.setState({
-                  recentData: "", 
-                  isShowModal: false, 
-                  initData: true, 
-                  isUpload: false});    
-                detectData = "";    
-                this.props.actions.initReduxData(""); 
+              responseData["message"],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                this.setState({isShowModal: false});
+                this.props.actions.initReduxData("");
+              } }],
+              { cancelable: false }
+            );
+          }
+          else if(Object.keys(responseData).includes("email") && upgraded_plan !== 'trial'){   
+            window.currentUser = responseData;
+            userActions._storeData("userInfo", responseData);
+            Alert.alert(
+              "",
+              this.props.intlData.messages['alert']['upgradedMembership'],
+              [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {
+                upgraded_plan = 'trial';
+                this.setState({isShowModal: false});
+                this.props.actions.initReduxData("");
               }}],
               { cancelable: false }
-            );  
-          }else{
-            recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
-            recentData["file"] = serverurl.server_url + recentData["file"];            
-            setTimeout(() => {
+            );   
+          }
+          else if(Object.keys(responseData).includes("recent")){ 
+            const recentData = responseData["recent"]; 
+            if(recentData["detect_file"]===''){
               Alert.alert(
                 "",
-                this.props.intlData.messages['alert']['wasDetectedImage'],
-                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {              
+                this.props.intlData.messages['alert']['cannotDetectImage'],
+                [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {  
                   this.setState({
-                    isShowModal: false,
-                    isUpload: false,
-                    initData: true});  
-                  detectData = ""; 
-                  Actions.detectResultScreen({recentData});
+                    recentData: "", 
+                    isShowModal: false, 
+                    initData: true, 
+                    isUpload: false});    
+                  detectData = "";    
                   this.props.actions.initReduxData(""); 
                 }}],
                 { cancelable: false }
-              );
-            }, 300);
-          }            
-        }      
+              );  
+            }else{
+              recentData["detect_file"] = serverurl.server_url + (recentData["detect_file"]===''? recentData["file"] : recentData["detect_file"]);  
+              recentData["file"] = serverurl.server_url + recentData["file"];            
+              setTimeout(() => {
+                Alert.alert(
+                  "",
+                  this.props.intlData.messages['alert']['wasDetectedImage'],
+                  [{ text: this.props.intlData.messages['alert']['ok'], onPress: () => {              
+                    this.setState({
+                      isShowModal: false,
+                      isUpload: false,
+                      initData: true});  
+                    detectData = ""; 
+                    Actions.detectResultScreen({recentData});
+                    this.props.actions.initReduxData(""); 
+                  }}],
+                  { cancelable: false }
+                );
+              }, 300);
+            }            
+          }   
+        }   
       }
     }
   }
@@ -136,7 +138,7 @@ class createScreen extends Component{
         [
           {text: this.props.intlData.messages['alert']['cancel'], onPress: () => console.log('Cancel Pressed')},
           { text: this.props.intlData.messages['alert']['ok'], onPress: () => {
-            this.onSubScribe();
+            this.onSubScribe(userData);
           }}
         ],
         { cancelable: false }
@@ -148,13 +150,14 @@ class createScreen extends Component{
     }
   }
 
-  onProcessPayment (token){
+  onProcessPayment (token, horseData){
     if(upgraded_plan !== 'trial'){
       const url = serverurl.basic_url + 'upgrade';
       const userData = new FormData()
       userData.append('email', window.currentUser["email"]);
       userData.append('token', token);
       userData.append('subscription', upgraded_plan);
+      console.log(userData, url)
       this.props.actions.postNewRequest(userData, url);    // upgrade membership
       this.setState({isShowModal: true, isUpload: false});
     }else{
@@ -162,12 +165,13 @@ class createScreen extends Component{
       userData.append('user', window.currentUser["id"]);
       userData.append('token', token);
       userData.append('type', "detection");
-      this.props.actions.detectPurchase(userData);
       this.setState({isShowModal: true, isUpload: true});
+      detectData = horseData;
+      this.props.actions.detectPurchase(userData)
     }
   }
 
-  onSubScribe =()=>{
+  onSubScribe =(horseData)=>{
     if(!this.props.connection){
       Alert.alert(
         "",
@@ -181,7 +185,7 @@ class createScreen extends Component{
     .paymentRequestWithCardForm(optionsCardForm)
     .then(token => {
       if(token)
-        this.onProcessPayment(token.tokenId);
+        this.onProcessPayment(token.tokenId, horseData);
     })
     .catch(error => {
       console.warn("Payment failed", { error }); 
@@ -268,7 +272,7 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     {
       postHorse: userActions.postNewHorse,
-      upgradeMembership: userActions.postRequest,
+      postNewRequest: userActions.postRequest,
       detectPurchase: userActions.videoPurchase,
       initReduxData: setReduxAddInfo
     },

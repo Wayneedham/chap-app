@@ -88,6 +88,7 @@ class videoPlayScreen extends Component{
     componentDidMount(){
         Orientation.lockToLandscape();
         this.fetchVimeoVideo()
+        console.log(`https://player.vimeo.com/video/${this.props.video_url}/config`)
         global.fetch(`https://player.vimeo.com/video/${this.props.video_url}/config`)
         .then(res => res.json())
         .then(res => this.setState({
@@ -103,6 +104,7 @@ class videoPlayScreen extends Component{
 
     render(){
         // const {video_url} = this.props;
+        console.log(this.state.videoUrl)
         return(
             <View style={styles.container}>
                 <VideoPlayer

@@ -83,6 +83,7 @@ class courseComponent extends Component{
       );
       return;
     }
+
     Actions.videoPlayScreen({video_url: url});
     // this.setState({videoURL: url, isShowModal: true})
   }
